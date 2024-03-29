@@ -29,52 +29,45 @@ let functions = {
         conn.query(`SELECT * FROM ${tbl_name}`, (err, res) => {
             if (err) {
                 callback(false, 'No Data Found');
-                // break_conn();
             }
             else {
                 callback(true, res);
-                // break_conn();
             }
         })
     },
 
 
 
-    select_assoc: (tbl_name, column, data, callback) => {
-        conn.query(`SELECT * FROM ${tbl_name} WHERE ${column} = '${data}'`, (err, res) => {
-            if (err) {
-                callback(false, 'No Data Found');
-            }
-            else {
-                if (res.length == 0) {
-                    callback(false, 'No Data Found');
-                    // break_conn();
+    select_assoc: async (tbl_name, column, data) => {
+        return new Promise((resolve, reject) => {
+            conn.query(`SELECT * FROM ${tbl_name} WHERE ${column} = '${data}'`, (err, res) => {
+                if (err) {
+                    reject('No Data Found');
+                } else {
+                    if (res.length === 0) {
+                        reject('No Data Found');
+                    } else {
+                        resolve(res);
+                    }
                 }
-                else {
-                    callback(true, res);
-                    // break_conn();
-                }
-            }
-        })
+            });
+        });
     },
 
 
 
     delete: (tbl_name, column, data, callback) => {
         let sql = `DELETE FROM ${tbl_name} WHERE ${column} = '${data}'`;
-        console.log(sql);
         conn.query(sql, (err, res) => {
             if (err) {
                 callback(false, 'No Data Found');
             }
             else {
                 if (res.affectedRows > 0) {
-                    callback(true, res.affectedRows+' Data Deleted');
-                    // break_conn();
+                    callback(true, res.affectedRows + ' Data Deleted');
                 }
                 else {
                     callback(false, 'Unable to Delete');
-                    // break_conn();
                 }
             }
         })
@@ -94,16 +87,13 @@ let functions = {
         conn.query(sql, (err, res) => {
             if (err) {
                 callback(false, 'Data Not Inserted');
-                // break_conn();
             }
             else {
                 if (res.affectedRows > 0) {
                     callback(true, res.affectedRows + " Data Inserted");
-                    // break_conn();
                 }
                 else {
                     callback(false, 'Data not Inserted');
-                    // break_conn();
                 }
             }
         });
@@ -111,48 +101,44 @@ let functions = {
 
 
 
-    update: (tbl_names, where, data, fields, callback) => {
-        sql = `UPDATE ${tbl_names} SET `;
+    update: async (tbl_names, where, data, fields) => {
+        let sql = `UPDATE ${tbl_names} SET `;
         for (const [key, val] of Object.entries(fields)) {
-            sql += key + ` = "${val}" , `
+            sql += `${key} = "${val}", `;
         }
-        sql += `id = ${data} WHERE ${where} = "${data}"`;
-        console.log(sql);
-        conn.query(sql, (err, res) => {
-            if (err) {
-                callback(false, err);
-                // break_conn();
-            }
-            else {
-                if (res.affectedRows > 0) {
-                    callback(true, 'Data Updated');
-                    // break_conn();
-                }
-                else {
-                    callback(false, 'Unable To Update');
-                    // break_conn();
-                }
 
-            }
-        })
+        sql = sql.slice(0, -2);
+        sql += ` WHERE ${where} = "${data}"`;
+
+        return new Promise((resolve, reject) => {
+            conn.query(sql, (err, res) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    if (res.affectedRows > 0) {
+                        resolve('Data Updated');
+                    } else {
+                        reject('Unable To Update');
+                    }
+                }
+            });
+        });
     },
+
 
     /* * SQL FUNCTION INCOMPLETE * */
 
-    sql: (sql, callback) => {
+    run: (sql, callback) => {
         conn.query(sql, (err, res) => {
             if (err) {
                 callback(false, err);
-                // break_conn();
             }
             else {
-                if (typeof res == 'object'  && res.affectedRows != undefined) {
+                if (typeof res == 'object' && res.affectedRows != undefined) {
                     callback(true, res.affectedRows + ' Rows Affected');
-                    // break_conn();
                 }
                 else {
                     callback(true, res);
-                    // break_conn();
                 }
             }
         })

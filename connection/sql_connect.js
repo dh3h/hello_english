@@ -4,7 +4,7 @@ const conn = sql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'course'
+    database: 'hello_english'
 });
 // conn.connect(function(err){});
 
