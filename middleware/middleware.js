@@ -1,18 +1,23 @@
-const loginFilter = (req, res, next) => {
-    sess = req.session;
-    if (typeof sess != 'undefined') {
-        if (typeof sess.id == 'undefined' || typeof sess.password == 'undefined') {
-            res.redirect('/login');
-        }
-        else {
-            next();
-        }
+const { Cookies } = require('../common/common-functions');
+const isLoggedIn = (req, res, next) => {
+    const cookie = new Cookies();
+    let userId = cookie.get(req, 'user_data');
+    if (!userId) {
+        res.render('404.ejs');
+        return;
     }
-    else {
-        res.redirect('/login');
+    next();
+}
+
+const isLoggedOut = (req, res, next) => {
+    const cookie = new Cookies();
+    let userId = cookie.get(req, 'user_data');
+    if (userId) {
+        res.render('404.ejs');
+        return;
     }
+    next();
 }
 
 
-
-module.exports = { loginFilter };
+module.exports = { isLoggedIn, isLoggedOut };

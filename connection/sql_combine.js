@@ -44,11 +44,7 @@ let functions = {
                 if (err) {
                     reject('No Data Found');
                 } else {
-                    if (res.length === 0) {
-                        reject('No Data Found');
-                    } else {
-                        resolve(res);
-                    }
+                    resolve(res);
                 }
             });
         });
@@ -75,28 +71,29 @@ let functions = {
 
 
 
-    insert: function (tbl_names, fields, callback) {
-        sql = `INSERT INTO ${tbl_names} ( `;
-        sql += Object.keys(fields)
-        sql += `,id) VALUES ( `;
-        for (const key in fields) {
-            sql += '"' + (`${fields[key]}`) + '" ,';
-        }
-        sql += null + ')';
+    insert: async function (tbl_names, fields) {
+        let sql = `INSERT INTO ${tbl_names} ( `;
+        sql += Object.keys(fields).join(', ');
+        sql += `) VALUES ( `;
+        sql += Object.values(fields).map(val => typeof val === 'string' ? `'${val}'` : val).join(', ');
+        sql += `)`;
 
-        conn.query(sql, (err, res) => {
-            if (err) {
-                callback(false, 'Data Not Inserted');
-            }
-            else {
-                if (res.affectedRows > 0) {
-                    callback(true, res.affectedRows + " Data Inserted");
-                }
-                else {
-                    callback(false, 'Data not Inserted');
-                }
-            }
-        });
+        try {
+            const res = await new Promise((resolve, reject) => {
+                conn.query(sql, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+
+            return !!res.affectedRows;
+        } catch (error) {
+            return 'Data Not Inserted';
+        }
     },
 
 

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from unic.orinostudio.com/unic/component-swiper.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Mar 2024 10:25:26 GMT -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <!-- <meta name="theme-color" content="#ffffff"> -->
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#222032" media="(prefers-color-scheme: dark)">
+    <title>Unic – NFT Marketplace PWA Mobile Template</title>
+    <meta name="description" content="Unic – NFT Marketplace PWA Mobile Template">
+    <meta name="keywords"
+        content="bootstrap 5, mobile template, wallet, crypto, currency, about, blog, cordova, phonegap, mobile, html, nft, store, marketplace, pwa" />
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="images/favicon/icon-32x32.png" sizes="32x32">
+    <!-- IOS SUPPORT -->
+    <link rel="apple-touch-icon" href="images/favicon/icon-96x96.png">
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="views/assets/css/style.css">
+    <link rel="stylesheet" href="views/assets/css/remixicon.min.css">
+    <link rel="stylesheet" href="views/assets/vendors/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="views/assets/vendors/zuck_stories/zuck.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        #wrapper,
+        #content {
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="bg-snow">
+    <div id="wrapper" class="bg-white">
+        <div id="content">
+            <header class="default heade-sticky">
+                <div class="un-title-page go-back"></div>
+            </header>
+
+            <section class="un-page-components">
+                <div class="un-title-default"></div>
+
+                <div class="content-comp p-0">
+                    <div class="bg-white pt-3 pb-5">
+                        <div class="un-block-cards">
+                            <div class="swiper LoginSwiper">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <a class="item-card-nft --swiper">
+                                            <picture class="swirl_image" style="display: none;">
+                                                <source srcset="views/images/logo.png" type="image/webp">
+                                                <img class="big-image" src="views/images/logo.png" alt="">
+                                            </picture>
+                                            <div class="un-info-card bg-none mt-5 shadow-none" style="display: none;"
+                                                id="on_load_pop">
+                                                <h1 class="display-1 w-100 text-dark app_title_font text-center">
+                                                    Hello English
+                                                </h1>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <span class="item-card-nft --swiper" style="position: static;">
+                                            <picture>
+                                                <source srcset="views/images/step-2.png" type="image/webp">
+                                                <img class="big-image" src="views/images/step-2.png"
+                                                    style="object-fit: contain;filter: drop-shadow(1px 21px 12px rgba(0,0,0,0.2));"
+                                                    id="step_2_img" alt="">
+                                            </picture>
+                                            <div class="block-left">
+                                                <p class="text-center">Experience personalized learning based on the
+                                                    learning data of Millions. Start from your current English level and
+                                                    focus on your own problem areas</p>
+                                                <a href="/auth/google" class="btn text-white bg-red p-3 w-100 mt-5"
+                                                    id="get_started">
+                                                    Get Started!
+                                                </a>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="views/assets/vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="views/assets/js/custom.js"></script>
+
+    <script src="views/assets/js/pwa-services.js"></script>
+    <script>
+        const LoginSwiper = new Swiper('.LoginSwiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+            shadow: false,
+            spaceBetween: 30,
+            effect: "flip",
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+        $(document).ready(function () {
+            setTimeout(() => {
+                $('.swirl_image').fadeIn(1000, () => {
+                    $('#on_load_pop').addClass('pop-in-component');
+                    setTimeout(() => {
+                        LoginSwiper.slideNext();
+                        $('#step_2_img').fadeIn(1300);
+                    }, 2000);
+                });
+            }, 200);
+        });
+
+        $('#get_started').click(() => {
+            LoginSwiper.slideNext();
+        })
+
+    </script>
+</body>
+
+</html>

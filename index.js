@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 const multer = require('multer');
 const cookieParser = require('cookie-parser');
 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 const routes = require("./routes/route");
 const path = base.join('/Users/dilshadahmed/dilshad/my projects/learn/');
 
@@ -22,10 +25,23 @@ app.use(upload.array());
 app.use(cookieParser());
 app.use('/', routes);
 
+// Initialize Passport and session
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configure Passport with Google OAuth2.0
+passport.use(new GoogleStrategy({
+    clientID: '378702974248-lha07rb920aiq1ah7but0ebgqflqs41o.apps.googleusercontent.com',
+    clientSecret: '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',
+    callbackURL: 'http://localhost:3000/auth/login'
+},
+    (accessToken, refreshToken, profile, done) => {
+        // Save user data in session or database
+        return done(null, profile);
+    }
+));
 
 app.set('view engine', 'ejs');
-
-
 
 app.get('*', (req, res) => {
     res.render("./404.ejs");
