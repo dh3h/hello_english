@@ -1,0 +1,72 @@
+<%- include('common/head') -%>
+
+<style>
+  .text_theme {
+    color: #494876;
+  }
+
+  .bg_theme {
+    background: #494876;
+  }
+
+  .border_theme {
+    border-color: #494969;
+  }
+
+  .icon_align {
+    position: relative;
+    top: 3px;
+  }
+
+  .circle_1_1{
+    aspect-ratio: 1/1;
+    border-radius: 1/1;
+    padding: 13px 2px 0px 2px;
+  }
+</style>
+
+<div class="container-fluid py-4" style="background: url(https://img.freepik.com/free-vector/hand-painted-watercolor-galaxy-background_23-2148973123.jpg?size=626&ext=jpg&ga=GA1.1.1292351815.1713657600&semt=ais);">
+  <a onclick="history.back();" class="icon visited bg-light rounded-circle circle_1_1">
+    <i class="fs-1 ri-arrow-drop-left-line"></i>
+  </a>
+  <div class="row py-5"></div>
+</div>
+<div class="container-fluid " style="position: relative;top: -70px;">
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-6  p-1 bg-white" style="border-radius: 50%;">
+      <img src="views/images/user.png" class="img-fluid w-100" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text_theme text-center mb-0"><b>Melissa Peters</b></h5>
+      <p class="text-center mb-0">Interior Designer</p>
+      <p class="text-center"><b><i class="ri-map-pin-2-line icon_align fs-5"></i> Lagos, Nigeria</b></p>
+    </div>
+  </div>
+
+  <div class="row mt-2 d-flex justify-content-center">
+    <div class="col-3 text-center text_theme">
+      <h4 class="mb-0"><b>122</b></h4>
+      <p>Followers</p>
+    </div>
+    <div class="col-3 text-center text_theme">
+      <h4 class="mb-0"><b>67</b></h4>
+      <p>Following</p>
+    </div>
+    <div class="col-3 text-center text_theme">
+      <h4 class="mb-0"><b>32K</b></h4>
+      <p>Rank</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center">
+      <a href="/edit-profile" class="btn btn-primary bg_theme border_theme">Edit Profile</a>
+      <button class="btn btn-primary bg_theme border_theme">Add Friends</button>
+    </div>
+  </div>
+
+</div>
+<%- include('common/script') -%>

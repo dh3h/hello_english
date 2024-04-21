@@ -1,0 +1,83 @@
+<%- include('common/head') -%>
+<%- include('common/back-sidebar', {title}); %>
+
+<style>
+  #content-wrraper {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .theme_btn_bg {
+    background-color: #6e70d7 !important;
+  }
+
+  .icon_align {
+    position: relative;
+    top: 3px;
+  }
+
+  .edit_m_no_icon{
+    background: #bf5941;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: inline-flex;
+    position: relative;
+    top: -5px;
+  }
+</style>
+
+<section class="loader-page" style="display: none;background: rgba(0,0,0,0.2) !important ;" id="loaderPage">
+    <div class="spinner_flash"></div>
+</section>
+
+
+<div id="content-wrraper">
+  <div class="container">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <img src="views/images/otp-verify.png" class="img-fluid" />
+      </div>
+      
+      <section class="account-section padding-20">
+        <div class="display-title">
+            <h1 class="text-center">Activation Code</h1>
+            <p class="text-center">We have sent the verification code to your Mobile Number</p>
+        
+            <h2 class="text-center text-primary">+910000000000 <span class="p-1 edit_m_no_icon text-white"><i class="ri-pencil-line" style="
+                font-size: 0.5em;position: relative;top: -2px;
+            "></i></span></h2>
+        </div>
+        <div class="content__form margin-t-40">
+            <form class="form-verification-code">
+                <div class="form-group">
+                    <div class="input_group">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control" placeholder="-">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control" placeholder="-">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control" placeholder="-">
+                        <input type="tel" maxlength="1" pattern="[0-9]" class="form-control" placeholder="-">
+                    </div>
+                </div>
+                <div class="countdown_code">
+                    <p id="countdown" class="text_count"><button typy="button" class="btn btn-resend">Resend Code</button></p>
+                </div>
+                <a href="javascript: void(0)" style="position: fixed;bottom: 10px;width: calc(100% - 40px);" class="btn rounded-pill p-3 d-block btn-primary theme_btn_bg login_success">Login</a>
+            </form>
+        </div>
+    </section>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).on('click', '.login_success', function() {
+    $('#loaderPage').fadeIn(300);
+    setTimeout(() => {
+      window.location.assign('/');
+    }, 2000);
+  });
+</script>

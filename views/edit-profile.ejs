@@ -1,0 +1,67 @@
+<%- include('common/head') -%>
+<%- include('common/back-sidebar', {title}); %>
+
+<style>
+    .bg_theme{
+        background: #494876;
+    }
+
+    .camera_icon{
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+        padding: 2px 6px;
+        position: absolute;
+        bottom: 10px;
+        right: 0px;
+    }
+
+    .theme_btn_bg{
+        background: #262760;
+    }
+</style>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-12 text-center">
+            <label for="profil_pic" type="button" class="btn add-my-story" data-bs-toggle="modal" data-bs-target="#mdllAddStory">
+                <div class="my_img" style="position: relative;">
+                    <img src="views/images/user.png" alt="my story">
+                    <div class="icon" >
+                        <i class="ri-camera-line bg_theme text-white camera_icon"></i>
+                    </div>
+                </div>
+            </label>
+            <input type="file" class="d-none" id="profil_pic" />
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="form-group">
+            <label class="mb-0">Full Name</label>
+            <input type="text" class="form-control" value="Mellisa Peters" placeholder="Enter Your Name">
+        </div>
+        <div class="form-group">
+            <label class="mb-0">Email</label>
+            <input type="email" class="form-control" value="melpeters@mail.com" placeholder="Enter Your Email">
+        </div>
+        <div class="form-group">
+            <label class="mb-0">Password</label>
+            <input type="password" class="form-control" value="Mellisa Peters" placeholder="Enter Password">
+        </div>
+        <div class="form-group">
+            <label class="mb-0">Date of Birth</label>
+            <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+            <label class="mb-0">Country/Region</label>
+            <select class="form-control">
+                <option>Germany</option>
+                <option>Nigeria</option>
+            </select>
+        </div>
+
+        <div class="d-flex mt-2 justify-content-center">
+            <a href="javascript: void(0)" class="btn rounded-pill w-75 p-3 d-block btn-primary theme_btn_bg login_success">Save Changes</a>
+          </div>
+
+
+    </div>
+</div>

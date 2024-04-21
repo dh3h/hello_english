@@ -1,0 +1,201 @@
+<%- include('common/head') -%>
+<%- include('common/header') -%>
+<%- include('common/sidebar') -%>
+
+<style>
+  .lesson-gradual_1 {
+    background: #0281ff !important;
+  }
+
+  .lesson-gradual_2 {
+    background: #01a48f !important;
+  }
+
+  .lesson-gradual_3 {
+    background: #f74444 !important;
+  }
+
+  .lesson-gradual_4 {
+    background: #b0435d !important;
+  }
+</style>
+
+<div class="container py-5" style="background: #2a2c31;">
+  <div class="row d-flex  justify-content-center">
+    <div class="col-11 bg-white main-search-header p-3 py-3" style="border-radius: 15px;">
+      <div class="d-flex">
+        <button type="button" class="btn btn-light btn-box-filter" data-bs-toggle="modal" data-bs-target="#mdllFilter">
+          <i class="ri-sim-card-2-line"></i>
+        </button>
+        <div class="ms-2">
+          <p class="mb-0"><b>Prepaid</b>- <small>9000000000</small></p>
+          <p class="mb-1" style="position: relative;top: -5px;"><small style="font-size: 0.7rem;">$155 pack expired on 13 Apr 2024</small></p>
+          <p class="mb-0 text-primary"><small><b>Recharge Now</b></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-4 container" style="position: relative;top: -20px;border-radius: 20px;background: #ebecff;">
+  <div class="row d-flex justify-content-around">
+    <div class="col-5 p-3 bg-white" style="border-radius: 20px;position: relative;">
+      <div class="mb-3 d-flex justify-content-between">
+        <small>Prepaid</small>
+        <i class="fs-6 ri-arrow-drop-right-line"></i>
+      </div>
+      <p class="text-danger"><b>$155</b><br> pack expired</p>
+      <button class="btn btn-sm btn-block btn-dark" style="border-radius: 10px; position: absolute;bottom: 10px;width: calc(100% - 2rem);">Recharge</button>
+    </div>
+    <div class="col-5 p-3 bg-white" style="border-radius: 20px;">
+      <i class="ri-funds-line fs-1"></i>
+      <small>
+      <p class="mb-0">earn 7% interest on savings</p>
+      <small class="text-secondary">with Airtel payment Bank</small>
+    </small>
+      <p class="text-primary mb-0 mt-3">Create Account</p>
+    </div>
+
+    <div class="col-11 mt-4 p-3" style="border:2px solid white;border-radius: 10px;"></div>
+  
+  
+    <div class="col-12 mt-3">
+      <div class="un-block-creators margin-t-20">
+        <div class="swiper swiperCreators">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a class="bg-white w-100 un-item-seller p-2" style="border-radius: 10px;">
+                        <div class="media-profile">
+                            <figure class="image-avatar">
+                                <picture>
+                                    <source srcset="views/images/user.png" type="image/webp">
+                                    <img src="views/images/user.png" alt="">
+                                </picture>
+                                <div class="icon-verify">
+                                    <i class="ri-checkbox-circle-fill"></i>
+                                </div>
+                            </figure>
+                            <div class="text text-start">
+                                <h3>Save upto $100</h3>
+                                <p><small>Cashback on recharges via Amazom Pay Balance</small></p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="swiper-slide">
+                  <a class="bg-white w-100 un-item-seller p-2" style="border-radius: 10px;">
+                      <div class="media-profile">
+                          <figure class="image-avatar">
+                              <picture>
+                                  <source srcset="views/images/user.png" type="image/webp">
+                                  <img src="views/images/user.png" alt="">
+                              </picture>
+                              <div class="icon-verify">
+                                  <i class="ri-checkbox-circle-fill"></i>
+                              </div>
+                          </figure>
+                          <div class="text text-start">
+                              <h3>Save upto $100</h3>
+                              <p><small>Cashback on recharges via Amazom Pay Balance</small></p>
+                          </div>
+                      </div>
+                  </a>
+              </div>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+
+  </div>
+
+
+  <div class="row d-flex justify-content-center mt-4 pt-2">
+    <div class="col-11 px-2">
+      <div class="row">
+        <div class="col-4 p-1">
+          <div class="rounded p-2 bg-white">
+            <p class="text-center mb-0">
+              <img src="views/images/dapper-icon.png" class="img-fluid w-50" />
+            </p>
+            <p class="mb-0 mt-1 text-center"><small>Call Manager</small></p>
+          </div>
+        </div>
+        <div class="col-4 p-1">
+          <div class="rounded p-2 bg-white">
+            <p class="text-center mb-0">
+              <img src="views/images/dapper-icon.png" class="img-fluid w-50" />
+            </p>
+            <p class="mb-0 mt-1 text-center"><small>Rewards</small></p>
+          </div>
+        </div>
+        <div class="col-4 p-1">
+          <div class="rounded p-2 bg-white">
+            <p class="text-center mb-0">
+              <img src="views/images/dapper-icon.png" class="img-fluid w-50" />
+            </p>
+            <p class="mb-0 mt-1 text-center"><small>Refer</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<%- include('common/script') -%>
+<script>
+  const key = 'codeHasRunToday';
+  const today = new Date().toLocaleDateString();
+
+  if (localStorage.getItem(key) != today) {
+    localStorage.setItem(key, today);
+    console.log('hii');
+    $('#showDailyLogin').trigger('click')
+  }
+
+  new Swiper('.swiperCreators', {
+    slidesPerView: 1.2,
+    spaceBetween: 30,
+    pagination: {
+      clickable: false,
+    },
+  });
+
+  new Swiper('.courseSlider', {
+    spaceBetween: 0,
+    slidesPerView: 1.1,
+    freeMode: true,
+    pagination: {
+      clickable: true,
+    },
+  });
+
+  new Swiper('#recommended_courses', {
+    spaceBetween: 30,
+    // slidesPerView: 1,
+    freeMode: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
+
+
+
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24, 0, 0, 0); // Set to midnight tonight
+
+  const countdownTime = midnight.getTime() - now.getTime(); // Time until midnight
+  const timerElement = document.getElementById('timer');
+
+  function updateTimerDisplay(timeLeft) {
+    const hours = Math.floor(timeLeft / (60 * 60 * 1000));
+    const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000));
+    const seconds = Math.floor((timeLeft % (60 * 1000)) / 1000);
+    timerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+</script>

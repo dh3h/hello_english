@@ -1,0 +1,29 @@
+
+    <!-- JS FILES -->
+    <script src="views/assets/vendors/zuck_stories/zuck.min.js"></script>
+    <script src="views/assets/vendors/smoothscroll/smoothscroll.min.js"></script>
+    <script src="views/assets/vendors/swiper/swiper-bundle.min.js"></script>
+    <script src="views/assets/vendors/nouislider/nouislider.min.js"></script>
+    <script src="views/assets/vendors/nouislider/wNumb.min.js"></script>
+    <script src="views/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="views/assets/js/custom.js"></script>
+    <!-- PWA APP SERVICE REGISTRATION AND WORKS JS -->
+    <script src="views/assets/js/pwa-services.js"></script>
+
+    <script>
+        $(document).on('change', '#switchDark', function(){
+            let theme = $(this).prop('checked') ? 'dark' : 'light';
+            $('body').attr(
+                'data-theme', theme
+            );
+            localStorage.setItem('theme', theme);
+        })
+        if(localStorage.getItem('theme') && localStorage.getItem('theme') == 'dark'){
+            $('#switchDark').trigger('click');
+        }
+    </script>
+</body>
+
+
+<!-- Mirrored from unic.orinostudio.com/unic/page-reset-password.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 30 Mar 2024 10:25:09 GMT -->
+</html>

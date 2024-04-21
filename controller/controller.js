@@ -8,7 +8,11 @@ const userCookies = new Cookies();
 
 
 const home = (req, res) => {
-    res.render('./404.ejs');
+    res.render('./index.ejs');
+}
+
+const myProfile = (req, res) => {
+    res.render('./my-profile.ejs', {title: 'My Profile'});
 }
 
 // Serialize and deserialize user
@@ -28,6 +32,22 @@ const login = (req, res) => {
 const logout = (req, res) => {
     userCookies.set(res, 'user_data', '');
     res.redirect('/login');
+}
+
+const signUp = (req, res) => {
+    res.render('./sign-up.ejs', {title: 'Sign up new account'});
+}
+
+const verifyOTP = (req, res) => {
+    res.render('./verify-login-otp.ejs', {title: 'Sign up new account'});
+}
+
+const basicCourse = (req, res) => {
+    res.render('./basic-course.ejs');
+}
+
+const editProfile = (req, res) => {
+    res.render('./edit-profile.ejs', {title: 'Edit Profile'});
 }
 
 const AuthLogin = async (req, res) => {
@@ -61,5 +81,6 @@ const AuthLogin = async (req, res) => {
 
 
 module.exports = {
-    login, home, AuthLogin, logout
+    login,logout, AuthLogin, signUp, verifyOTP,
+    home, myProfile, basicCourse, editProfile
 }

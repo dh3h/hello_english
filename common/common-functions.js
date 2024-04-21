@@ -64,7 +64,7 @@ class Cookies {
      * @param  Integer expiry used to define when will the cookie will expire in ms ( 1000 = 1 second )
      * @return Boolean as response of the function.
      */
-    set = (res, cookie_name = '', value = '', expiry = 604800) => {
+    set = (res, cookie_name = '', value = '', expiry = 604800000) => {
         if (!cookie_name) {
             return false;
         }

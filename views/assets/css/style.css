@@ -74,6 +74,9 @@
 .app_title_font {
     font-family: "Roboto Condensed", sans-serif;
 }
+.w-90{
+    width: 90%;
+}
 
 .bg-none {
     background: rgba(0, 0, 0, 0) !important;
@@ -17529,13 +17532,13 @@ fieldset:disabled .btn {
     margin-left: -18px
 }
 
-.un-creator-ptofile .body .item-followers .btn-edit-profile {
+.item-followers .btn-edit-profile {
     background-color: var(--gray-300);
     color: #fff !important
 }
 
-.un-creator-ptofile .body .statistics {
-    display: flex;
+.statistics {
+    display: flex !important;
     align-items: center;
     justify-content: space-between;
     border-radius: 15px;
@@ -17544,31 +17547,31 @@ fieldset:disabled .btn {
     margin: 0 20px
 }
 
-.un-creator-ptofile .body .statistics .text-grid h4 {
+.statistics .text-grid h4 {
     font-size: 16px;
     color: var(--dark);
     font-weight: 600;
     margin-bottom: 3px
 }
 
-.un-creator-ptofile .body .statistics .text-grid p {
+.statistics .text-grid p {
     font-size: 15px;
     color: var(--secondary);
     font-weight: 500;
     margin: 0
 }
 
-.un-creator-ptofile .body .description {
+.description {
     padding: 20px
 }
 
-.un-creator-ptofile .body .description p {
+.description p {
     font-size: 14px;
     color: var(--secondary);
     margin: 0
 }
 
-.un-creator-ptofile .body .description p .read-more {
+.description p .read-more {
     color: var(--dark);
     font-size: 14px;
     font-weight: 500;
@@ -17589,7 +17592,7 @@ fieldset:disabled .btn {
     width: 100%
 }
 
-.un-creator-ptofile .tab-creatore-profile .item-card-gradual {
+.un-creator-ptofile .tab-creatore-profile .lesson-gradual {
     margin-bottom: 15px
 }
 
@@ -18599,30 +18602,30 @@ fieldset:disabled .btn {
     border-radius: 15px
 }
 
-.item-card-gradual {
+.lesson-gradual {
     border-radius: 15px;
     border: 1px solid var(--gray-200);
     background-color: var(--white)
 }
 
-.item-card-gradual .body-card {
+.lesson-gradual .body-card {
     padding: 20px 20px 15px 20px;
     display: block;
     text-decoration: none !important
 }
 
-.item-card-gradual .body-card .cover-nft {
+.lesson-gradual .body-card .cover-nft {
     position: relative
 }
 
-.item-card-gradual .body-card .cover-nft .img-cover {
+.lesson-gradual .body-card .cover-nft .img-cover {
     width: 100%;
     height: 170px;
     border-radius: 15px;
     object-fit: cover
 }
 
-.item-card-gradual .body-card .cover-nft .icon-type {
+.lesson-gradual .body-card .cover-nft .icon-type {
     position: absolute;
     width: 35px;
     height: 35px;
@@ -18637,7 +18640,7 @@ fieldset:disabled .btn {
     margin: 15px
 }
 
-.item-card-gradual .body-card .cover-nft .countdown-time {
+.lesson-gradual .body-card .cover-nft .countdown-time {
     background-color: var(--white);
     border-radius: 50px;
     font-size: 13px;
@@ -18650,17 +18653,17 @@ fieldset:disabled .btn {
     color: var(--dark)
 }
 
-.item-card-gradual .body-card .title-card-nft {
+.lesson-gradual .body-card .title-card-nft {
     display: flex;
     justify-content: space-between;
     margin: 15px 0
 }
 
-.item-card-gradual .body-card .title-card-nft .side-one {
+.lesson-gradual .body-card .title-card-nft .side-one {
     width: calc(100% - 80px)
 }
 
-.item-card-gradual .body-card .title-card-nft .side-one h2 {
+.lesson-gradual .body-card .title-card-nft .side-one h2 {
     font-size: 16px;
     font-weight: 500;
     color: var(--dark);
@@ -18671,38 +18674,38 @@ fieldset:disabled .btn {
     width: 100%
 }
 
-.item-card-gradual .body-card .title-card-nft .side-one p {
+.lesson-gradual .body-card .title-card-nft .side-one p {
     margin: 0;
     font-size: 13px;
     font-weight: 400;
     color: var(--secondary)
 }
 
-.item-card-gradual .body-card .title-card-nft .side-other .no-sales {
+.lesson-gradual .body-card .title-card-nft .side-other .no-sales {
     font-size: 13px;
     display: block;
     font-weight: 500;
     color: #3eca76
 }
 
-.item-card-gradual .creator-name {
+.lesson-gradual .creator-name {
     display: inline-flex;
     align-items: center
 }
 
-.item-card-gradual .creator-name .image-user {
+.lesson-gradual .creator-name .image-user {
     position: relative;
     margin-right: 10px
 }
 
-.item-card-gradual .creator-name .image-user .img-avatar {
+.lesson-gradual .creator-name .image-user .img-avatar {
     width: 30px;
     height: 30px;
     object-fit: cover;
     border-radius: 50%
 }
 
-.item-card-gradual .creator-name .image-user .icon {
+.lesson-gradual .creator-name .image-user .icon {
     position: absolute;
     font-size: 16px;
     color: #395aff;
@@ -18710,18 +18713,18 @@ fieldset:disabled .btn {
     right: -4px
 }
 
-.item-card-gradual .creator-name h3 {
+.lesson-gradual .creator-name h3 {
     font-size: 13px;
     color: var(--dark);
     font-weight: 500;
     margin: 0
 }
 
-.item-card-gradual .head-card {
+.lesson-gradual .head-card {
     padding: 15px 20px
 }
 
-.item-card-gradual .footer-card {
+.lesson-gradual .footer-card {
     border-top: 1px solid var(--gray-200);
     padding: 15px 20px;
     display: flex;
@@ -18729,14 +18732,14 @@ fieldset:disabled .btn {
     align-content: center
 }
 
-.item-card-gradual .footer-card .starting-bad h4 {
+.lesson-gradual .footer-card .starting-bad h4 {
     font-size: 16px;
     font-weight: 600;
     color: var(--dark);
     margin-bottom: 3px
 }
 
-.item-card-gradual .footer-card .starting-bad span {
+.lesson-gradual .footer-card .starting-bad span {
     font-size: 13px;
     color: var(--secondary);
     font-weight: 400;
@@ -18862,7 +18865,7 @@ fieldset:disabled .btn {
         width: 36% !important
     }
 
-    .unSwiper-cards .content-cards-NFTs .swiper-slide:first-child .item-card-gradual {
+    .unSwiper-cards .content-cards-NFTs .swiper-slide:first-child .lesson-gradual {
         margin-left: 20px
     }
 }
@@ -18879,7 +18882,7 @@ fieldset:disabled .btn {
     }
 }
 
-.unSwiper-cards .content-cards-NFTs .swiper-slide .item-card-gradual {
+.unSwiper-cards .content-cards-NFTs .swiper-slide .lesson-gradual {
     width: 100%;
     margin-left: 20px;
     text-align: left
@@ -19058,7 +19061,7 @@ fieldset:disabled .btn {
     padding: 0 20px
 }
 
-.discover-NFTs-gradual .item-card-gradual {
+.discover-NFTs-gradual .lesson-gradual {
     margin-bottom: 15px
 }
 
@@ -19452,7 +19455,7 @@ header.default .un-title-page .user-publish {
 
 header.default .un-item-logo .logo-img {
     width: 56px;
-    height: 18px;
+    height: 50px;
     object-fit: contain
 }
 
@@ -19545,7 +19548,8 @@ header.default.heade-sticky {
     position: fixed;
     width: 100%;
     z-index: 99;
-    background-color: var(--white)
+    background-color: var(--white);
+    top: 0;
 }
 
 header.default.header-light {

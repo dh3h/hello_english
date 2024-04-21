@@ -35,10 +35,19 @@ passport.deserializeUser((user, done) => done(null, user));
 
 // Import and use your routes
 const Router = express.Router();
-const { login, home, AuthLogin, logout } = require("../controller/controller");
+const { login, home, AuthLogin, logout, myProfile, signUp, verifyOTP, basicCourse, editProfile } = require("../controller/controller");
 
 Router.route('/').get(isLoggedIn, home);
+Router.route('/my-profile').get(isLoggedIn, myProfile);
+Router.route('/basic-course').get(isLoggedIn, basicCourse);
+Router.route('/edit-profile').get(isLoggedIn, editProfile);
+
+
+
+
 Router.route("/login").get(isLoggedOut, login);
+Router.route("/sign-up").get(isLoggedOut, signUp);
+Router.route("/verify-login-otp").get(isLoggedOut, verifyOTP);
 Router.route("/logout").get(isLoggedIn, logout);
 Router.route('/auth/google').get(isLoggedOut, passport.authenticate('google', { scope: ['profile', 'email'] }));
 Router.route("/auth/login").get(passport.authenticate('google', { failureRedirect: '/' }), AuthLogin);
