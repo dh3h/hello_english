@@ -83,4 +83,4 @@ const AuthLogin = async (req, res) => {
 module.exports = {
     login,logout, AuthLogin, signUp, verifyOTP,
     home, myProfile, basicCourse, editProfile
-}
+};
