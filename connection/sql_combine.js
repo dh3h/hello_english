@@ -38,16 +38,26 @@ let functions = {
 
 
 
-    select_assoc: async (tbl_name, column, data) => {
-        return new Promise((resolve, reject) => {
-            conn.query(`SELECT * FROM ${tbl_name} WHERE ${column} = '${data}'`, (err, res) => {
-                if (err) {
-                    reject('No Data Found');
-                } else {
-                    resolve(res);
-                }
+    select_assoc: async (tbl_name, columns, where = {1:1}) => {
+        let sql = `SELECT ${columns} FROM ${tbl_name} WHERE `;
+        for (const [key, val] of Object.entries(where)) {
+            sql += `${key} = "${val}" AND `;
+        }
+
+        sql = sql.slice(0, -4);
+
+
+        try {
+            const res = await new Promise((resolve, reject) => {
+                conn.query(sql, (err, result) => {
+                    resolve(result);
+                });
             });
-        });
+
+            return res;
+        } catch (error) {
+            return 'Error While Executing Query';
+        }
     },
 
 
@@ -107,19 +117,22 @@ let functions = {
         sql = sql.slice(0, -2);
         sql += ` WHERE ${where} = "${data}"`;
 
-        return new Promise((resolve, reject) => {
-            conn.query(sql, (err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    if (res.affectedRows > 0) {
-                        resolve('Data Updated');
+        try {
+            const res = await new Promise((resolve, reject) => {
+                conn.query(sql, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
                     } else {
-                        reject('Unable To Update');
+                        resolve(result);
                     }
-                }
+                });
             });
-        });
+
+            return !!res.affectedRows;
+        } catch (error) {
+            return 'Data Not Inserted';
+        }
     },
 
 
