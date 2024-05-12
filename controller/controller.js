@@ -261,7 +261,6 @@ const GetQuestions = async (req, res) => {
     
     try {
         let question_list = await sql.select_assoc('repo_question', column, where);
-
         response = { status: 1, res: question_list };
     } catch (error) {
         console.log(error);
