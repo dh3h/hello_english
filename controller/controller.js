@@ -150,7 +150,7 @@ const addUser = async (req, res) => {
 
 const AdminLogin = async (req, res) => {
     const { email, password } = req.body;
-    response = { status: 0, res: "Login Failed" };
+    response = {};
 
     let where = {};
     if (!password) {
@@ -167,14 +167,18 @@ const AdminLogin = async (req, res) => {
     where.status = 1;
 
 
-    try {
-        const admin_data = await sql.select_assoc('repo_admin', 'email,id,name', where);
-        console.log(admin_data);
-        if(typeof admin_data[0].email != 'undefined'){
-            userCookies.set(res, 'admin_data', admin_data)
-            response = { status: 0, res: "Login Successfull" };
+    if(typeof response.status != 'undefined'){
+        try {
+            const admin_data = await sql.select_assoc('repo_admin', 'email,id,name', where);
+            console.log(admin_data);
+            if(typeof admin_data[0].email != 'undefined'){
+                userCookies.set(res, 'admin_data', admin_data)
+                response = { status: 0, res: "Login Successfull" };
+            }
+        } catch (error) {
         }
-    } catch (error) {
+    }else{
+        response = { status: 0, res: "Login Failed!!" };
     }
     res.send(JSON.stringify(response));
 }
@@ -239,7 +243,7 @@ const UsersList = async (req, res) => {
 }
 
 const GetQuestions = async (req, res) => {
-    let { id, user_guid } = req.body;
+    let { id, user_guid, column} = req.body;
     let response = { status: 0, res: "Something gone wrong !!" };
 
     let where = {};
@@ -250,15 +254,15 @@ const GetQuestions = async (req, res) => {
     }
 
     if(typeof column == 'undefined'){
-        column = 'email, id, name, user_uid, pic, status';
+        column = '*';
     }
 
     `id,user_guid,date,type,q_group,question,answer,status`;
     
     try {
-        let user_list = await sql.select_assoc('repo_user', column, where);
+        let question_list = await sql.select_assoc('repo_question', column, where);
 
-        response = { status: 1, res: user_list };
+        response = { status: 1, res: question_list };
     } catch (error) {
         console.log(error);
     }
