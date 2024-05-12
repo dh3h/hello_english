@@ -257,8 +257,6 @@ const GetQuestions = async (req, res) => {
         column = '*';
     }
 
-    `id,user_guid,date,type,q_group,question,answer,status`;
-    
     try {
         let question_list = await sql.select_assoc('repo_question', column, where);
         response = { status: 1, res: question_list };
