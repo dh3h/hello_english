@@ -840,6 +840,25 @@ const updateStatus = async (req, res) => {
 }
 
 
+const deleteEntity = async (req, res) => {
+    let { tbl, id } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    tbl = "repo_" + tbl;
+ 
+    if(id){
+        try {
+            result = await sql.delete(tbl, 'id', id);
+            response = { status: 1, res: "Deleted Successfully" };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
@@ -854,7 +873,7 @@ module.exports = {
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add,
 
     // ADMIN API
-    updateStatus,
+    updateStatus, deleteEntity,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
 };
