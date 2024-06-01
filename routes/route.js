@@ -50,7 +50,7 @@ const {
      AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,
 
      // ADMIN APIS
-     adminListPhaseAPI, adminListPhaseAPI_Set
+     adminListPhaseAPI, adminListPhaseAPI_Set,adminListLessonsAPI,adminListLessonAPI_Set
 
 
 } = require("../controller/controller");
@@ -141,7 +141,8 @@ Router.route("/admin/get-edit-rearrangements").get(AdminEditrearrangements);
 Router.route("/admin/get-phace-list").get(adminListPhase).post(adminListPhaseAPI);
 Router.route("/admin/set-phace-list").post(adminListPhaseAPI_Set);
 //  ------------------------- Add lessons ------------------------- //
-Router.route("/admin/get-lessons-list").get(adminListLessons).post;
+Router.route("/admin/get-lessons-list").get(adminListLessons).post(adminListLessonsAPI);
+Router.route("/admin/set-lesson-list").post(adminListLessonAPI_Set);
 //  ------------------------- find out the correct sentence ------------------------- //
 Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);
 Router.route("/admin/get-add-find-correct-sentence").get(AdminAddFindCorrectSentence);

@@ -491,7 +491,7 @@ const adminListPhase = (req, res) => {
         'http://localhost:3000/admin/get-phace-list',
         { json: { order_by: 'id DESC' } },
         function (error, response, body) {
-            if (!error && response.statusCode == 200 ) {
+            if (!error && response.statusCode == 200) {
                 res.render('./admin/get-phace-list.ejs', { title: 'List Phase', phase_list: body['res'] });
             } else {
                 res.send('User Not Found');
@@ -501,7 +501,103 @@ const adminListPhase = (req, res) => {
 }
 // ============================= Add lessons =============================== //
 const adminListLessons = (req, res) => {
-    res.render('./admin/get-lessons-list.ejs', { title: 'List Lessons' });
+    request.post(
+        'http://localhost:3000/admin/get-phace-list',
+        { json: { order_by: 'id DESC' } },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body['res']);
+                sql.run("SELECT repo_lesson.id, repo_lesson.lesson_name,repo_lesson.lessons_discription,repo_lesson.date_and_time,repo_lesson.status,repo_phase.phase_name FROM `repo_lesson` INNER JOIN repo_phase ON repo_lesson.phase_id = repo_phase.id;", (status, response) =>{
+                    if(status){
+                        console.log(res);
+                        res.render('./admin/get-lessons-list.ejs', { title: 'List Phase', phase_id: body['res'], lesson_list: res,  });
+                    }
+                });
+            } else {
+                res.send('User Not Found');
+            }
+        }
+    );
+
+}
+
+const adminListLessonsAPI = async (req, res) => {
+    let { id, phase_id, lesson_name, lessons_discription, date_and_time, status, order_by } = req.body;
+    let response = { status: 0, res: "Something gone wrong !!" };
+
+    let where = {};
+    if (typeof id != 'undefined') {
+        where.id = id;
+    }
+    if (typeof phase_id != 'undefined') {
+        where.phase_id = phase_id;
+    } if (typeof lesson_name != 'undefined') {
+        where.lesson_name = lesson_name;
+    }
+    if (typeof lessons_discription != 'undefined') {
+        where.lessons_discription = lessons_discription;
+    }
+    if (typeof date_and_time != 'undefined') {
+        where.date_and_time = date_and_time;
+    } if (typeof status != 'undefined') {
+        where.status = status;
+    }
+
+    let column = '*';
+    if (typeof req.body.columns != 'undefined') {
+        column = req.body.columns
+    }
+    if (typeof order_by == 'undefined') {
+        order_by = 'id';
+    }
+
+    try {
+        let lesson_list = await sql.select_assoc('repo_lesson', column, where, order_by);
+        response = { status: 1, res: lesson_list };
+    } catch (error) {
+        console.log(error);
+    }
+    res.send(JSON.stringify(response));
+}
+
+const adminListLessonAPI_Set = async (req, res) => {
+    const { id, phase_id, lesson_name,lessons_discription, status, type } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+    if (!lessons_discription) {
+        response = { status: 2, res: "Lesson Discription is required !!" };
+    } else {
+        columns.lessons_discription = lessons_discription;
+    }
+    if (!lesson_name) {
+        response = { status: 2, res: "Lesson Name is required !!" };
+    } else {
+        columns.lesson_name = lesson_name;
+    }
+    if (!phase_id) {
+        response = { status: 2, res: "Select Phases required !!" };
+    } else {
+        columns.phase_id = phase_id;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_lesson', 'id', id, columns);
+                response = { status: 1, res: "Lesson Updated" };
+            } else {
+                result = await sql.insert('repo_lesson', columns);
+                response = { status: 1, res: "Inserted Succrssfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
 }
 
 // ============================= find out the correct sentence =============================== //
@@ -609,7 +705,7 @@ const adminListPhaseAPI = async (req, res) => {
 
 
 const adminListPhaseAPI_Set = async (req, res) => {
-    const {id, phase_name, date_and_time, status, type } = req.body;
+    const { id, phase_name, date_and_time, status, type } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -622,12 +718,12 @@ const adminListPhaseAPI_Set = async (req, res) => {
     } else {
         columns.phase_name = phase_name;
     }
-    if(phase_name || status){
+    if (phase_name || status) {
         try {
-            if(typeof id != 'undefined'){
+            if (typeof id != 'undefined') {
                 result = await sql.update('repo_phase', 'id', id, columns);
                 response = { status: 1, res: "Phase Updated" };
-            }else{
+            } else {
                 result = await sql.insert('repo_phase', columns);
                 response = { status: 1, res: "Phase Inserted" };
             }
@@ -640,18 +736,18 @@ const adminListPhaseAPI_Set = async (req, res) => {
 
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
-    home, myProfile, basicCourse,Rearrangement,public_profile, editProfile,private_profile,challange,maintenance,apptips,news,Conversation,fill_code_videos,
-    artical,addUser,artical_details,game,Videos,videos_details,type_questions,ask_a_questions,books,books_details,book_open, AdminLogin, AdminAnsToQuestion,my_friends,
-    UsersList, GetQuestions, adminHome,peactice,all_anwers,type_answers,refer_friends,page_about,helpline,answer_the_questions,finding_the_gems,
-    adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,listen_select_options,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos,AdminEditVideos,
-    AdminGetAudio,AdminEditAudio,AdminGetBook,AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,
+    home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
+    artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
+    UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
+    adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminEditBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
     AdminEditrearrangements,
     // ------------------------------- Admin functions ------------------ ///
-    adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
-    AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,
-    Adminlisten_select_list,Adminlisten_select_add,AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,
+    adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
+    AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
+    Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add,
 
     // ADMIN API
-    adminListPhaseAPI, adminListPhaseAPI_Set
+    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
 };
