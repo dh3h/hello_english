@@ -63,21 +63,24 @@ let functions = {
     },
 
 
-    delete: (tbl_name, column, data, callback) => {
+    delete: async (tbl_name, column, data) => {
         let sql = `DELETE FROM ${tbl_name} WHERE ${column} = '${data}'`;
-        conn.query(sql, (err, res) => {
-            if (err) {
-                callback(false, 'No Data Found');
+        try {
+            console.log(sql);
+            const res = await new Promise((resolve, reject) => {
+                conn.query(sql, (err, result) => {
+                    resolve(result);
+                });
+            });
+            if (typeof res == 'object' && res.affectedRows != undefined) {
+                return res.affectedRows + ' Data Deleted';
             }
             else {
-                if (res.affectedRows > 0) {
-                    callback(true, res.affectedRows + ' Data Deleted');
-                }
-                else {
-                    callback(false, 'Unable to Delete');
-                }
+                return 'Unable to Delete';
             }
-        })
+        } catch (error) {
+            return 'Query Failed';
+        }
     },
 
 

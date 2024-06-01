@@ -1,93 +1,93 @@
 <%- include('common/head') -%>
-  <%- include('common/header'); %>
-    <%- include('common/sidebar'); %>
+<%- include('common/header'); %>
+<%- include('common/sidebar'); %>
 
-      <div class="content-body">
-        <!-- row -->
-        <div class="container-fluid">
-          <div class="row">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <div class="col-xl-12 col-lg-8">
-                <div class="card profile-card card-bx m-b30">
+<div class="content-body">
+  <!-- row -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="col-xl-12 col-lg-8">
+          <div class="card profile-card card-bx m-b30">
 
-                  <form class="profile-form" id="pahse_form">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-9 m-b30">
-                          <label class="form-label">Phases</label>
-                          <input type="text" name="phase_name" class="form-control" placeholder="Enter Phases">
-                        </div>
-                        <div class="col-sm-3">
-                          <div class="mt-4">
-                            <button class="btn btn-primary">Submit</button>
-                          </div>
-                        </div>
-
-                      </div>
+            <form class="profile-form" id="pahse_form">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-9 m-b30">
+                    <label class="form-label">Phases</label>
+                    <input type="text" name="phase_name" class="form-control" placeholder="Enter Phases">
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="mt-4">
+                      <button class="btn btn-primary">Submit</button>
                     </div>
+                  </div>
 
-                  </form>
                 </div>
-                <!-- </div>
+              </div>
+
+            </form>
+          </div>
+          <!-- </div>
                                 </div> -->
 
 
-              </div>
+        </div>
 
 
-            </div>
-          </div>
-          <div class="col-xl-12 active-p">
-            <div class="tab-content" id="pills-tabContent">
+      </div>
+    </div>
+    <div class="col-xl-12 active-p">
+      <div class="tab-content" id="pills-tabContent">
 
-              <div class="card">
-                <div class="card-body px-0">
-                  <div class="table-responsive active-projects user-tbl  dt-filter">
-                    <table id="user-tbl" class="table shorting">
-                      <thead>
-                        <tr>
-                          <th>Title</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                          <th>Action</th>
+        <div class="card">
+          <div class="card-body px-0">
+            <div class="table-responsive active-projects user-tbl  dt-filter">
+              <table id="user-tbl" class="table shorting">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
 
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% Object.keys(phase_list).forEach(function(prop) { %>
-                          <tr>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <p class="mb-0 ms-2"><%- phase_list[prop]['phase_name'] %></p>
-                              </div>
-                            </td>
-                            <td><%- phase_list[prop]['date_and_time'] %></td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input phase_list_status" data-id="id" data-col="<%- phase_list[prop]['id'] %>" <% if(phase_list[prop]['status'] == 1){ %>checked<% } %>  type="checkbox" id="flexSwitchCheckChecked" >
-                                </div>
-                            </td>
-                            <td>
-                              <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                            </td>
-                          </tr>
-                          <% }); %>
-                      </tbody>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% Object.keys(phase_list).forEach(function(prop) { %>
+                  <tr class="delete_phase_parent">
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <p class="mb-0 ms-2"><%- phase_list[prop]['phase_name'] %></p>
+                      </div>
+                    </td>
+                    <td><%- phase_list[prop]['date_and_time'] %></td>
+                    <td>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input phase_list_status" data-id="id" data-col="<%- phase_list[prop]['id'] %>" <% if(phase_list[prop]['status'] == 1){ %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
+                      </div>
+                    </td>
+                    <td>
+                      <a class="btn btn-danger shadow btn-xs sharp delete_phase" data-id="<%- phase_list[prop]['id'] %>"><i class="fa fa-trash"></i></a>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
 
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-
+              </table>
             </div>
           </div>
         </div>
-      </div>
-      </div>
 
-      <%- include('common/footer') -%>
-        <%- include('common/script'); %>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<%- include('common/footer') -%>
+<%- include('common/script'); %>
 
 <script>
   $(document).ready(function() {
@@ -102,30 +102,31 @@
     });
 
     status_update('.phase_list_status', 'phase');
+    delete_entity('.delete_phase', 'phase', '.delete_phase_parent');
 
-              $(document).on('submit', '#pahse_form', function (e) {
-                e.preventDefault();
-                const form_data = new FormData(this);
+    $(document).on('submit', '#pahse_form', function(e) {
+      e.preventDefault();
+      const form_data = new FormData(this);
 
-                $.ajax({
-                  url: "/admin/set-phace-list",
-                  type: "POST",
-                  data: form_data,
-                  contentType: false,
-                  processData: false,
-                  success: (response) => {
-                    const json = JSON.parse(response);
-                    if (json.status != 0) {
-                      msg('success', json.res);
-                      setTimeout(() => {
-                        location.reload();
-                      }, 1200);
-                    } else {
-                      msg('error', json.res);
-                    }
-                  }
-                });
+      $.ajax({
+        url: "/admin/set-phace-list",
+        type: "POST",
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: (response) => {
+          const json = JSON.parse(response);
+          if (json.status != 0) {
+            msg('success', json.res);
+            setTimeout(() => {
+              location.reload();
+            }, 1200);
+          } else {
+            msg('error', json.res);
+          }
+        }
+      });
 
-              });
-            });
-          </script>
+    });
+  });
+</script>

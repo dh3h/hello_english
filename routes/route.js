@@ -50,7 +50,7 @@ const {
      AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,
 
      // ADMIN APIS
-     updateStatus,
+     updateStatus, deleteEntity,
 
      adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
 
@@ -106,6 +106,8 @@ Router.route("/auth/login").get(passport.authenticate('google', { failureRedirec
 
 // Admin
 Router.route('/admin/change-query-status').post(updateStatus);
+Router.route('/admin/delete-entity').post(deleteEntity);
+
 
 Router.route("/admin/add-user").post(addUser);
 Router.route("/admin/login").get(isAdminLoggedOut, adminLoginPage).post(isAdminLoggedOut, AdminLogin);
