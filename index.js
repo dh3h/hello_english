@@ -10,7 +10,7 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const routes = require("./routes/route");
-const path = base.join('/Applications/XAMPP/xamppfiles/htdocs/learn/');
+const path = base.join('C:/xampp/htdocs/english/hello_english');
 
 const app = express();
 const upload = multer();

@@ -66,7 +66,6 @@ let functions = {
     delete: async (tbl_name, column, data) => {
         let sql = `DELETE FROM ${tbl_name} WHERE ${column} = '${data}'`;
         try {
-            console.log(sql);
             const res = await new Promise((resolve, reject) => {
                 conn.query(sql, (err, result) => {
                     resolve(result);
