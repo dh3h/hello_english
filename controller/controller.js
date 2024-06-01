@@ -491,7 +491,7 @@ const adminListPhase = (req, res) => {
         'http://localhost:3000/admin/get-phace-list',
         { json: { order_by: 'date_and_time DESC' } },
         function (error, response, body) {
-            if (!error && response.statusCode == 200 && body['res'].length != 0) {
+            if (!error && response.statusCode == 200 ) {
                 res.render('./admin/get-phace-list.ejs', { title: 'List Phase', phase_list: body['res'] });
             } else {
                 res.send('User Not Found');
