@@ -1,67 +1,154 @@
 <%- include('common/head') -%>
-<%- include('common/back-sidebar', {title}); %>
+    <%- include('common/header') -%>
+        <%- include('common/sidebar') -%>
+            <style>
+                .blink-soft {
+                    animation: blinker 1.5s linear infinite;
+                }
 
-<style>
-    .bg_theme{
-        background: #494876;
-    }
+                @keyframes blinker {
+                    50% {
+                        opacity: 0;
+                    }
+                }
+            </style>
+            <!-- App Header -->
+            <div class="appHeader bg-primary text-light">
+                <div class="left">
+                    <a href="javascript:;" class="headerButton goBack">
+                        <ion-icon name="chevron-back-outline"></ion-icon>
+                    </a>
+                </div>
+                <div class="pageTitle">Edit Profile</div>
+                <div class="right">
+                </div>
+            </div>
+            <!-- * App Header -->
 
-    .camera_icon{
-        border-radius: 50%;
-        aspect-ratio: 1/1;
-        padding: 2px 6px;
-        position: absolute;
-        bottom: 10px;
-        right: 0px;
-    }
+            <!-- App Capsule -->
+            <div id="appCapsule">
+                <div class="section full">
+                    <div class="wide-block pt-2 pb-2">
+                        <p class="text-center text-danger blink-soft">Please Complete your Profile.</p>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 35%;" aria-valuenow="35"
+                                aria-valuemin="0" aria-valuemax="100">35%</div>
+                        </div>
 
-    .theme_btn_bg{
-        background: #262760;
-    }
-</style>
-<div class="container">
-    <div class="row mt-3">
-        <div class="col-12 text-center">
-            <label for="profil_pic" type="button" class="btn add-my-story" data-bs-toggle="modal" data-bs-target="#mdllAddStory">
-                <div class="my_img" style="position: relative;">
-                    <img src="views/images/user.png" alt="my story">
-                    <div class="icon" >
-                        <i class="ri-camera-line bg_theme text-white camera_icon"></i>
                     </div>
                 </div>
-            </label>
-            <input type="file" class="d-none" id="profil_pic" />
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="form-group">
-            <label class="mb-0">Full Name</label>
-            <input type="text" class="form-control" value="Mellisa Peters" placeholder="Enter Your Name">
-        </div>
-        <div class="form-group">
-            <label class="mb-0">Email</label>
-            <input type="email" class="form-control" value="melpeters@mail.com" placeholder="Enter Your Email">
-        </div>
-        <div class="form-group">
-            <label class="mb-0">Password</label>
-            <input type="password" class="form-control" value="Mellisa Peters" placeholder="Enter Password">
-        </div>
-        <div class="form-group">
-            <label class="mb-0">Date of Birth</label>
-            <input type="date" class="form-control">
-        </div>
-        <div class="form-group">
-            <label class="mb-0">Country/Region</label>
-            <select class="form-control">
-                <option>Germany</option>
-                <option>Nigeria</option>
-            </select>
-        </div>
+                <div class="section full mb-2">
+                    <!-- <div class="section-title">Boxed Form Example</div>     -->
+                    <div class="wide-block pt-2 pb-2">
 
-        <div class="d-flex mt-2 justify-content-center">
-            <a href="javascript: void(0)" class="btn rounded-pill w-75 p-3 d-block btn-primary theme_btn_bg login_success">Save Changes</a>
-          </div>
+                        <form class="needs-validation" novalidate="">
+
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="name5">Full Name</label>
+                                    <input type="text" class="form-control" name="full_name" id="full_name" placeholder="Enter your Full name">
+                                    <i class="clear-input">
+                                        <ion-icon name="close-circle" role="img" class="md hydrated"
+                                            aria-label="close circle"></ion-icon>
+                                    </i>
+                                </div>
+                            </div>
+
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="email">E-mail</label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="E-mail address">
+                                </div>
+                            </div>
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="email5">Phone No.</label>
+                                    <input type="tel" class="form-control" name="phone_no" id="phone_no" placeholder="Enter Phone Num.">
+                                </div>
+                            </div>
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="email5">Institute Name:</label>
+                                    <textarea name="school_name" class="form-control" placeholder="Enter Institute Name"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="email5">Class:</label>
+                                    <input type="text" class="form-control" name="class" placeholder="Enter Class">
+                                </div>
+                            </div>
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="email5">Address:</label>
+                                    <textarea name="address" class="form-control" placeholder="Enter Address"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="city5">Country</label>
+                                    <select class="form-control custom-select" name="Country" id="city5" required="">
+                                        <option selected="" disabled="" value="">Choose Country</option>
+                                        <option value="1">New York City</option>
+                                        <option value="2">Austin</option>
+                                        <option value="3">Colorado</option>
+                                    </select>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please choose a city.</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="city5">District</label>
+                                    <select class="form-control custom-select" name="District" id="city5" required="">
+                                        <option selected="" disabled="" value="">Choose District</option>
+                                        <option value="1">New York City</option>
+                                        <option value="2">Austin</option>
+                                        <option value="3">Colorado</option>
+                                    </select>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="city5">State</label>
+                                    <select class="form-control custom-select" name="state" id="city5" required="">
+                                        <option selected="" disabled="" value="">Choose State</option>
+                                        <option value="1">New York City</option>
+                                        <option value="2">Austin</option>
+                                        <option value="3">Colorado</option>
+                                    </select>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please choose a city.</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group boxed">
+                                <div class="input-wrapper">
+                                    <label class="label" for="city5">Blocks / City</label>
+                                    <select class="form-control custom-select" name="blocks" id="city5" required="">
+                                        <option selected="" disabled="" value="">Choose Blocks / City</option>
+                                        <option value="1">New York City</option>
+                                        <option value="2">Austin</option>
+                                        <option value="3">Colorado</option>
+                                    </select>
+                                    <div class="valid-feedback">Looks good!</div>
+                                    <div class="invalid-feedback">Please choose a city.</div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2">
+                                <button class="btn btn-primary btn-block" type="submit">Submit</button>
+                            </div>
+
+                        </form>
 
 
-    </div>
-</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <%- include('common/script') -%>

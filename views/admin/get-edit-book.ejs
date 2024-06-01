@@ -1,0 +1,70 @@
+<%- include('common/head') -%>
+    <%- include('common/header'); %>
+        <%- include('common/sidebar'); %>
+
+            <div class="content-body">
+                <!-- row -->
+                <div class="container-fluid">
+                    <!-- row -->
+                    <div class="row">
+
+                        <div class="col-xl-12 col-lg-8">
+                            <div class="card profile-card card-bx m-b30">
+                                <div class="card-header">
+                                    <h6 class="title">Edit Book</h6>
+                                </div>
+                                <form class="profile-form">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Book title</label>
+                                                <input type="text" name="book_title" class="form-control"
+                                                    placeholder="Enter Book title">
+                                            </div>
+
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Book By</label>
+                                                <input type="text" name="Book_by" class="form-control"
+                                                    placeholder="Enter Book By Link">
+                                            </div>
+
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Mode</label>
+                                                <input type="text" name="mode" class="form-control"
+                                                    placeholder="Enter Mode Link">
+                                            </div>
+
+                                            <div class="col-sm-12 m-b30">
+                                                <label class="form-label">Paragraph</label>
+                                                <textarea name="paragraph" id="about_discriptions" class="form-control"
+                                                    rows="10" cols="10"></textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('common/footer') -%>
+                <%- include('common/script'); %>
+
+                    <script>
+                        $(document).ready(function () {
+                            var table = $('#userListTable').DataTable({
+                                responsive: true,
+                                language: {
+                                    paginate: {
+                                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                                        previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+                                    }
+                                }
+                            });
+                        })
+                    </script>

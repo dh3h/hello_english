@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 
 // Initialize Express app
 const app = express();
-const { isLoggedIn, isLoggedOut } = require("../middleware/middleware");
+const { isLoggedIn, isLoggedOut, isAdminLogin, isAdminLoggedOut } = require("../middleware/middleware");
 
 // Middleware setup
 app.use(session({
@@ -38,16 +38,59 @@ const Router = express.Router();
 const {
     login, home, AuthLogin,
     logout, myProfile, signUp,
-    verifyOTP, basicCourse, editProfile,
-    addUser, AdminLogin, AdminAnsToQuestion,
-    UsersList
+    verifyOTP, basicCourse,Rearrangement,public_profile, editProfile,private_profile,challange,maintenance,apptips,news,Conversation,listen_select_options,
+    artical,artical_details,game,Videos,ask_a_questions,videos_details,books,books_details,book_open,addUser, AdminLogin, AdminAnsToQuestion,fill_code_videos,
+    my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
+    adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,
+     AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,AdminEditrearrangements,
+     // -------------------------------- Admin Functions ------------------------------//
+     adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
+     AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,Adminlisten_select_list,Adminlisten_select_add,
+     AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,
+
+     // ADMIN APIS
+     adminListPhaseAPI, adminListPhaseAPI_Set
+
+
 } = require("../controller/controller");
 
 Router.route('/').get(isLoggedIn, home);
 Router.route('/my-profile').get(isLoggedIn, myProfile);
 Router.route('/basic-course').get(isLoggedIn, basicCourse);
+Router.route('/Rearrangement').get(isLoggedIn, Rearrangement);
 Router.route('/edit-profile').get(isLoggedIn, editProfile);
-
+Router.route('/public-profile').get(isLoggedIn, public_profile);
+Router.route('/practice').get(isLoggedIn, peactice);
+Router.route('/private-profile').get(isLoggedIn, private_profile);
+Router.route('/challange').get(isLoggedIn, challange);
+Router.route('/maintenance').get(isLoggedIn, maintenance);
+Router.route('/app-tips').get(isLoggedIn, apptips);
+Router.route('/news').get(isLoggedIn, news);
+Router.route('/Conversation').get(isLoggedIn, Conversation);
+Router.route('/artical').get(isLoggedIn, artical);
+Router.route('/artical-details').get(isLoggedIn, artical_details);
+Router.route('/game').get(isLoggedIn, game);
+Router.route('/videos').get(isLoggedIn, Videos);
+Router.route('/videos-details').get(isLoggedIn, videos_details);
+Router.route('/books').get(isLoggedIn, books);
+Router.route('/books-details').get(isLoggedIn, books_details);
+Router.route('/book-open').get(isLoggedIn, book_open);
+Router.route('/my-friends').get(isLoggedIn, my_friends);
+Router.route('/ask-a-questions').get(isLoggedIn, ask_a_questions);
+Router.route('/type-questions').get(isLoggedIn, type_questions);
+Router.route('/all-anwers').get(isLoggedIn, all_anwers);
+Router.route('/type-answers').get(isLoggedIn, type_answers);
+Router.route('/refer-friends').get(isLoggedIn, refer_friends);
+Router.route('/app-about').get(isLoggedIn, page_about);
+Router.route('/helpline').get(isLoggedIn, helpline);
+Router.route('/page-chat').get(isLoggedIn, page_chat);
+Router.route('/fill-in-the-blank').get(isLoggedIn, fill_in_the_blank);
+Router.route('/find-correct-sentence').get(isLoggedIn, find_correct_sentence);
+Router.route('/answer-the-questions').get(isLoggedIn, answer_the_questions);
+Router.route('/finding-the-gems').get(isLoggedIn, finding_the_gems);
+Router.route('/listen-select-options').get(isLoggedIn, listen_select_options);
+Router.route('/fill-code-videos').get(isLoggedIn, fill_code_videos);
 
 
 // User
@@ -61,10 +104,77 @@ Router.route("/auth/login").get(passport.authenticate('google', { failureRedirec
 
 // Admin
 Router.route("/admin/add-user").post(addUser);
-Router.route("/admin/login").post(AdminLogin);
+Router.route("/admin/login").get(isAdminLoggedOut, adminLoginPage).post(isAdminLoggedOut, AdminLogin);
 Router.route("/admin/answer-to-question").post(AdminAnsToQuestion);
-Router.route("/admin/get-user").post(UsersList);
+Router.route("/admin/get-user").get(getUserList).post(UsersList);
 
+Router.route("/admin/get-user/:uid").get(AdminEditSingleUser);
+
+Router.route("/admin/get-question").post(GetQuestions);
+
+Router.route("/admin/").get(isAdminLogin, adminHome);
+
+Router.route("/admin/get-tip").get(GetTips);
+Router.route("/admin/get-edit-tip").get(GeteditTips);
+Router.route("/admin/artical-list").get(adminGetArtical);
+Router.route("/admin/get-edit-artical").get(adminGetArticaledit);
+
+Router.route("/admin/video-list").get(adminGetVideos);
+Router.route("/admin/get-edit-video").get(AdminEditVideos);
+//  ------------------------- Audio ---------------------- ////
+Router.route("/admin/get-audio-list").get(AdminGetAudio);
+Router.route("/admin/get-edit-audio").get(AdminEditAudio);
+
+//  ------------------------- Books ---------------------- ////
+Router.route("/admin/get-book-list").get(AdminGetBook);
+Router.route("/admin/get-edit-book").get(AdminEditBook);
+
+//  ------------------------- Fill in the Blanks ---------------------- ////
+Router.route("/admin/get-blank-list").get(AdminGetBlank);
+Router.route("/admin/get-edit-blank").get(AdminEditBlank);
+
+//  ------------------------- rearrangements ---------------------- ////
+Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangements);
+Router.route("/admin/get-edit-rearrangements").get(AdminEditrearrangements);
+
+//  ------------------------- Add Phase ------------------------- //
+Router.route("/admin/get-phace-list").get(adminListPhase).post(adminListPhaseAPI);
+Router.route("/admin/set-phace-list").post(adminListPhaseAPI_Set);
+//  ------------------------- Add lessons ------------------------- //
+Router.route("/admin/get-lessons-list").get(adminListLessons);
+//  ------------------------- find out the correct sentence ------------------------- //
+Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);
+Router.route("/admin/get-add-find-correct-sentence").get(AdminAddFindCorrectSentence);
+//  ------------------------- Listen & Type (sentences / words) ------------------------- //
+Router.route("/admin/get-Listen-&-Type-list").get(AdminListenTypeList);
+Router.route("/admin/get-Edit-Listen-&-Type").get(AdminEditListenType);
+//  ------------------------- Listen & Type (sentences / words) ------------------------- //
+Router.route("/admin/get-conversation-list").get(AdminConversationList);
+Router.route("/admin/get-conversation-add").get(AdminAddconversation);
+
+//  ------------------------- Story ------------------------- //
+Router.route("/admin/get-Story-list").get(AdminStoryList);
+Router.route("/admin/get-Story-add").get(AdminAddStory);
+
+//  ------------------------- Answer-the-questions ------------------------- //
+Router.route("/admin/get-answer-the-questions-list").get(AdminAnswer_the_questions_list);
+Router.route("/admin/get-answer-the-questions-add").get(AdminAnswer_the_questions_add);
+
+//  ------------------------- finding-the-gems ------------------------- //
+Router.route("/admin/get-finding-the-gems-list").get(Adminfinding_the_gems_list);
+Router.route("/admin/get-finding-the-gems-add").get(Adminfinding_the_gems_add);
+
+//  ------------------------- Listen and select ------------------------- //
+Router.route("/admin/get-listen-select-list").get(Adminlisten_select_list);
+Router.route("/admin/get-listen-select-add").get(Adminlisten_select_add);
+
+//  ------------------------- Fill the code from video tips ------------------------- //
+Router.route("/admin/get-video-code-list").get(AdminVideo_code_list);
+Router.route("/admin/get-video-code-add").get(AdminVideo_code_add);
+
+//  ------------------------- News ------------------------- //
+Router.route("/admin/get-news-list").get(AdminNews_list);
+Router.route("/admin/get-news-add").get(AdminNews_add);
 
 // Router.route("/sign-up").get(isLoggedOut, signUp);
 // Router.route("/verify-login-otp").get(isLoggedOut, verifyOTP);

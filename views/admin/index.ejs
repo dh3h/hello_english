@@ -1,0 +1,393 @@
+<%- include('common/head') -%>
+    <%- include('common/header'); %>
+        <%- include('common/sidebar'); %>
+<style>
+    .clock-date-container {
+    text-align: center;
+}
+.clock {
+    font-size: 28px;
+}
+
+.date {
+    font-size: 24px;
+}
+</style>
+            <div class="content-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-9 col-xxl-12">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="card overflow-hidden">
+                                                <div class="card-body">
+                                                    <div class="any-card">
+                                                        <div class="c-con">
+                                                            <h4 class="heading mb-0">Check In <strong>Time
+                                                                    Date!!</strong><img
+                                                                    src="/view/admin/images/crm/party-popper.png"
+                                                                    alt=""></h4>
+                                                            <p class="mt-3">
+                                                            <div class="clock-date-container">
+                                                                <div id="clock" class="clock"></div>
+                                                                <div id="date" class="date"></div>
+                                                            </div>
+                                                            </p>
+                                                        </div>
+                                                        <img src="/view/admin/images/analytics/developer_male.png"
+                                                            class="harry-img" alt="">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="card bg-primary">
+                                                <div class="card-header border-0">
+                                                    <h4 class="heading mb-0 text-white">Overview Of Sales 😎</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="sales-bx">
+                                                            <img src="images/analytics/sales.png" alt="">
+                                                            <h4>$3,651</h4>
+                                                            <span>Total Sales</span>
+                                                        </div>
+                                                        <div class="sales-bx">
+                                                            <img src="images/analytics/shopping.png" alt="">
+                                                            <h4>5831</h4>
+                                                            <span>Total Sales</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-6">
+                                            <div class="card">
+                                                <div class="card-header border-0">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="icon-box bg-primary-light">
+                                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M16.3787 1.875H15.625V1.25C15.625 1.08424 15.5592 0.925268 15.4419 0.808058C15.3247 0.690848 15.1658 0.625 15 0.625C14.8342 0.625 14.6753 0.690848 14.5581 0.808058C14.4408 0.925268 14.375 1.08424 14.375 1.25V1.875H10.625V1.25C10.625 1.08424 10.5592 0.925268 10.4419 0.808058C10.3247 0.690848 10.1658 0.625 10 0.625C9.83424 0.625 9.67527 0.690848 9.55806 0.808058C9.44085 0.925268 9.375 1.08424 9.375 1.25V1.875H5.625V1.25C5.625 1.08424 5.55915 0.925268 5.44194 0.808058C5.32473 0.690848 5.16576 0.625 5 0.625C4.83424 0.625 4.67527 0.690848 4.55806 0.808058C4.44085 0.925268 4.375 1.08424 4.375 1.25V1.875H3.62125C2.99266 1.87599 2.3901 2.12614 1.94562 2.57062C1.50114 3.0151 1.25099 3.61766 1.25 4.24625V17.0037C1.25099 17.6323 1.50114 18.2349 1.94562 18.6794C2.3901 19.1239 2.99266 19.374 3.62125 19.375H16.3787C17.0073 19.374 17.6099 19.1239 18.0544 18.6794C18.4989 18.2349 18.749 17.6323 18.75 17.0037V4.24625C18.749 3.61766 18.4989 3.0151 18.0544 2.57062C17.6099 2.12614 17.0073 1.87599 16.3787 1.875ZM17.5 17.0037C17.499 17.3008 17.3806 17.5854 17.1705 17.7955C16.9604 18.0056 16.6758 18.124 16.3787 18.125H3.62125C3.32418 18.124 3.03956 18.0056 2.8295 17.7955C2.61944 17.5854 2.50099 17.3008 2.5 17.0037V4.24625C2.50099 3.94918 2.61944 3.66456 2.8295 3.4545C3.03956 3.24444 3.32418 3.12599 3.62125 3.125H4.375V3.75C4.375 3.91576 4.44085 4.07473 4.55806 4.19194C4.67527 4.30915 4.83424 4.375 5 4.375C5.16576 4.375 5.32473 4.30915 5.44194 4.19194C5.55915 4.07473 5.625 3.91576 5.625 3.75V3.125H9.375V3.75C9.375 3.91576 9.44085 4.07473 9.55806 4.19194C9.67527 4.30915 9.83424 4.375 10 4.375C10.1658 4.375 10.3247 4.30915 10.4419 4.19194C10.5592 4.07473 10.625 3.91576 10.625 3.75V3.125H14.375V3.75C14.375 3.91576 14.4408 4.07473 14.5581 4.19194C14.6753 4.30915 14.8342 4.375 15 4.375C15.1658 4.375 15.3247 4.30915 15.4419 4.19194C15.5592 4.07473 15.625 3.91576 15.625 3.75V3.125H16.3787C16.6758 3.12599 16.9604 3.24444 17.1705 3.4545C17.3806 3.66456 17.499 3.94918 17.5 4.24625V17.0037Z"
+                                                                    fill="var(--primary)"></path>
+                                                                <path
+                                                                    d="M7.68311 7.05812L6.24999 8.49125L5.44186 7.68312C5.38421 7.62343 5.31524 7.57581 5.23899 7.54306C5.16274 7.5103 5.08073 7.49306 4.99774 7.49234C4.91475 7.49162 4.83245 7.50743 4.75564 7.53886C4.67883 7.57028 4.60905 7.61669 4.55037 7.67537C4.49168 7.73406 4.44528 7.80384 4.41385 7.88065C4.38243 7.95746 4.36661 8.03976 4.36733 8.12275C4.36805 8.20573 4.3853 8.28775 4.41805 8.364C4.45081 8.44025 4.49842 8.50922 4.55811 8.56687L5.80811 9.81687C5.92532 9.93404 6.08426 9.99986 6.24999 9.99986C6.41572 9.99986 6.57466 9.93404 6.69186 9.81687L8.56686 7.94187C8.68071 7.82399 8.74371 7.66612 8.74229 7.50224C8.74086 7.33837 8.67513 7.18161 8.55925 7.06573C8.44337 6.94985 8.28661 6.88412 8.12274 6.8827C7.95887 6.88127 7.80099 6.94427 7.68311 7.05812Z"
+                                                                    fill="var(--primary)"></path>
+                                                                <path
+                                                                    d="M15 8.125H10.625C10.4592 8.125 10.3003 8.19085 10.1831 8.30806C10.0658 8.42527 10 8.58424 10 8.75C10 8.91576 10.0658 9.07473 10.1831 9.19194C10.3003 9.30915 10.4592 9.375 10.625 9.375H15C15.1658 9.375 15.3247 9.30915 15.4419 9.19194C15.5592 9.07473 15.625 8.91576 15.625 8.75C15.625 8.58424 15.5592 8.42527 15.4419 8.30806C15.3247 8.19085 15.1658 8.125 15 8.125Z"
+                                                                    fill="var(--primary)"></path>
+                                                                <path
+                                                                    d="M7.68311 12.6831L6.24999 14.1162L5.44186 13.3081C5.38421 13.2484 5.31524 13.2008 5.23899 13.1681C5.16274 13.1353 5.08073 13.1181 4.99774 13.1173C4.91475 13.1166 4.83245 13.1324 4.75564 13.1639C4.67883 13.1953 4.60905 13.2417 4.55037 13.3004C4.49168 13.3591 4.44528 13.4288 4.41385 13.5056C4.38243 13.5825 4.36661 13.6648 4.36733 13.7477C4.36805 13.8307 4.3853 13.9127 4.41805 13.989C4.45081 14.0653 4.49842 14.1342 4.55811 14.1919L5.80811 15.4419C5.92532 15.559 6.08426 15.6249 6.24999 15.6249C6.41572 15.6249 6.57466 15.559 6.69186 15.4419L8.56686 13.5669C8.68071 13.449 8.74371 13.2911 8.74229 13.1272C8.74086 12.9634 8.67513 12.8066 8.55925 12.6907C8.44337 12.5749 8.28661 12.5091 8.12274 12.5077C7.95887 12.5063 7.80099 12.5693 7.68311 12.6831Z"
+                                                                    fill="var(--primary)"></path>
+                                                                <path
+                                                                    d="M15 13.75H10.625C10.4592 13.75 10.3003 13.8158 10.1831 13.9331C10.0658 14.0503 10 14.2092 10 14.375C10 14.5408 10.0658 14.6997 10.1831 14.8169C10.3003 14.9342 10.4592 15 10.625 15H15C15.1658 15 15.3247 14.9342 15.4419 14.8169C15.5592 14.6997 15.625 14.5408 15.625 14.375C15.625 14.2092 15.5592 14.0503 15.4419 13.9331C15.3247 13.8158 15.1658 13.75 15 13.75Z"
+                                                                    fill="var(--primary)"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="ms-2">
+                                                            <h6 class="mb-0">Total</h6>
+                                                            <span>2520</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body p-0 custome-tooltip" style="position: relative;">
+                                                    <div id="SalesChart" style="min-height: 120px;">
+                                                        <div id="apexchartsi6w7k4ye"
+                                                            class="apexcharts-canvas apexchartsi6w7k4ye apexcharts-theme-light"
+                                                            style="width: 274px; height: 120px;"><svg id="SvgjsSvg2673"
+                                                                width="274" height="120"
+                                                                xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                xmlns:svgjs="http://svgjs.com/svgjs"
+                                                                class="apexcharts-svg" xmlns:data="ApexChartsNS"
+                                                                transform="translate(0, 0)"
+                                                                style="background: transparent;">
+                                                                <g id="SvgjsG2675"
+                                                                    class="apexcharts-inner apexcharts-graphical"
+                                                                    transform="translate(0, 0)">
+                                                                    <defs id="SvgjsDefs2674">
+                                                                        <clipPath id="gridRectMaski6w7k4ye">
+                                                                            <rect id="SvgjsRect2680" width="279"
+                                                                                height="121" x="-2.5" y="-0.5" rx="0"
+                                                                                ry="0" opacity="1" stroke-width="0"
+                                                                                stroke="none" stroke-dasharray="0"
+                                                                                fill="#fff"></rect>
+                                                                        </clipPath>
+                                                                        <clipPath id="gridRectMarkerMaski6w7k4ye">
+                                                                            <rect id="SvgjsRect2681" width="278"
+                                                                                height="124" x="-2" y="-2" rx="0" ry="0"
+                                                                                opacity="1" stroke-width="0"
+                                                                                stroke="none" stroke-dasharray="0"
+                                                                                fill="#fff"></rect>
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                    <line id="SvgjsLine2679" x1="0" y1="0" x2="0"
+                                                                        y2="120" stroke="#b6b6b6" stroke-dasharray="3"
+                                                                        class="apexcharts-xcrosshairs" x="0" y="0"
+                                                                        width="1" height="120" fill="#b1b9c4"
+                                                                        filter="none" fill-opacity="0.9"
+                                                                        stroke-width="1"></line>
+                                                                    <g id="SvgjsG2687" class="apexcharts-xaxis"
+                                                                        transform="translate(0, 0)">
+                                                                        <g id="SvgjsG2688"
+                                                                            class="apexcharts-xaxis-texts-g"
+                                                                            transform="translate(0, -4)"></g>
+                                                                    </g>
+                                                                    <g id="SvgjsG2696" class="apexcharts-grid">
+                                                                        <g id="SvgjsG2697"
+                                                                            class="apexcharts-gridlines-horizontal"
+                                                                            style="display: none;">
+                                                                            <line id="SvgjsLine2699" x1="0" y1="0"
+                                                                                x2="274" y2="0" stroke="#eeeeee"
+                                                                                stroke-dasharray="0"
+                                                                                class="apexcharts-gridline"></line>
+                                                                            <line id="SvgjsLine2700" x1="0" y1="24"
+                                                                                x2="274" y2="24" stroke="#eeeeee"
+                                                                                stroke-dasharray="0"
+                                                                                class="apexcharts-gridline"></line>
+                                                                            <line id="SvgjsLine2701" x1="0" y1="48"
+                                                                                x2="274" y2="48" stroke="#eeeeee"
+                                                                                stroke-dasharray="0"
+                                                                                class="apexcharts-gridline"></line>
+                                                                            <line id="SvgjsLine2702" x1="0" y1="72"
+                                                                                x2="274" y2="72" stroke="#eeeeee"
+                                                                                stroke-dasharray="0"
+                                                                                class="apexcharts-gridline"></line>
+                                                                            <line id="SvgjsLine2703" x1="0" y1="96"
+                                                                                x2="274" y2="96" stroke="#eeeeee"
+                                                                                stroke-dasharray="0"
+                                                                                class="apexcharts-gridline"></line>
+                                                                            <line id="SvgjsLine2704" x1="0" y1="120"
+                                                                                x2="274" y2="120" stroke="#eeeeee"
+                                                                                stroke-dasharray="0"
+                                                                                class="apexcharts-gridline"></line>
+                                                                        </g>
+                                                                        <g id="SvgjsG2698"
+                                                                            class="apexcharts-gridlines-vertical"
+                                                                            style="display: none;"></g>
+                                                                        <line id="SvgjsLine2706" x1="0" y1="120"
+                                                                            x2="274" y2="120" stroke="transparent"
+                                                                            stroke-dasharray="0"></line>
+                                                                        <line id="SvgjsLine2705" x1="0" y1="1" x2="0"
+                                                                            y2="120" stroke="transparent"
+                                                                            stroke-dasharray="0"></line>
+                                                                    </g>
+                                                                    <g id="SvgjsG2682"
+                                                                        class="apexcharts-line-series apexcharts-plot-series">
+                                                                        <g id="SvgjsG2683" class="apexcharts-series"
+                                                                            seriesName="NetxProfit"
+                                                                            data:longestSeries="true" rel="1"
+                                                                            data:realIndex="0">
+                                                                            <path id="SvgjsPath2686"
+                                                                                d="M 0 114C 19.18 114 35.620000000000005 54 54.800000000000004 54C 73.98 54 90.42000000000002 114 109.60000000000001 114C 128.78 114 145.22 24 164.4 24C 183.58 24 200.02 84 219.20000000000002 84C 238.38 84 254.82 24 274 24"
+                                                                                fill="none" fill-opacity="1"
+                                                                                stroke="var(--primary)"
+                                                                                stroke-opacity="1" stroke-linecap="butt"
+                                                                                stroke-width="1" stroke-dasharray="0"
+                                                                                class="apexcharts-line" index="0"
+                                                                                clip-path="url(#gridRectMaski6w7k4ye)"
+                                                                                pathTo="M 0 114C 19.18 114 35.620000000000005 54 54.800000000000004 54C 73.98 54 90.42000000000002 114 109.60000000000001 114C 128.78 114 145.22 24 164.4 24C 183.58 24 200.02 84 219.20000000000002 84C 238.38 84 254.82 24 274 24"
+                                                                                pathFrom="M -1 144L -1 144L 54.800000000000004 144L 109.60000000000001 144L 164.4 144L 219.20000000000002 144L 274 144">
+                                                                            </path>
+                                                                            <g id="SvgjsG2684"
+                                                                                class="apexcharts-series-markers-wrap"
+                                                                                data:realIndex="0">
+                                                                                <g class="apexcharts-series-markers">
+                                                                                    <circle id="SvgjsCircle2712" r="0"
+                                                                                        cx="0" cy="0"
+                                                                                        class="apexcharts-marker wz3fjas6k no-pointer-events"
+                                                                                        stroke="#ffffff"
+                                                                                        fill="var(--primary)"
+                                                                                        fill-opacity="1"
+                                                                                        stroke-width="2"
+                                                                                        stroke-opacity="0.9"
+                                                                                        default-marker-size="0">
+                                                                                    </circle>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                        <g id="SvgjsG2685" class="apexcharts-datalabels"
+                                                                            data:realIndex="0"></g>
+                                                                    </g>
+                                                                    <line id="SvgjsLine2707" x1="0" y1="0" x2="274"
+                                                                        y2="0" stroke="#b6b6b6" stroke-dasharray="0"
+                                                                        stroke-width="1" class="apexcharts-ycrosshairs">
+                                                                    </line>
+                                                                    <line id="SvgjsLine2708" x1="0" y1="0" x2="274"
+                                                                        y2="0" stroke-dasharray="0" stroke-width="0"
+                                                                        class="apexcharts-ycrosshairs-hidden"></line>
+                                                                    <g id="SvgjsG2709"
+                                                                        class="apexcharts-yaxis-annotations"></g>
+                                                                    <g id="SvgjsG2710"
+                                                                        class="apexcharts-xaxis-annotations"></g>
+                                                                    <g id="SvgjsG2711"
+                                                                        class="apexcharts-point-annotations"></g>
+                                                                </g>
+                                                                <rect id="SvgjsRect2678" width="0" height="0" x="0"
+                                                                    y="0" rx="0" ry="0" opacity="1" stroke-width="0"
+                                                                    stroke="none" stroke-dasharray="0" fill="#fefefe">
+                                                                </rect>
+                                                                <g id="SvgjsG2695" class="apexcharts-yaxis" rel="0"
+                                                                    transform="translate(-18, 0)"></g>
+                                                                <g id="SvgjsG2676" class="apexcharts-annotations"></g>
+                                                            </svg>
+                                                            <div class="apexcharts-legend" style="max-height: 60px;">
+                                                            </div>
+                                                            <div class="apexcharts-tooltip apexcharts-theme-light">
+                                                                <div class="apexcharts-tooltip-title"
+                                                                    style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
+                                                                </div>
+                                                                <div class="apexcharts-tooltip-series-group"
+                                                                    style="order: 1;"><span
+                                                                        class="apexcharts-tooltip-marker"
+                                                                        style="background-color: var(--primary);"></span>
+                                                                    <div class="apexcharts-tooltip-text"
+                                                                        style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
+                                                                        <div class="apexcharts-tooltip-y-group"><span
+                                                                                class="apexcharts-tooltip-text-label"></span><span
+                                                                                class="apexcharts-tooltip-text-value"></span>
+                                                                        </div>
+                                                                        <div class="apexcharts-tooltip-z-group"><span
+                                                                                class="apexcharts-tooltip-text-z-label"></span><span
+                                                                                class="apexcharts-tooltip-text-z-value"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div
+                                                                class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
+                                                                <div class="apexcharts-yaxistooltip-text"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="resize-triggers">
+                                                        <div class="expand-trigger">
+                                                            <div style="width: 275px; height: 129px;"></div>
+                                                        </div>
+                                                        <div class="contract-trigger"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div class="icon-box icon-box-lg bg-success-light rounded-circle">
+                                                            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9715 29.3168C15.7197 29.3168 9.52686 30.4132 9.52686 34.8043C9.52686 39.1953 15.6804 40.331 22.9715 40.331C30.2233 40.331 36.4144 39.2328 36.4144 34.8435C36.4144 30.4543 30.2626 29.3168 22.9715 29.3168Z" stroke="#3AC977" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9714 23.0537C27.7304 23.0537 31.5875 19.1948 31.5875 14.4359C31.5875 9.67694 27.7304 5.81979 22.9714 5.81979C18.2125 5.81979 14.3536 9.67694 14.3536 14.4359C14.3375 19.1787 18.1696 23.0377 22.9107 23.0537H22.9714Z" stroke="#3AC977" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="total-projects ms-3">
+                                                            <h3 class="text-success count">5,652k</h3> 
+                                                            <span>Total Completed</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div class="icon-box icon-box-lg bg-primary-light rounded-circle">
+                                                            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M32.8961 26.5849C34.1612 26.5849 35.223 27.629 35.0296 28.8783C33.8947 36.2283 27.6026 41.6855 20.0138 41.6855C11.6178 41.6855 4.8125 34.8803 4.8125 26.4862C4.8125 19.5704 10.0664 13.1283 15.9816 11.6717C17.2526 11.3579 18.5553 12.252 18.5553 13.5605C18.5553 22.4263 18.8533 24.7197 20.5368 25.9671C22.2204 27.2145 24.2 26.5849 32.8961 26.5849Z" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M41.1733 19.2019C41.2739 13.5059 34.2772 4.32428 25.7509 4.48217C25.0877 4.49402 24.5568 5.04665 24.5272 5.70783C24.3121 10.3914 24.6022 16.4605 24.764 19.2118C24.8134 20.0684 25.4864 20.7414 26.341 20.7907C29.1693 20.9526 35.4594 21.1736 40.0759 20.4749C40.7035 20.3802 41.1634 19.8355 41.1733 19.2019Z" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                    
+                                                        </div>
+                                                        <div class="total-projects ms-3">
+                                                            <h3 class="text-primary count">585k</h3> 
+                                                            <span>Total In Progress</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div class="icon-box icon-box-lg bg-purple-light rounded-circle">
+                                                            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.9717 41.0539C22.9717 41.0539 37.3567 36.6983 37.3567 24.6908C37.3567 12.6814 37.878 11.7439 36.723 10.5889C35.5699 9.43391 24.858 5.69891 22.9717 5.69891C21.0855 5.69891 10.3736 9.43391 9.21863 10.5889C8.0655 11.7439 8.58675 12.6814 8.58675 24.6908C8.58675 36.6983 22.9717 41.0539 22.9717 41.0539Z" stroke="#BB6BD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M26.4945 26.4642L19.4482 19.4179" stroke="#BB6BD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M19.4487 26.4642L26.495 19.4179" stroke="#BB6BD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="total-projects ms-3">
+                                                            <h3 class="text-purple count">5282k</h3> 
+                                                            <span>Total Not Started</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-sm-6">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div class="icon-box icon-box-lg bg-danger-light rounded-circle">
+                                                            <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M34.0396 20.974C36.6552 20.6065 38.6689 18.364 38.6746 15.6471C38.6746 12.9696 36.7227 10.7496 34.1633 10.3296" stroke="#FF5E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M37.4912 27.262C40.0243 27.6407 41.7925 28.5276 41.7925 30.3557C41.7925 31.6139 40.96 32.4314 39.6137 32.9451" stroke="#FF5E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.7879 28.0373C16.7616 28.0373 11.6147 28.9504 11.6147 32.5973C11.6147 36.2423 16.7297 37.1817 22.7879 37.1817C28.8141 37.1817 33.9591 36.2779 33.9591 32.6292C33.9591 28.9804 28.846 28.0373 22.7879 28.0373Z" stroke="#FF5E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M22.7876 22.8325C26.742 22.8325 29.9483 19.6281 29.9483 15.6719C29.9483 11.7175 26.742 8.51123 22.7876 8.51123C18.8333 8.51123 15.627 11.7175 15.627 15.6719C15.612 19.6131 18.7939 22.8194 22.7351 22.8325H22.7876Z" stroke="#FF5E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M11.5344 20.974C8.91691 20.6065 6.90504 18.364 6.89941 15.6471C6.89941 12.9696 8.85129 10.7496 11.4107 10.3296" stroke="#FF5E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                                <path d="M8.0825 27.262C5.54937 27.6407 3.78125 28.5276 3.78125 30.3557C3.78125 31.6139 4.61375 32.4314 5.96 32.9451" stroke="#FF5E5E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="total-projects ms-3">
+                                                            <h3 class="text-danger count">5,855</h3> 
+                                                            <span>Total App Users</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('common/footer') -%>
+                <%- include('common/script'); %>
+                    <script>
+                        $(document).ready(function () {
+                            function updateClockAndDate() {
+                                const now = new Date();
+
+                                const hours = now.getHours().toString().padStart(2, '0');
+                                const minutes = now.getMinutes().toString().padStart(2, '0');
+                                const seconds = now.getSeconds().toString().padStart(2, '0');
+                                const timeString = `${hours}:${minutes}:${seconds}`;
+
+                                const day = now.getDate().toString().padStart(2, '0');
+                                const month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+                                const year = now.getFullYear();
+                                const dateString = `${day}-${month}-${year}`;
+
+                                $('#clock').text(timeString);
+                                $('#date').text(dateString);
+                            }
+
+                            setInterval(updateClockAndDate, 1000);
+                            updateClockAndDate(); // Initial call to display clock immediately
+                        });
+
+                    </script>

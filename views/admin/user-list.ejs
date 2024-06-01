@@ -1,0 +1,68 @@
+<%- include('common/head') -%>
+<%- include('common/header'); %>
+<%- include('common/sidebar'); %>
+
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-9 col-xxl-12">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="col-xl-12">
+              <div class="card dz-card" id="accordion-six">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table id="userListTable" class="display responsive nowrap w-100">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Lang</th>
+                          <th>Coins</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="userListBody">
+                        <% Object.keys(users).forEach(function(prop) { %>
+                        <tr>
+                          <td><%- users[prop]['name'] %></td>
+                          <td><%- users[prop]['email'] %></td>
+                          <td><%- users[prop]['lang'] %></td>
+                          <td><%- users[prop]['coin'] %></td>
+                          <td>
+                            <div class="d-flex">
+                              <a href="/admin/get-user/<%- users[prop]['user_uid'] %>" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>
+                              <!-- <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a> -->
+                            </div>
+                          </td>
+                        </tr>
+                        <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('common/footer') -%>
+<%- include('common/script'); %>
+
+<script>
+  $(document).ready(function() {
+    var table = $('#userListTable').DataTable({
+      responsive: true,
+      language: {
+        paginate: {
+          next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+          previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+        }
+      }
+    });
+  })
+</script>

@@ -1,276 +1,578 @@
 <%- include('common/head') -%>
-<style>
-  .bg_top {
-    background: #4f7f94;
-  }
-
-  .text_top {
-    color: #4f7f94;
-  }
-
-  .lesson_progress {
-    height: 0.2rem;
-  }
-
-  .bg_bottom_bar {
-    background: #fb834f;
-  }
-
-  .module_small {
-    font-size: 0.6rem;
-  }
-</style>
-<div class="container-fluid bg_top py-4">
-  <div class="row">
-    <div class="col-12">
-      <div class="un-title-default px-1">
-        <div class="text">
-          <p class="text-white">Hi, Shahinur <i class="ri-sun-cloudy-line"></i></p>
-          <h2 class="text-white">Your Course</h2>
-        </div>
-        <div class="un-block-right">
-          <a href="#" class="icon-back visited" aria-label="iconBtn">
-            <i class="ri-apps-line"></i>
+  <%- include('common/header') -%>
+    <%- include('common/sidebar') -%>
+      <!-- App Header -->
+      <div class="appHeader bg-primary text-light">
+        <div class="left">
+          <a href="./" class="headerButton">
+            <ion-icon name="chevron-back-outline"></ion-icon>
           </a>
         </div>
+        <div class="pageTitle">Cources</div>
+        <div class="right">
+          <!-- <a href="javascript:;" class="headerButton">
+              <ion-icon name="videocam-outline"></ion-icon>
+          </a> -->
+          <!-- <a href="javascript:;" class="headerButton">
+              <ion-icon name="call-outline"></ion-icon>
+              <span class="badge badge-danger">1</span>
+          </a> -->
+        </div>
       </div>
-      <div class="mt-3 mb-3 form-group with_icon">
-        <div class="input_group">
-          <input type="search" class="form-control rounded-pill" placeholder="What do you want to learn?">
-          <div class="icon">
-            <i class="ri-search-2-line"></i>
+      <!-- * App Header -->
+      <!-- App Capsule -->
+
+      <!-- App Capsule -->
+      <div id="appCapsule" style="position: relative;">
+        <div id="showLessonPupParent" style="display: none;">
+          <div style="position: fixed;z-index: 1000;width: 100vw;height: 100vh;top: 0;"
+            class="d-flex align-items-center justify-content-center">
+            <div style="position: relative; width: 100vw;height: 100vh;z-index: 1000;display: none;" id="showLessonPup"
+              class="bg-danger">
+              <div class="p-2" style="position: relative;">
+                <p class="d-flex w-100 justify-content-end py-2" style="position: absolute;left: -10px;top: 12px;">
+                  <ion-icon name="close-outline" class="h3" id="hideLessonPup"></ion-icon>
+                </p>
+                <h2 class="text-white">Lesson 1</h2>
+                <p class="text-white">नाम पूछो और नाम बताओ</p>
+                <ul class="listview image-listview mt-4 border-0" style="background: none;">
+
+                  <!-- <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Example
+                          <footer>8 Coins to wins</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li> -->
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/fill-in-the-blank" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Fill in the blanks
+                          <footer>8 Coins to wins</footer>
+                        </div>
+                      </div>
+                      <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+                    </a>
+                  </li>
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/Rearrangement" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Rearrangement of sentences
+                          <footer>Play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/find-correct-sentence" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          find out the correct sentence
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Listen & Type
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Conversation
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Storys
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/answer-the-questions" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Answer the questions
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/finding-the-gems" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Finding the Gems
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/listen-select-options" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Listen & select the correct sentence 
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
+                    <a href="/fill-code-videos" class="item openLessonInPopUp">
+                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                      <div class="in">
+                        <div>
+                          Fill the code from video tips
+                          <footer>play a practice game with another learner</footer>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- Simple Multi Listview -->
+        <ul class="listview link-listview mb-2">
+
+          <li class="multi-level">
+            <a href="#" class="item ">
+              Phase 1
+            </a>
+            <!-- sub menu -->
+            <ul class="listview image-listview">
+
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 1
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 2
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/map.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 3
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/earth.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 4
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/watch.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 5
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 6
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 7
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+
+            </ul>
+            <!-- * sub menu -->
+          </li>
+          <li class="multi-level">
+            <a href="#" class="item ">
+              Phase 2
+            </a>
+            <!-- sub menu -->
+            <ul class="listview image-listview">
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/map.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 1
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 2
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 3
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/earth.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 4
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/watch.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 5
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 6
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 7
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+            </ul>
+            <!-- * sub menu -->
+          </li>
+          <li class="multi-level">
+            <a href="#" class="item ">
+              Phase 3
+            </a>
+            <!-- sub menu -->
+            <ul class="listview image-listview">
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 1
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 1
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/map.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 2
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/earth.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 3
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 4
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/watch.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 5
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 6
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item ">
+                  <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 7
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+
+            </ul>
+            <!-- * sub menu -->
+          </li>
+          <li class="multi-level">
+            <a href="#" class="item ">
+              Phase 4
+            </a>
+            <!-- sub menu -->
+            <ul class="listview image-listview">
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 1
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/map.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 1
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/watch.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 2
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/earth.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 3
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 4
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="/views/assets/img/app-assets/map.png" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 5
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 6
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="item openLessonInPopUp">
+                  <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                  <div class="in">
+                    <div>
+                      Lesson 7
+                      <footer>नाम पूछो और नाम बताओ</footer>
+                    </div>
+                  </div>
+                  <ion-icon name="lock-closed-outline"></ion-icon>
+                </a>
+              </li>
+
+            </ul>
+            <!-- * sub menu -->
+          </li>
+
+        </ul>
+        <!-- * Simple Multi Listview -->
+
       </div>
-    </div>
-  </div>
-</div>
+      <!-- * App Capsule -->
 
-<div class="py-2 bg-white" style="border-top-left-radius: 20px;border-top-right-radius: 20px;margin-top: -17px;">
-  <section class="main-search-header border-top mt-4 border-white pb-1 style-border">
-    <ul class="nav nav-pills mt-2 nav-tab-search" id="pills-tab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link  pb-2 active" id="pill-friend-rank-tab" data-bs-toggle="pill" data-bs-target="#pill-friend-rank" type="button" role="tab" aria-controls="pill-friend-rank" aria-selected="true">In Progress</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link  pb-2" id="pill-city-rank-tab" data-bs-toggle="pill" data-bs-target="#pill-city-rank" type="button" role="tab" aria-controls="pill-city-rank" aria-selected="false">Completed</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link  pb-2" id="pill-global-rank-tab" data-bs-toggle="pill" data-bs-target="#pill-global-rank" type="button" role="tab" aria-controls="pill-global-rank" aria-selected="false">Downloads</button>
-      </li>
-    </ul>
-  </section>
-
-
-  <div class="un-blog-list bg-white py-3">
-    <div class="content">
-      <ul class="nav flex-column">
-        <article class="nav-item">
-          <a class="nav-link bg-light py-1 mb-1 px-2">
-            <div class="image-blog">
-              <picture>
-                <source srcset="views/images/step-3.png" type="image/webp">
-                <img src="views/images/step-3.png" class="bg-white" alt="">
-              </picture>
-              <div class="text-blog w-100">
-                <h2 class="mb-1">Edition365: A portrait of the...</h2>
-                <div class="others">
-                  <div class="time">
-                    <i class="ri-time-line text_top"></i>
-                    <span>2h 45m</span>
-                  </div>
-                  <div class="views">
-                    <i class="ri-book-3-line text_top"></i>
-                    <span>20 lessons</span>
-                  </div>
-                </div>
-                <div class="progress mt-1 lesson_progress mb-1">
-                  <div class="progress-bar bg_bottom_bar" role="progressbar" aria-valuenow="0" style="width: 36%;" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="col-12 d-flex justify-content-between">
-                  <small class="text-dark module_small">3/9 Modules</small>
-                  <small class="text-dark module_small">36%</small>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-        <article class="nav-item">
-          <a class="nav-link bg-light py-1 mb-1 px-2">
-            <div class="image-blog">
-              <picture>
-                <source srcset="views/images/step-2.png" type="image/webp">
-                <img src="views/images/step-2.png" class="bg-white" alt="">
-              </picture>
-              <div class="text-blog w-100">
-                <h2 class="mb-1">Edition365: A portrait of the...</h2>
-                <div class="others">
-                  <div class="time">
-                    <i class="ri-time-line text_top"></i>
-                    <span>2h 45m</span>
-                  </div>
-                  <div class="views">
-                    <i class="ri-book-3-line text_top"></i>
-                    <span>20 lessons</span>
-                  </div>
-                </div>
-                <div class="progress mt-1 lesson_progress mb-1">
-                  <div class="progress-bar bg_bottom_bar" role="progressbar" aria-valuenow="0" style="width: 36%;" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="col-12 d-flex justify-content-between">
-                  <small class="text-dark module_small">3/9 Modules</small>
-                  <small class="text-dark module_small">36%</small>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-        <article class="nav-item">
-          <a class="nav-link bg-light py-1 mb-1 px-2">
-            <div class="image-blog">
-              <picture>
-                <source srcset="views/images/dashboard-corner.png" type="image/webp">
-                <img src="views/images/dashboard-corner.png" class="bg-white" alt="">
-              </picture>
-              <div class="text-blog w-100">
-                <h2 class="mb-1">Edition365: A portrait of the...</h2>
-                <div class="others">
-                  <div class="time">
-                    <i class="ri-time-line text_top"></i>
-                    <span>2h 45m</span>
-                  </div>
-                  <div class="views">
-                    <i class="ri-book-3-line text_top"></i>
-                    <span>20 lessons</span>
-                  </div>
-                </div>
-                <div class="progress mt-1 lesson_progress mb-1">
-                  <div class="progress-bar bg_bottom_bar" role="progressbar" aria-valuenow="0" style="width: 36%;" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="col-12 d-flex justify-content-between">
-                  <small class="text-dark module_small">3/9 Modules</small>
-                  <small class="text-dark module_small">36%</small>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-        <article class="nav-item">
-          <a class="nav-link bg-light py-1 mb-1 px-2">
-            <div class="image-blog">
-              <picture>
-                <source srcset="views/images/step-3.png" type="image/webp">
-                <img src="views/images/step-3.png" class="bg-white" alt="">
-              </picture>
-              <div class="text-blog w-100">
-                <h2 class="mb-1">Edition365: A portrait of the...</h2>
-                <div class="others">
-                  <div class="time">
-                    <i class="ri-time-line text_top"></i>
-                    <span>2h 45m</span>
-                  </div>
-                  <div class="views">
-                    <i class="ri-book-3-line text_top"></i>
-                    <span>20 lessons</span>
-                  </div>
-                </div>
-                <div class="progress mt-1 lesson_progress mb-1">
-                  <div class="progress-bar bg_bottom_bar" role="progressbar" aria-valuenow="0" style="width: 36%;" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="col-12 d-flex justify-content-between">
-                  <small class="text-dark module_small">3/9 Modules</small>
-                  <small class="text-dark module_small">36%</small>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-        <article class="nav-item">
-          <a class="nav-link bg-light py-1 mb-1 px-2">
-            <div class="image-blog">
-              <picture>
-                <source srcset="views/images/step-2.png" type="image/webp">
-                <img src="views/images/step-2.png" class="bg-white" alt="">
-              </picture>
-              <div class="text-blog w-100">
-                <h2 class="mb-1">Edition365: A portrait of the...</h2>
-                <div class="others">
-                  <div class="time">
-                    <i class="ri-time-line text_top"></i>
-                    <span>2h 45m</span>
-                  </div>
-                  <div class="views">
-                    <i class="ri-book-3-line text_top"></i>
-                    <span>20 lessons</span>
-                  </div>
-                </div>
-                <div class="progress mt-1 lesson_progress mb-1">
-                  <div class="progress-bar bg_bottom_bar" role="progressbar" aria-valuenow="0" style="width: 36%;" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="col-12 d-flex justify-content-between">
-                  <small class="text-dark module_small">3/9 Modules</small>
-                  <small class="text-dark module_small">36%</small>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-        <article class="nav-item">
-          <a class="nav-link bg-light py-1 mb-1 px-2">
-            <div class="image-blog">
-              <picture>
-                <source srcset="views/images/step-3.png" type="image/webp">
-                <img src="views/images/step-3.png" class="bg-white" alt="">
-              </picture>
-              <div class="text-blog w-100">
-                <h2 class="mb-1">Edition365: A portrait of the...</h2>
-                <div class="others">
-                  <div class="time">
-                    <i class="ri-time-line text_top"></i>
-                    <span>2h 45m</span>
-                  </div>
-                  <div class="views">
-                    <i class="ri-book-3-line text_top"></i>
-                    <span>20 lessons</span>
-                  </div>
-                </div>
-                <div class="progress mt-1 lesson_progress mb-1">
-                  <div class="progress-bar bg_bottom_bar" role="progressbar" aria-valuenow="0" style="width: 36%;" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="col-12 d-flex justify-content-between">
-                  <small class="text-dark module_small">3/9 Modules</small>
-                  <small class="text-dark module_small">36%</small>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-      </ul>
-    </div>
-  </div>
-</div>
-<br>
-<br>
-<br>
-<div class="container pb-2 pt-4 px-4" style="position: fixed;background: linear-gradient(359deg, #ffffff, transparent);bottom: 0;">
-  <div class="row">
-    <div class="col-12 bg_bottom_bar py-2" style="border-radius: 50px;">
-      <div class="row">
-        <a href="/" class="col-3 text-center">
-          <i class="ri-home-5-line fs-1 text-white"></i>
-        </a>
-        <a class="col-3 text-center">
-          <i class="ri-book-3-fill fs-1 text-white"></i>
-        </a>
-        <a class="col-3 text-center">
-          <i class="ri-search-line fs-1 text-white"></i>
-        </a>
-        <a class="col-3 text-center">
-          <i class="ri-message-3-line fs-1 text-white"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<%- include('common/script') -%>
+      <%- include('common/bottom-btn') -%>
+        <%- include('common/script') -%>

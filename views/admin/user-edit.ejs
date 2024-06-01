@@ -1,0 +1,76 @@
+<%- include('common/head') -%>
+<%- include('common/header'); %>
+<%- include('common/sidebar'); %>
+
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-9 col-xxl-12">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="col-xl-12">
+              <div class="card dz-card" id="accordion-six">
+
+                <div class="card-header">
+                  <h4 class="card-title">User Form</h4>
+                </div>
+                <div class="card-body">
+                  <div class="basic-form">
+                    <form id="usre_save">
+
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Name</label>
+                          <input type="text" class="form-control" name="name" value="<%- users['name'] %>" placeholder="Name">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Email</label>
+                          <input type="email" class="form-control" name="email" value="<%- users['email'] %>" placeholder="Email">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Mobile</label>
+                          <input type="number" class="form-control" name="mobile" value="<%- users['mobile'] %>" placeholder="Mobile">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" name="city" value="<%- users['city'] %>" placeholder="City">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-control" name="state" value="<%- users['state'] %>" placeholder="State">
+                        </div>
+                        <div class="mb-3 col-md-6">
+                            <label class="form-label">Country</label>
+                            <input type="text" class="form-control" name="country" value="<%- users['country'] %>" placeholder="Country">
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('common/footer') -%>
+<%- include('common/script'); %>
+
+<script>
+  $(document).ready(function() {
+   $(document).on('submit', '#usre_save', function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    $.ajax({
+        url:''
+    })
+   });
+  });
+</script>

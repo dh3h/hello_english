@@ -1,0 +1,88 @@
+<%- include('common/head') -%>
+<body style="background-image:url('images/bg.png'); background-position:center;">
+    <div class="authincation fix-wrapper">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+									<div class="text-center mb-3">
+										<a href="index.html"><img src="images/logo/logo-full.png" alt=""></a>
+									</div>
+                                    <h4 class="text-center mb-4">Sign In</h4>
+                                    <form id="loginForm">
+                                        <div class="mb-3">
+                                            <label class="mb-1 form-label">Email</label>
+                                            <input type="text" class="form-control" name="email" placeholder="Email">
+                                        </div>
+                                        
+                                        <div class="mb-3 position-relative">
+                                            <label class="form-label" for="dz-password">Password</label>
+                                            <input type="password" id="dz-password" name="password" class="form-control" placeholder="Password">
+                                            <span class="show-pass eye">
+                                                <i class="fa fa-eye-slash"></i>
+                                                <i class="fa fa-eye"></i>
+                                            </span>
+                                        </div>
+                                        <div class="form-row d-flex flex-wrap justify-content-between mb-2">
+                                            <div class="form-group mb-sm-4 mb-1">
+                                                <div class="form-check custom-checkbox ms-1">
+                                                    <input type="checkbox" class="form-check-input" id="basic_checkbox_1">
+                                                    <label class="form-check-label" for="basic_checkbox_1">Remember my preference</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ms-2">
+                                                <a class="text-hover" href="page-forgot-password.html">Forgot Password?</a>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>Already have an account? <a class="text-primary" href="page-register.html">Sign Up</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--**********************************
+	Scripts
+***********************************-->
+<!-- Required vendors -->
+<%- include('common/script'); %>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('submit', '#loginForm', function (e){
+            e.preventDefault();
+            const formdata = new FormData(this);
+            console.log('hi');
+            $.ajax({
+                url: "/admin/login",
+                type: "POST",
+                data: formdata,
+                success: function (data){
+                    const json = JSON.parse(data);
+                    if(json.status == 1){
+                        msg('success', json.res);
+                        setTimeout(() => {
+                            location.assign('/admin/')
+                        }, 1200);
+                    }else{
+                        msg('error', json.res);
+                    }
+                },
+                contentType:false,
+                processData:false
+            })
+        });
+    });
+</script>

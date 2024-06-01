@@ -19,5 +19,24 @@ const isLoggedOut = (req, res, next) => {
     next();
 }
 
+const isAdminLogin = (req, res, next) => {
+    const cookie = new Cookies();
+    let userId = cookie.get(req, 'admin_data');
+    if (!userId) {
+        res.render('admin/login.ejs');
+        return;
+    }
+    next();
+}
 
-module.exports = { isLoggedIn, isLoggedOut };
+const isAdminLoggedOut = (req, res, next) => {
+    const cookie = new Cookies();
+    let userId = cookie.get(req, 'admin_data');
+    // if (userId) {
+    //     res.render('admin/index.ejs');
+    //     return;
+    // }
+    next();
+}
+
+module.exports = { isLoggedIn, isLoggedOut, isAdminLogin, isAdminLoggedOut };

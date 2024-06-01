@@ -38,7 +38,7 @@ let functions = {
 
 
 
-    select_assoc: async (tbl_name, columns, where = {1:1}) => {
+    select_assoc: async (tbl_name, columns, where = {1:1}, order_by = false) => {
         let sql = `SELECT ${columns} FROM ${tbl_name} WHERE `;
         for (const [key, val] of Object.entries(where)) {
             sql += `${key} = "${val}" AND `;
@@ -46,6 +46,9 @@ let functions = {
 
         sql = sql.slice(0, -4);
 
+        if(order_by){
+            sql+= " ORDER BY '" + order_by + "'"
+        }
 
         try {
             const res = await new Promise((resolve, reject) => {
@@ -117,6 +120,7 @@ let functions = {
         sql = sql.slice(0, -2);
         sql += ` WHERE ${where} = "${data}"`;
 
+        console.log(sql);
         try {
             const res = await new Promise((resolve, reject) => {
                 conn.query(sql, (err, result) => {
