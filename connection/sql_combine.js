@@ -37,8 +37,7 @@ let functions = {
     },
 
 
-
-    select_assoc: async (tbl_name, columns, where = {1:1}, order_by = false) => {
+    select_assoc: async (tbl_name, columns, where = { 1: 1 }, order_by = false) => {
         let sql = `SELECT ${columns} FROM ${tbl_name} WHERE `;
         for (const [key, val] of Object.entries(where)) {
             sql += `${key} = "${val}" AND `;
@@ -46,8 +45,8 @@ let functions = {
 
         sql = sql.slice(0, -4);
 
-        if(order_by){
-            sql+= " ORDER BY '" + order_by + "'"
+        if (order_by) {
+            sql += " ORDER BY '" + order_by + "'"
         }
 
         try {
@@ -62,7 +61,6 @@ let functions = {
             return 'Error While Executing Query';
         }
     },
-
 
 
     delete: (tbl_name, column, data, callback) => {
@@ -81,7 +79,6 @@ let functions = {
             }
         })
     },
-
 
 
     insert: async function (tbl_names, fields) {
@@ -120,7 +117,6 @@ let functions = {
         sql = sql.slice(0, -2);
         sql += ` WHERE ${where} = "${data}"`;
 
-        console.log(sql);
         try {
             const res = await new Promise((resolve, reject) => {
                 conn.query(sql, (err, result) => {
@@ -142,23 +138,25 @@ let functions = {
 
     /* * SQL FUNCTION INCOMPLETE * */
 
-    run: (sql, callback) => {
-        conn.query(sql, (err, res) => {
-            if (err) {
-                callback(false, err);
-            }
-            else {
+    run: async (sql) => {
+        conn.query(sql, async (err, res) => {
+            try {
+                const res = await new Promise((resolve, reject) => {
+                    conn.query(sql, (err, result) => {
+                        resolve(result);
+                    });
+                });
                 if (typeof res == 'object' && res.affectedRows != undefined) {
-                    callback(true, res.affectedRows + ' Rows Affected');
+                    return res.affectedRows + ' Rows Affected';
                 }
                 else {
-                    callback(true, res);
+                    return res;
                 }
+            } catch (error) {
+                return 'Query Failed';
             }
         })
     }
 }
-
-
 
 module.exports = functions;
