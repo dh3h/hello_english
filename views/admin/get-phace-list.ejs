@@ -64,7 +64,7 @@
                             <td><%- phase_list[prop]['date_and_time'] %></td>
                             <td>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input phase_list_status" data-id="id" data-col="<%- phase_list[prop]['id'] %>" type="checkbox" id="flexSwitchCheckChecked" >
+                                    <input class="form-check-input phase_list_status" data-id="id" data-col="<%- phase_list[prop]['id'] %>" <% if(phase_list[prop]['status'] == 1){ %>checked<% } %>  type="checkbox" id="flexSwitchCheckChecked" >
                                 </div>
                             </td>
                             <td>

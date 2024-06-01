@@ -12,7 +12,10 @@ function status_update(target, tbl){
             type:"POST",
             data: { "condition": JSON.stringify(condition), tbl, entity_status},
             success: function(data){
-                console.log(data);
+                const json = JSON.parse(data);
+                if(json.status == 1){
+                    msg('success', json.re)
+                }
             }
         });
     });
