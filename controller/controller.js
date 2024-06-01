@@ -478,8 +478,15 @@ const AdminEditBlank = (req, res) => {
 }
 
 //  ------------------------ rearrangements --------------------//
-const AdminGetrearrangements = (req, res) => {
-    res.render('./admin/get-rearrangements-list.ejs', { title: 'Fill In the Blank' });
+const AdminGetrearrangements = async (req, res) => {
+   
+    const phase_id = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    // console.log(phase_id);
+    const lesson_id = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+    // console.log(lesson_id);
+    const rearrangements_list = await sql.run("SELECT repo_rearrangements.id, repo_rearrangements.phase_id, repo_rearrangements.lesson_id,repo_rearrangements.question,repo_rearrangements.date_and_time,repo_rearrangements.status,repo_phase.phase_name,repo_lesson.lesson_name FROM ((`repo_rearrangements` INNER JOIN repo_phase ON repo_rearrangements.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_rearrangements.lesson_id = repo_lesson.id);");
+    
+    res.render('./admin/get-rearrangements-list.ejs', { title: 'List Phase', phase_id: phase_id,lesson_id: lesson_id,rearrangements_list: rearrangements_list, });            
 }
 const AdminGetrearrangementsAPI = async (req, res) => {
     let { id, phase_id,lesson_id,question, date_and_time, status, order_by } = req.body;
