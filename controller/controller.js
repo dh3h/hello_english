@@ -612,7 +612,7 @@ const AdminEditListenType = (req, res) => {
     res.render('./admin/get-add-listen-&-type.ejs', { title: 'ADD Listen & Type' });
 }
 
-// ============================= Listen & Type (sentences / words) =============================== //
+// ============================= conversation =============================== //
 const AdminConversationList = (req, res) => {
     res.render('./admin/get-conversation-list.ejs', { title: 'List Conversation' });
 }
