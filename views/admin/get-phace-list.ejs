@@ -112,7 +112,15 @@
         contentType: false,
         processData: false,
         success: (response) => {
-            console.log(response);
+          const json = JSON.parse(response);
+            if(json.status != 0 ){
+              msg('success', json.res);
+              setTimeout(() => {
+                location.reload();
+              }, 1200);
+            }else{
+              msg('error', json.res);
+            }
         }
       });
 

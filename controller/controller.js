@@ -489,7 +489,7 @@ const adminListPhase = (req, res) => {
 
     request.post(
         'http://localhost:3000/admin/get-phace-list',
-        { json: { order_by: 'date_and_time DESC' } },
+        { json: { order_by: 'id DESC' } },
         function (error, response, body) {
             if (!error && response.statusCode == 200 ) {
                 res.render('./admin/get-phace-list.ejs', { title: 'List Phase', phase_list: body['res'] });
@@ -622,15 +622,14 @@ const adminListPhaseAPI_Set = async (req, res) => {
     } else {
         columns.phase_name = phase_name;
     }
-console.log(!!columns);
     if(phase_name || status){
         try {
             if(typeof id != 'undefined'){
                 result = await sql.update('repo_phase', 'id', id, columns);
-                response = { status: 0, res: "Phase Updated" };
+                response = { status: 1, res: "Phase Updated" };
             }else{
                 result = await sql.insert('repo_phase', columns);
-                response = { status: 0, res: "Phase Inserted" };
+                response = { status: 1, res: "Phase Inserted" };
             }
         } catch (error) {
         }
