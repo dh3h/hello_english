@@ -52,7 +52,7 @@ const {
      // ADMIN APIS
      updateStatus,
 
-     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetBlankAPI,AdminEditBlankAPI_SET,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
+     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
 
 
 } = require("../controller/controller");
@@ -141,12 +141,12 @@ Router.route("/admin/get-lessons-list").get(adminListLessons).post(adminListLess
 Router.route("/admin/set-lesson-list").post(adminListLessonAPI_Set);
 
 //  ------------------------- Fill in the Blanks ---------------------- ////
-Router.route("/admin/get-blank-list").get(AdminGetBlank).post(AdminGetBlankAPI);
-Router.route("/admin/get-edit-blank").post(AdminEditBlankAPI_SET);
+Router.route("/admin/get-blank-list").get(AdminGetBlank);
+Router.route("/admin/get-edit-blank").get(AdminEditBlank);
 
 //  ------------------------- rearrangements ---------------------- ////
-Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangementsAPI);
-Router.route("/admin/get-edit-rearrangements").post(AdminEditrearrangementsAPI_SET);
+Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangements);
+Router.route("/admin/get-edit-rearrangements").get(AdminEditrearrangements);
 
 //  ------------------------- find out the correct sentence ------------------------- //
 Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);
