@@ -423,7 +423,7 @@ const AdminEditSingleUser = (req, res) => {
         'http://localhost:3000/admin/get-user',
         { json: { user_uid, column: '*' } },
         function (error, response, body) {
-            if (!error && response.statusCode == 200 && body['res'].length != 0) {
+            if (!error && response.statusCode == 200) {
                 res.render('./admin/user-edit.ejs', { title: 'Edit Users', users: body['res'][0] });
             } else {
                 res.send('User Not Found');
