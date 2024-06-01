@@ -734,6 +734,38 @@ const adminListPhaseAPI_Set = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const updateStatus = async (req, res) => {
+    let { condition, tbl, entity_status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    tbl = "repo_" + tbl;
+    let columns = {};
+    columns.status = 0;
+    if ( entity_status ) {
+        columns.status = Number(entity_status);
+    }
+
+    let id = 'id';
+    let col = 'id';
+    if (typeof condition != 'undefined' ) {
+        condition = JSON.parse(condition);
+        id = condition.id;
+        col = condition.col;
+    }
+
+    if(id && col){
+        try {
+            result = await sql.update(tbl, id, col, columns);
+            response = { status: 1, res: "Status Updated" };
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
@@ -749,5 +781,7 @@ module.exports = {
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add,
 
     // ADMIN API
-    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
+    updateStatus,
+
+    adminListPhaseAPI, adminListPhaseAPI_Set
 };

@@ -63,9 +63,9 @@
                             </td>
                             <td><%- phase_list[prop]['date_and_time'] %></td>
                             <td>
-                              <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                              </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input phase_list_status" data-id="id" data-col="<%- phase_list[prop]['id'] %>" type="checkbox" id="flexSwitchCheckChecked" >
+                                </div>
                             </td>
                             <td>
                               <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
@@ -89,17 +89,19 @@
       <%- include('common/footer') -%>
         <%- include('common/script'); %>
 
-          <script>
-            $(document).ready(function () {
-              var table = $('#userListTable').DataTable({
-                responsive: true,
-                language: {
-                  paginate: {
-                    next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
-                    previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
-                  }
-                }
-              });
+<script>
+  $(document).ready(function() {
+    var table = $('#userListTable').DataTable({
+      responsive: true,
+      language: {
+        paginate: {
+          next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+          previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+        }
+      }
+    });
+
+    status_update('.phase_list_status', 'phase');
 
               $(document).on('submit', '#pahse_form', function (e) {
                 e.preventDefault();

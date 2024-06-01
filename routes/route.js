@@ -50,7 +50,9 @@ const {
      AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,
 
      // ADMIN APIS
-     adminListPhaseAPI, adminListPhaseAPI_Set,adminListLessonsAPI,adminListLessonAPI_Set
+     updateStatus,
+
+     adminListPhaseAPI, adminListPhaseAPI_Set
 
 
 } = require("../controller/controller");
@@ -103,6 +105,8 @@ Router.route("/auth/login").get(passport.authenticate('google', { failureRedirec
 
 
 // Admin
+Router.route('/admin/change-query-status').post(updateStatus);
+
 Router.route("/admin/add-user").post(addUser);
 Router.route("/admin/login").get(isAdminLoggedOut, adminLoginPage).post(isAdminLoggedOut, AdminLogin);
 Router.route("/admin/answer-to-question").post(AdminAnsToQuestion);
