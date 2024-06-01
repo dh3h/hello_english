@@ -141,7 +141,7 @@ Router.route("/admin/get-edit-rearrangements").get(AdminEditrearrangements);
 Router.route("/admin/get-phace-list").get(adminListPhase).post(adminListPhaseAPI);
 Router.route("/admin/set-phace-list").post(adminListPhaseAPI_Set);
 //  ------------------------- Add lessons ------------------------- //
-Router.route("/admin/get-lessons-list").get(adminListLessons);
+Router.route("/admin/get-lessons-list").get(adminListLessons).post;
 //  ------------------------- find out the correct sentence ------------------------- //
 Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);
 Router.route("/admin/get-add-find-correct-sentence").get(AdminAddFindCorrectSentence);
