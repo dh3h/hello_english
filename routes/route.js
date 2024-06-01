@@ -51,6 +51,7 @@ const {
 
      // ADMIN APIS
      updateStatus, deleteEntity,
+     AdminBlankSet,
 
      adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
 
@@ -145,6 +146,8 @@ Router.route("/admin/set-lesson-list").post(adminListLessonAPI_Set);
 //  ------------------------- Fill in the Blanks ---------------------- ////
 Router.route("/admin/get-blank-list").get(AdminGetBlank);
 Router.route("/admin/get-edit-blank").get(AdminEditBlank);
+Router.route("/admin/get-edit-blank/:id").get(AdminEditBlank);
+Router.route("/admin/set-edit-blank").post(AdminBlankSet);
 
 //  ------------------------- rearrangements ---------------------- ////
 Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangements).post(AdminGetrearrangementsAPI);
