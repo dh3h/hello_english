@@ -133,6 +133,13 @@ Router.route("/admin/get-edit-audio").get(AdminEditAudio);
 Router.route("/admin/get-book-list").get(AdminGetBook);
 Router.route("/admin/get-edit-book").get(AdminEditBook);
 
+//  ------------------------- Add Phase ------------------------- //
+Router.route("/admin/get-phace-list").get(adminListPhase).post(adminListPhaseAPI);
+Router.route("/admin/set-phace-list").post(adminListPhaseAPI_Set);
+//  ------------------------- Add lessons ------------------------- //
+Router.route("/admin/get-lessons-list").get(adminListLessons).post(adminListLessonsAPI);
+Router.route("/admin/set-lesson-list").post(adminListLessonAPI_Set);
+
 //  ------------------------- Fill in the Blanks ---------------------- ////
 Router.route("/admin/get-blank-list").get(AdminGetBlank);
 Router.route("/admin/get-edit-blank").get(AdminEditBlank);
@@ -141,12 +148,6 @@ Router.route("/admin/get-edit-blank").get(AdminEditBlank);
 Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangements);
 Router.route("/admin/get-edit-rearrangements").get(AdminEditrearrangements);
 
-//  ------------------------- Add Phase ------------------------- //
-Router.route("/admin/get-phace-list").get(adminListPhase).post(adminListPhaseAPI);
-Router.route("/admin/set-phace-list").post(adminListPhaseAPI_Set);
-//  ------------------------- Add lessons ------------------------- //
-Router.route("/admin/get-lessons-list").get(adminListLessons).post(adminListLessonsAPI);
-Router.route("/admin/set-lesson-list").post(adminListLessonAPI_Set);
 //  ------------------------- find out the correct sentence ------------------------- //
 Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);
 Router.route("/admin/get-add-find-correct-sentence").get(AdminAddFindCorrectSentence);
