@@ -43,7 +43,7 @@ const {
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,
-     AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,AdminEditrearrangements,
+     AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
      AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,Adminlisten_select_list,Adminlisten_select_add,
@@ -52,7 +52,7 @@ const {
      // ADMIN APIS
      updateStatus,
 
-     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
+     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
 
 
 } = require("../controller/controller");
@@ -145,8 +145,8 @@ Router.route("/admin/get-blank-list").get(AdminGetBlank);
 Router.route("/admin/get-edit-blank").get(AdminEditBlank);
 
 //  ------------------------- rearrangements ---------------------- ////
-Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangements);
-Router.route("/admin/get-edit-rearrangements").get(AdminEditrearrangements);
+Router.route("/admin/get-rearrangements-list").get(AdminGetrearrangements).post(AdminGetrearrangementsAPI);
+Router.route("/admin/set-rearrangements-list").post(AdminEditrearrangementsAPI_SET);
 
 //  ------------------------- find out the correct sentence ------------------------- //
 Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);

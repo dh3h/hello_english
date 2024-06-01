@@ -481,8 +481,85 @@ const AdminEditBlank = (req, res) => {
 const AdminGetrearrangements = (req, res) => {
     res.render('./admin/get-rearrangements-list.ejs', { title: 'Fill In the Blank' });
 }
-const AdminEditrearrangements = (req, res) => {
-    res.render('./admin/get-edit-rearrangements.ejs', { title: 'Edit Fill In the Blank' });
+const AdminGetrearrangementsAPI = async (req, res) => {
+    let { id, phase_id,lesson_id,question, date_and_time, status, order_by } = req.body;
+    let response = { status: 0, res: "Something gone wrong !!" };
+
+    let where = {};
+    if (typeof id != 'undefined') {
+        where.id = id;
+    }
+    if (typeof phase_id != 'undefined') {
+        where.phase_id = phase_id;
+    }
+    if(typeof lesson_id != 'undefined'){
+        where.lesson_id = lesson_id;
+    }
+    if(typeof question != 'undefined'){
+        where.question = question;
+    }
+   
+    if (typeof date_and_time != 'undefined') {
+        where.date_and_time = date_and_time;
+    } if (typeof status != 'undefined') {
+        where.status = status;
+    }
+
+    let column = '*';
+    if (typeof req.body.columns != 'undefined') {
+        column = req.body.columns
+    }
+    if (typeof order_by == 'undefined') {
+        order_by = 'id';
+    }
+
+    try {
+        let rearrangements_list = await sql.select_assoc('repo_rearrangements', column, where, order_by);
+        response = { status: 1, res: rearrangements_list };
+    } catch (error) {
+        console.log(error);
+    }
+    res.send(JSON.stringify(response));
+}
+
+const AdminEditrearrangementsAPI_SET = async (req, res) => {
+    const { id, phase_id, lesson_id,question, status, type } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+    if (!question) {
+        response = { status: 2, res: "Questions is required !!" };
+    } else {
+        columns.question = question;
+    }
+    if (!lesson_id) {
+        response = { status: 2, res: "Select Lesson required !!" };
+    } else {
+        columns.lesson_id = lesson_id;
+    }
+    if (!phase_id) {
+        response = { status: 2, res: "Select Phases required !!" };
+    } else {
+        columns.phase_id = phase_id;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_lesson', 'id', id, columns);
+                response = { status: 1, res: "Lesson Updated" };
+            } else {
+                result = await sql.insert('repo_rearrangements', columns);
+                response = { status: 1, res: "Inserted Succrssfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
 }
 // ============================= Phase =============================== //
 const adminListPhase = (req, res) => {
@@ -771,7 +848,6 @@ module.exports = {
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminEditBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
-    AdminEditrearrangements,
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
@@ -780,5 +856,5 @@ module.exports = {
     // ADMIN API
     updateStatus,
 
-    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
+    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
 };

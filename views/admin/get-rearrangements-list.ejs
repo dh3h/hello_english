@@ -12,15 +12,36 @@
                         <div class="col-xl-12 col-lg-8">
                             <div class="card profile-card card-bx m-b30">
 
-                                <form class="profile-form">
+                                <form id="rearrangements_form" class="profile-form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-9 m-b30">
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Select Phace</label>
+
+                                                <select name="phase_id" class="form-control" id="">
+                                                    <option value="" selected disabled> Select Phases </option>
+                                                    <option value="2">Phace 1</option>
+                                                    <option value="2">Phace 2</option>
+                                                    <option value="2">Phace 3</option>
+                                                    <option value="2">Phace 4</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Select Lesson</label>
+                                                <select name="lesson_id" class="form-control" id="">
+                                                    <option value="" selected disabled> Select Lessons </option>
+                                                    <option value="1">Lessons 1</option>
+                                                    <option value="1">Lessons 2</option>
+                                                    <option value="1">Lessons 3</option>
+                                                    <option value="1">Lessons 4</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 m-b30">
                                                 <label class="form-label">Questions</label>
                                                 <input type="text" name="Questions" class="form-control"
                                                     placeholder="Enter Questions">
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-6">
                                                 <div class="mt-4">
                                                     <button class="btn btn-primary">Submit</button>
                                                 </div>
@@ -52,6 +73,8 @@
                                                                 <label class="form-check-label" for="checkAll"></label>
                                                             </div>
                                                         </th>
+                                                        <th>Phases</th>
+                                                        <th>Lesson</th>
                                                         <th>Questions</th>
                                                         <th>Date</th>
                                                         <th>Status</th>
@@ -76,65 +99,8 @@
                                                                 <p class="mb-0 ms-2">How are you ?</p>
                                                             </div>
                                                         </td>
-
                                                         <td>18 Mar 2024</td>
-                                                        <td>
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="flexSwitchCheckChecked" checked>
-
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <div class="btn-link" data-bs-toggle="dropdown">
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path
-                                                                            d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                                                            stroke="#737B8B" stroke-width="2"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round">
-                                                                        </path>
-                                                                        <path
-                                                                            d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
-                                                                            stroke="#737B8B" stroke-width="2"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round">
-                                                                        </path>
-                                                                        <path
-                                                                            d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
-                                                                            stroke="#737B8B" stroke-width="2"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round">
-                                                                        </path>
-                                                                    </svg>
-                                                                </div>
-                                                                <div class="dropdown-menu dropdown-menu-right" style="">
-                                                                    <a class="dropdown-item"
-                                                                        href="javascript:void(0);">Edit</a>
-                                                                    <a class="dropdown-item"
-                                                                        href="javascript:void(0);">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check custom-checkbox">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="customCheckBox5" required="">
-                                                                <label class="form-check-label"
-                                                                    for="customCheckBox5"></label>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
-                                                                <p class="mb-0 ms-2">This Is Pen ?</p>
-                                                            </div>
-                                                        </td>
-
+                                                        <td>18 Mar 2024</td>
                                                         <td>18 Mar 2024</td>
                                                         <td>
                                                             <div class="form-check form-switch">
@@ -205,6 +171,31 @@
                                         previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
                                     }
                                 }
+                            });
+
+                            $(document).on('submit', '#rearrangements_form', function (e) {
+                                e.preventDefault();
+                                const form_data = new FormData(this);
+
+                                $.ajax({
+                                    url: "/admin/set-rearrangements-list",
+                                    type: "POST",
+                                    data: form_data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: (response) => {
+                                        const json = JSON.parse(response);
+                                        if (json.status != 2) {
+                                            msg('success', json.res);
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1200);
+                                        } else {
+                                            msg('error', json.res);
+                                        }
+                                    }
+                                });
+
                             });
                         })
                     </script>
