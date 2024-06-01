@@ -139,23 +139,21 @@ let functions = {
     /* * SQL FUNCTION INCOMPLETE * */
 
     run: async (sql) => {
-        conn.query(sql, async (err, res) => {
-            try {
-                const res = await new Promise((resolve, reject) => {
-                    conn.query(sql, (err, result) => {
-                        resolve(result);
-                    });
+        try {
+            const res = await new Promise((resolve, reject) => {
+                conn.query(sql, (err, result) => {
+                    resolve(result);
                 });
-                if (typeof res == 'object' && res.affectedRows != undefined) {
-                    return res.affectedRows + ' Rows Affected';
-                }
-                else {
-                    return res;
-                }
-            } catch (error) {
-                return 'Query Failed';
+            });
+            if (typeof res == 'object' && res.affectedRows != undefined) {
+                return res.affectedRows + ' Rows Affected';
             }
-        })
+            else {
+                return res;
+            }
+        } catch (error) {
+            return 'Query Failed';
+        }
     }
 }
 

@@ -500,19 +500,16 @@ const adminListPhase = (req, res) => {
     );
 }
 // ============================= Add lessons =============================== //
-const adminListLessons = (req, res) => {
+const adminListLessons = async (req, res) => {
     request.post(
         'http://localhost:3000/admin/get-phace-list',
         { json: { order_by: 'id DESC' } },
-        function (error, response, body) {
+        async function (error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log(body['res']);
-                sql.run("SELECT repo_lesson.id, repo_lesson.lesson_name,repo_lesson.lessons_discription,repo_lesson.date_and_time,repo_lesson.status,repo_phase.phase_name FROM `repo_lesson` INNER JOIN repo_phase ON repo_lesson.phase_id = repo_phase.id;", (status, response) =>{
-                    if(status){
-                        console.log(res);
-                        res.render('./admin/get-lessons-list.ejs', { title: 'List Phase', phase_id: body['res'], lesson_list: res,  });
-                    }
-                });
+                const rep = await sql.run("SELECT repo_lesson.id, repo_lesson.lesson_name,repo_lesson.lessons_discription,repo_lesson.date_and_time,repo_lesson.status,repo_phase.phase_name FROM `repo_lesson` INNER JOIN repo_phase ON repo_lesson.phase_id = repo_phase.id;");
+                console.log(rep);
+                res.render('./admin/get-lessons-list.ejs', { title: 'List Phase', phase_id: body['res'], lesson_list: rep,  });
+            
             } else {
                 res.send('User Not Found');
             }
@@ -783,5 +780,5 @@ module.exports = {
     // ADMIN API
     updateStatus,
 
-    adminListPhaseAPI, adminListPhaseAPI_Set
+    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
 };

@@ -52,7 +52,7 @@ const {
      // ADMIN APIS
      updateStatus,
 
-     adminListPhaseAPI, adminListPhaseAPI_Set
+     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set
 
 
 } = require("../controller/controller");
