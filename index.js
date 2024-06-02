@@ -10,7 +10,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const routes = require("./routes/route");
-const path = base.join('/Applications/XAMPP/xamppfiles/htdocs/learn/');
+// const path = base.join('/Applications/XAMPP/xamppfiles/htdocs/learn/'); // Dilshad
+const path = base.join('E:/hello_english/'); // Abrar
+
 
 const app = express();
 const upload = multer();
