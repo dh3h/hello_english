@@ -45,14 +45,14 @@ const verifyOTP = (req, res) => {
 }
 
 const basicCourse = async (req, res) => {
-    const pahses = await sql.select_assoc('repo_phase', 'id, phase_name', {status:1});
-    
+    const pahses = await sql.select_assoc('repo_phase', 'id, phase_name', { status: 1 });
+
 
     const phase_ids = pahses.map(pahse => pahse.id);
     let select = "* IN ('" + phase_ids.join("','") + "')";
-    const select_lesson = {'phase_id':select, status:1 };
-    
-    const lessons = await sql.select_assoc('repo_lesson','id,phase_id,lesson_name',select_lesson,'phase_id','lesson_name');
+    const select_lesson = { 'phase_id': select, status: 1 };
+
+    const lessons = await sql.select_assoc('repo_lesson', 'id,phase_id,lesson_name', select_lesson, 'phase_id', 'lesson_name');
     // console.log(lessons);
     // const pahses = await sql.select_assoc('repo_user', 'id, phase_name', {status:1});
     // const pahses = await sql.select_assoc('repo_user', 'id, phase_name', {status:1});
@@ -473,8 +473,8 @@ const AdminEditAudio = (req, res) => {
 
 const GetTips = async (req, res) => {
     const tip_list = await sql.run("SELECT * FROM `repo_tips` ORDER BY id DESC;");
-// console.log(tip_list);
-    res.render('./admin/tips-list.ejs', { title: 'Tips List',tip_list});
+    // console.log(tip_list);
+    res.render('./admin/tips-list.ejs', { title: 'Tips List', tip_list });
 
 }
 
@@ -493,10 +493,10 @@ const AdminEditBook = (req, res) => {
 }
 
 //  ------------------------ Fill in the Blank --------------------//
-const AdminGetBlank =async (req, res) => {
+const AdminGetBlank = async (req, res) => {
 
     const f_i_b_list = await sql.run("SELECT repo_fill_blank.id, repo_fill_blank.phase_id, repo_fill_blank.lesson_id, repo_fill_blank.question,repo_fill_blank.date,repo_fill_blank.status,repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_fill_blank` INNER JOIN repo_phase ON repo_fill_blank.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_fill_blank.lesson_id = repo_lesson.id);");
-    res.render('./admin/get-blank-list.ejs', { title: 'Fill In the Blank',f_i_b_list });
+    res.render('./admin/get-blank-list.ejs', { title: 'Fill In the Blank', f_i_b_list });
 }
 const AdminEditBlank = async (req, res) => {
     const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
@@ -721,7 +721,7 @@ const adminListLessonAPI_Set = async (req, res) => {
 const AdminFindCorrectSentence = async (req, res) => {
     const correct_list_data = await sql.run("SELECT repo_correct_sentence.id, repo_correct_sentence.phase_id,repo_correct_sentence.lesson_id, repo_correct_sentence.question, repo_correct_sentence.config, repo_correct_sentence.status, repo_correct_sentence.date, repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_correct_sentence` INNER JOIN repo_phase ON repo_correct_sentence.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_correct_sentence.lesson_id = repo_lesson.id) ORDER BY id DESC;");
 
-    res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence',correct_list_data });
+    res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence', correct_list_data });
 }
 const AdminAddFindCorrectSentence = async (req, res) => {
 
@@ -734,13 +734,13 @@ const AdminAddFindCorrectSentence = async (req, res) => {
         correct_options = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
     }
 
-    res.render('./admin/get-add-find-correct-sentence.ejs', { title: 'ADD find out the correct sentence',phase,lesson, correct_options});
+    res.render('./admin/get-add-find-correct-sentence.ejs', { title: 'ADD find out the correct sentence', phase, lesson, correct_options });
 }
 // ============================= Listen & Type (sentences / words) =============================== //
 const AdminListenTypeList = async (req, res) => {
-    const Listen_type_data = await sql.run("SELECT repo_correct_sentence.id, repo_correct_sentence.phase_id,repo_correct_sentence.lesson_id, repo_correct_sentence.question, repo_correct_sentence.config, repo_correct_sentence.status, repo_correct_sentence.date, repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_correct_sentence` INNER JOIN repo_phase ON repo_correct_sentence.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_correct_sentence.lesson_id = repo_lesson.id) ORDER BY id DESC;");
-
-    res.render('./admin/get-find-listen-&-type-list.ejs', { title: 'List Listen & Type (sentences / words)', Listen_type_data });
+    // const Listen_type_data = await sql.run("SELECT rapo_listen_type.id, rapo_listen_type.phase_id,rapo_listen_type.lesson_id,rapo_listen_type.word,rapo_listen_type.date,rapo_listen_type.status,repo_phase.phase_name,repo_lesson.lesson_name FROM ((`rapo_listen_type` INNER JOIN repo_phase ON rapo_listen_type.phase_id = repo_phase.id)INNER JOIN repo_lesson ON rapo_listen_type.lesson_id = repo_lesson.id);");
+    // console.log(Listen_type_data);
+    res.render('./admin/get-find-listen-&-type-list.ejs', { title: 'List Listen & Type (sentences / words)', });
 }
 const AdminEditListenType = async (req, res) => {
     const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
@@ -772,7 +772,7 @@ const AdminAddconversation = async (req, res) => {
     }
 
 
-    res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation', phase,lesson,conversation_list});
+    res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation', phase, lesson, conversation_list });
 }
 
 // ============================= Story =============================== //
@@ -789,7 +789,7 @@ const AdminAddStory = async (req, res) => {
     if (id) {
         listen_type = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
     }
-    res.render('./admin/get-add-story.ejs', { title: 'ADD Story', phase,lesson,listen_type});
+    res.render('./admin/get-add-story.ejs', { title: 'ADD Story', phase, lesson, listen_type });
 }
 
 // ============================= anserr questions =============================== //
@@ -808,7 +808,7 @@ const AdminAnswer_the_questions_add = async (req, res) => {
     }
 
 
-    res.render('./admin/get-answer-the-questions-add.ejs', { title: 'ADD Answer the Questions', phase, lesson,ans_qus_list });
+    res.render('./admin/get-answer-the-questions-add.ejs', { title: 'ADD Answer the Questions', phase, lesson, ans_qus_list });
 }
 
 // ============================= finding-the-gems =============================== //
@@ -827,7 +827,7 @@ const Adminfinding_the_gems_add = async (req, res) => {
     }
 
 
-    res.render('./admin/get-finding-the-gems-add.ejs', { title: 'ADD Finding the Gems',phase, lesson,gems_list});
+    res.render('./admin/get-finding-the-gems-add.ejs', { title: 'ADD Finding the Gems', phase, lesson, gems_list });
 }
 
 // ============================= listen select-list =============================== //
@@ -845,7 +845,7 @@ const Adminlisten_select_add = async (req, res) => {
         listen_select_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
     }
 
-    res.render('./admin/get-listen-select-add.ejs', { title: 'ADD Listen & select the correct sentence' ,phase,lesson,listen_select_list });
+    res.render('./admin/get-listen-select-add.ejs', { title: 'ADD Listen & select the correct sentence', phase, lesson, listen_select_list });
 }
 
 // ============================= Fill the code from video tips =============================== //
@@ -863,7 +863,7 @@ const AdminVideo_code_add = async (req, res) => {
         video_code_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
     }
 
-    res.render('./admin/get-video-code-add.ejs', { title: 'ADD Fill the code from video tips',phase ,lesson,video_code_list });
+    res.render('./admin/get-video-code-add.ejs', { title: 'ADD Fill the code from video tips', phase, lesson, video_code_list });
 }
 
 // ============================= news =============================== //
@@ -1300,12 +1300,12 @@ const AdminAddconversationSET = async (req, res) => {
         response = { status: 2, res: "conversation is required" };
     } else {
         columns.conversation1 = conversation1;
-    } 
+    }
     if (!lesson_id) {
         response = { status: 2, res: "Lesson is required" };
     } else {
         columns.lesson_id = lesson_id;
-    }  if (!phase_id) {
+    } if (!phase_id) {
         response = { status: 2, res: "Phase is required" };
     } else {
         columns.phase_id = phase_id;
@@ -1389,7 +1389,7 @@ const GeteditTipsSET = async (req, res) => {
         response = { status: 2, res: "Youtube is required" };
     } else {
         columns.youtube_link = youtube_link;
-    } 
+    }
     if (response.status != 2) {
         try {
             if (typeof id != 'undefined') {
@@ -1422,9 +1422,9 @@ module.exports = {
 
     // ADMIN API
     updateStatus, deleteEntity,
-    AdminBlankSet,GeteditTipsSET,
+    AdminBlankSet, GeteditTipsSET,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
-    AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET
-    ,AdminAddFindCorrectSentenceSET
+    AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
+    , AdminAddFindCorrectSentenceSET
 };
