@@ -1,6 +1,22 @@
 const conn = require('./sql_connect');
 
+function processString(str) {
+    str = String(str);
+    if (str.charAt(0) === "*") {
+      str = str.substring(1).trim();
 
+      const firstSpaceIndex = str.indexOf(' ');  
+      if (firstSpaceIndex !== -1) {
+        const criteria = str.substring(0, firstSpaceIndex).trim();
+        const val = str.substring(firstSpaceIndex + 1).trim();
+        return { criteria, val };
+      } else {
+        return { criteria: str, val: '' };
+      }
+    } else {
+      return null;
+    }
+  }
 
 conn.connect((err, _) => {
     if (err) {
@@ -37,24 +53,38 @@ let functions = {
     },
 
 
-    select_assoc: async (tbl_name, columns, where = { 1: 1 }, order_by = false) => {
+    select_assoc: async (tbl_name, columns, where = { 1: 1 }, order_by = false, key_col = false, val_col = false) => {
         let sql = `SELECT ${columns} FROM ${tbl_name} WHERE `;
         for (const [key, val] of Object.entries(where)) {
-            sql += `${key} = "${val}" AND `;
+            console.log(val);
+            param = processString(val);
+            if(param){
+                sql += `${key} ${param.criteria} ${param.val} AND `;
+            }else{
+                sql += `${key} = "${val}" AND `;
+            }
         }
-
         sql = sql.slice(0, -4);
 
         if (order_by) {
             sql += " ORDER BY '" + order_by + "'"
         }
-
         try {
-            const res = await new Promise((resolve, reject) => {
+            let res = await new Promise((resolve, reject) => {
                 conn.query(sql, (err, result) => {
                     resolve(result);
                 });
             });
+
+            if(key_col && val_col){
+                response = [];
+                res.forEach((key,element) => {
+                    response[element[key_col]] = element[val_col]
+                    console.log(key);
+                });
+                res = response
+
+            }
 
             return res;
         } catch (error) {

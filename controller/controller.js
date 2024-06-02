@@ -44,7 +44,20 @@ const verifyOTP = (req, res) => {
     res.render('./verify-login-otp.ejs', { title: 'Sign up new account' });
 }
 
-const basicCourse = (req, res) => {
+const basicCourse = async (req, res) => {
+    const pahses = await sql.select_assoc('repo_phase', 'id, phase_name', {status:1});
+    
+
+    const phase_ids = pahses.map(pahse => pahse.id);
+    let select = "* IN ('" + phase_ids.join("','") + "')";
+    const select_lesson = {'phase_id':select, status:1 };
+    
+    const lessons = await sql.select_assoc('repo_lesson','id,phase_id,lesson_name',select_lesson,'phase_id','lesson_name');
+    // console.log(lessons);
+    // const pahses = await sql.select_assoc('repo_user', 'id, phase_name', {status:1});
+    // const pahses = await sql.select_assoc('repo_user', 'id, phase_name', {status:1});
+
+
     res.render('./basic-course.ejs');
 }
 
