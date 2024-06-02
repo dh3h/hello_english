@@ -13,19 +13,19 @@
                 <div class="card-header">
                   <h6 class="title">Edit Tips List</h6>
                 </div>
-                <form class="profile-form">
+                <form class="profile-form" id="tip_data_form">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-12 m-b30">
                         <label class="form-label">Tips title</label>
-                        <input type="text" class="form-control" placeholder="Enter Your Tips title">
+                        <input type="text" class="form-control" name="title_name" placeholder="Enter Your Tips title">
                       </div>
 
                       <div class="col-sm-12 m-b30">
                         <label class="form-label">Youtube Link </label>
-                        <input type="text" class="form-control" placeholder="Enter Youtube Link">
+                        <input type="text" class="form-control" name="youtube_link" placeholder="Enter Youtube Link">
                       </div>
-                      
+
                     </div>
                   </div>
                   <div class="card-footer">
@@ -52,5 +52,31 @@
                   }
                 }
               });
+
+              $(document).on('submit', '#tip_data_form', function (e) {
+                e.preventDefault();
+                const form_data = new FormData(this);
+
+                $.ajax({
+                  url: "/admin/set-edit-tip",
+                  type: "POST",
+                  data: form_data,
+                  contentType: false,
+                  processData: false,
+                  success: (response) => {
+                    const json = JSON.parse(response);
+                    if (json.status != 0) {
+                      msg('success', json.res);
+                      setTimeout(() => {
+                        location.reload();
+                      }, 1200);
+                    } else {
+                      msg('error', json.res);
+                    }
+                  }
+                });
+
+              });
+
             })
           </script>

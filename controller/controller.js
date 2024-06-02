@@ -446,13 +446,7 @@ const AdminEditSingleUser = (req, res) => {
 
 }
 
-const GetTips = (req, res) => {
-    res.render('./admin/tips-list.ejs', { title: 'Tips List' });
-}
 
-const GeteditTips = (req, res) => {
-    res.render('./admin/edit-tips.ejs', { title: 'Edit Tips List' });
-}
 
 const adminGetArtical = (req, res) => {
     res.render('./admin/artical-list.ejs', { title: 'Artical List' });
@@ -474,7 +468,20 @@ const AdminGetAudio = (req, res) => {
 const AdminEditAudio = (req, res) => {
     res.render('./admin/get-edit-audio.ejs', { title: 'Edit Audios' });
 }
+
+//  ------------------------ Tips --------------------//
+
+const GetTips = (req, res) => {
+    res.render('./admin/tips-list.ejs', { title: 'Tips List' });
+}
+
+const GeteditTips = (req, res) => {
+    res.render('./admin/edit-tips.ejs', { title: 'Edit Tips List' });
+}
+
+
 //  ------------------------ Books --------------------//
+
 const AdminGetBook = (req, res) => {
     res.render('./admin/get-book-list.ejs', { title: 'Books List' });
 }
@@ -1355,6 +1362,41 @@ const AdminAddFindCorrectSentenceSET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const GeteditTipsSET = async (req, res) => {
+    const { id, title_name, youtube_link, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!title_name) {
+        response = { status: 2, res: "Title is required !!" };
+    } else {
+        columns.title_name = title_name;
+    } if (!youtube_link) {
+        response = { status: 2, res: "Youtube is required" };
+    } else {
+        columns.youtube_link = youtube_link;
+    } 
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_tips', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_tips', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
@@ -1370,7 +1412,7 @@ module.exports = {
 
     // ADMIN API
     updateStatus, deleteEntity,
-    AdminBlankSet,
+    AdminBlankSet,GeteditTipsSET,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET

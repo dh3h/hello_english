@@ -11,7 +11,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const routes = require("./routes/route");
 // const path = base.join('/Applications/XAMPP/xamppfiles/htdocs/learn/'); // Dilshad
-const path = base.join('E:/hello_english/'); // Abrar
+// const path = base.join('E:/hello_english/'); // Abrar
+const path = base.join('C:/xampp/htdocs/english/hello_english/'); // Aniket
 
 
 const app = express();

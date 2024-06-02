@@ -51,7 +51,7 @@ const {
 
      // ADMIN APIS
      updateStatus, deleteEntity,
-     AdminBlankSet,
+     AdminBlankSet,GeteditTipsSET,
 
      adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET,AdminEditListenTypeSET
      ,AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET,AdminAddFindCorrectSentenceSET
@@ -120,8 +120,7 @@ Router.route("/admin/get-question").post(GetQuestions);
 
 Router.route("/admin/").get(isAdminLogin, adminHome);
 
-Router.route("/admin/get-tip").get(GetTips);
-Router.route("/admin/get-edit-tip").get(GeteditTips);
+
 Router.route("/admin/artical-list").get(adminGetArtical);
 Router.route("/admin/get-edit-artical").get(adminGetArticaledit);
 
@@ -134,6 +133,12 @@ Router.route("/admin/get-edit-audio").get(AdminEditAudio);
 //  ------------------------- Books ---------------------- ////
 Router.route("/admin/get-book-list").get(AdminGetBook);
 Router.route("/admin/get-edit-book").get(AdminEditBook);
+
+//  ------------------------- Tips ---------------------- ////
+Router.route("/admin/get-tip").get(GetTips);
+Router.route("/admin/get-edit-tip").get(GeteditTips);
+Router.route("/admin/get-edit-tip/:id").get(GeteditTips);
+Router.route("/admin/set-edit-tip").post(GeteditTipsSET);
 
 //  ------------------------- Add Phase ------------------------- //
 Router.route("/admin/get-phace-list").get(adminListPhase).post(adminListPhaseAPI);
