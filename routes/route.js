@@ -45,7 +45,6 @@ const {
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,
      AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,
 
-     testing,
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
      AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,Adminlisten_select_list,Adminlisten_select_add,
