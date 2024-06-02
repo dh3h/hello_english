@@ -1383,10 +1383,38 @@ const AdminAddFindCorrectSentenceSET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
-const testing = (req, res) =>{
-    const {pahse_id,lesson_id} = req.params;
+const GeteditTipsSET = async (req, res) => {
+    const { id, title_name, youtube_link, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
 
-    res.send(JSON.stringify({pahse_id,lesson_id}));
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!title_name) {
+        response = { status: 2, res: "Title is required !!" };
+    } else {
+        columns.title_name = title_name;
+    } if (!youtube_link) {
+        response = { status: 2, res: "Youtube is required" };
+    } else {
+        columns.youtube_link = youtube_link;
+    }
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_tips', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_tips', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
 }
 
 module.exports = {

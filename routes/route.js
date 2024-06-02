@@ -89,14 +89,13 @@ Router.route('/refer-friends').get(isLoggedIn, refer_friends);
 Router.route('/app-about').get(isLoggedIn, page_about);
 Router.route('/helpline').get(isLoggedIn, helpline);
 Router.route('/page-chat').get(isLoggedIn, page_chat);
-Router.route('/fill-in-the-blank').get(isLoggedIn, fill_in_the_blank);
 Router.route('/find-correct-sentence').get(isLoggedIn, find_correct_sentence);
 Router.route('/answer-the-questions').get(isLoggedIn, answer_the_questions);
 Router.route('/finding-the-gems').get(isLoggedIn, finding_the_gems);
 Router.route('/listen-select-options').get(isLoggedIn, listen_select_options);
 Router.route('/fill-code-videos').get(isLoggedIn, fill_code_videos);
 
-Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, testing);
+Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, fill_in_the_blank);
 
 
 
