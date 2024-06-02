@@ -139,9 +139,9 @@
                                         const json = JSON.parse(response);
                                         if (json.status != 2) {
                                             msg('success', json.res);
-                                            // setTimeout(() => {
-                                            //   location.reload();
-                                            // }, 1200);
+                                            setTimeout(() => {
+                                              location.reload();
+                                            }, 1200);
                                         } else {
                                             msg('error', json.res);
                                         }
