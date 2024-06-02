@@ -1,279 +1,200 @@
 <!-- views/basic-course.ejs -->
 <%- include('common/head') -%>
-  <%- include('common/header') -%>
-    <%- include('common/sidebar') -%>
-      <!-- App Header -->
-      <div class="appHeader bg-primary text-light">
-        <div class="left">
-          <a href="./" class="headerButton">
-            <ion-icon name="chevron-back-outline"></ion-icon>
-          </a>
-        </div>
-        <div class="pageTitle">Cources</div>
-        <div class="right">
-          <!-- <a href="javascript:;" class="headerButton">
+<%- include('common/header') -%>
+<%- include('common/sidebar') -%>
+<!-- App Header -->
+<div class="appHeader bg-primary text-light">
+  <div class="left">
+    <a href="./" class="headerButton">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </a>
+  </div>
+  <div class="pageTitle">Cources</div>
+  <div class="right">
+    <!-- <a href="javascript:;" class="headerButton">
               <ion-icon name="videocam-outline"></ion-icon>
           </a> -->
-          <!-- <a href="javascript:;" class="headerButton">
+    <!-- <a href="javascript:;" class="headerButton">
               <ion-icon name="call-outline"></ion-icon>
               <span class="badge badge-danger">1</span>
           </a> -->
+  </div>
+</div>
+<!-- * App Header -->
+<!-- App Capsule -->
+
+<!-- App Capsule -->
+<div id="appCapsule" style="position: relative;">
+  <div id="showLessonPupParent" style="display: none;">
+    <div style="position: fixed;z-index: 1000;width: 100vw;height: 100vh;top: 0;" class="d-flex align-items-center justify-content-center">
+      <div style="position: relative; width: 100vw;height: 100vh;z-index: 1000;display: none;overflow: auto;" id="showLessonPup" class="bg-danger">
+        <div class="p-2" style="position: relative;">
+          <p class="d-flex w-100 justify-content-end py-2" style="position: absolute;left: -10px;top: 12px;">
+            <ion-icon name="close-outline" class="h3" id="hideLessonPup"></ion-icon>
+          </p>
+          <h2 class="text-white" id="lesson_title"></h2>
+          <p class="text-white" id="lesson_name" ></p>
+          <ul class="listview image-listview mt-4 border-0" style="background: none;">
+
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/fill-in-the-blank" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Fill in the blanks
+                    <footer>8 Coins to wins</footer>
+                  </div>
+                </div>
+                <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
+              </a>
+            </li>
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/Rearrangement" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Rearrangement of sentences
+                    <footer>Play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/find-correct-sentence" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    find out the correct sentence
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Listen & Type
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Conversation
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+            <a class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Storys
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/answer-the-questions" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Answer the questions
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/finding-the-gems" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Finding the Gems
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/listen-select-options" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Listen & select the correct sentence
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="bg-white mb-1 showPopOptions" style="display: none;">
+              <a href="/fill-code-videos" class="item openLessonInPopUp lesson_links">
+                <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
+                <div class="in">
+                  <div>
+                    Fill the code from video tips
+                    <footer>play a practice game with another learner</footer>
+                  </div>
+                </div>
+              </a>
+            </li>
+
+          </ul>
         </div>
       </div>
-      <!-- * App Header -->
-      <!-- App Capsule -->
+    </div>
+  </div>
 
-      <!-- App Capsule -->
-      <div id="appCapsule" style="position: relative;">
-        <div id="showLessonPupParent" style="display: none;">
-          <div style="position: fixed;z-index: 1000;width: 100vw;height: 100vh;top: 0;"
-            class="d-flex align-items-center justify-content-center">
-            <div style="position: relative; width: 100vw;height: 100vh;z-index: 1000;display: none;overflow: auto;" id="showLessonPup"
-              class="bg-danger">
-              <div class="p-2" style="position: relative;">
-                <p class="d-flex w-100 justify-content-end py-2" style="position: absolute;left: -10px;top: 12px;">
-                  <ion-icon name="close-outline" class="h3" id="hideLessonPup"></ion-icon>
-                </p>
-                <h2 class="text-white">Lesson 1</h2>
-                <p class="text-white">नाम पूछो और नाम बताओ</p>
-                <ul class="listview image-listview mt-4 border-0" style="background: none;">
+  <!-- Simple Multi Listview -->
+  <ul class="listview link-listview mb-2">
 
-                  <!-- <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Example
-                          <footer>8 Coins to wins</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li> -->
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/fill-in-the-blank" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Fill in the blanks
-                          <footer>8 Coins to wins</footer>
-                        </div>
-                      </div>
-                      <!-- <ion-icon name="lock-closed-outline"></ion-icon> -->
-                    </a>
-                  </li>
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/Rearrangement" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Rearrangement of sentences
-                          <footer>Play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/find-correct-sentence" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          find out the correct sentence
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Listen & Type
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Conversation
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Storys
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
 
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/answer-the-questions" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Answer the questions
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/finding-the-gems" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Finding the Gems
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/listen-select-options" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Listen & select the correct sentence 
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="bg-white mb-1 showPopOptions" style="display: none;">
-                    <a href="/fill-code-videos" class="item openLessonInPopUp">
-                      <img src="/views/assets/img/app-assets/spell.png" alt="image" class="image">
-                      <div class="in">
-                        <div>
-                          Fill the code from video tips
-                          <footer>play a practice game with another learner</footer>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-
-                </ul>
+    <% Object.keys(pahse_var).forEach(function(prop) { %>
+    <li class="multi-level">
+      <a href="#" class="item ">
+        <%- pahse_var[prop][0] %>
+        <%
+                 pahse_var[prop].shift();
+                %>
+      </a>
+      <!-- sub menu -->
+      <ul class="listview image-listview">
+        <% Object.keys(pahse_var[prop]).forEach(function(child_prop) { %>
+        <li>
+          <a class="item openLessonInPopUp open_lesson_modal" data-title="Lesson <%-  1+ +child_prop -%>" data-lesson_name="<%- pahse_var[prop][child_prop]['lesson_name'] -%>" data-phase_id="<%- pahse_var[prop][child_prop]['phase_id'] -%>" data-lesson_id="<%- pahse_var[prop][child_prop]['id'] -%>">
+            <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
+            <div class="in">
+              <div>
+                Lesson <%-  1+ +child_prop -%>
+                <footer><%- pahse_var[prop][child_prop]['lesson_name'] -%></footer>
               </div>
             </div>
-          </div>
-        </div>
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </a>
+        </li>
+        <% }); %>
+      </ul>
+    </li>
+    <% }); %>
 
-        <!-- Simple Multi Listview -->
-        <ul class="listview link-listview mb-2">
 
-          <li class="multi-level">
-            <a href="#" class="item ">
-              Phase 1
-            </a>
-            <!-- sub menu -->
-            <ul class="listview image-listview">
+  </ul>
+  <!-- * Simple Multi Listview -->
 
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 1
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 2
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/map.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 3
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/earth.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 4
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/watch.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 5
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/sakehand.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 6
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
-              <li>
-                <a class="item openLessonInPopUp">
-                  <img src="/views/assets/img/app-assets/icard.png" alt="image" class="image">
-                  <div class="in">
-                    <div>
-                      Lesson 7
-                      <footer>नाम पूछो और नाम बताओ</footer>
-                    </div>
-                  </div>
-                  <ion-icon name="lock-closed-outline"></ion-icon>
-                </a>
-              </li>
+</div>
+<!-- * App Capsule -->
 
-            </ul>
-            <!-- * sub menu -->
-          </li>
-
-        </ul>
-        <!-- * Simple Multi Listview -->
-
-      </div>
-      <!-- * App Capsule -->
-
-      <%- include('common/bottom-btn') -%>
-        <%- include('common/script') -%>
+<%- include('common/bottom-btn') -%>
+<%- include('common/script') -%>

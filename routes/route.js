@@ -44,6 +44,8 @@ const {
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,
      AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,
+
+     testing,
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
      AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,Adminlisten_select_list,Adminlisten_select_add,
@@ -93,6 +95,11 @@ Router.route('/answer-the-questions').get(isLoggedIn, answer_the_questions);
 Router.route('/finding-the-gems').get(isLoggedIn, finding_the_gems);
 Router.route('/listen-select-options').get(isLoggedIn, listen_select_options);
 Router.route('/fill-code-videos').get(isLoggedIn, fill_code_videos);
+
+Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, testing);
+
+
+
 
 
 // User

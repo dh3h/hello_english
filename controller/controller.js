@@ -45,20 +45,31 @@ const verifyOTP = (req, res) => {
 }
 
 const basicCourse = async (req, res) => {
-    const pahses = await sql.select_assoc('repo_phase', 'id, phase_name', { status: 1 });
-
+    const pahses = await sql.select_assoc('repo_phase', 'id, phase_name', {status:1});
+    
+    let pahse_var = [];
 
     const phase_ids = pahses.map(pahse => pahse.id);
     let select = "* IN ('" + phase_ids.join("','") + "')";
-    const select_lesson = { 'phase_id': select, status: 1 };
+    const select_lesson = {'phase_id':select, status:1 };
+    
+    const lessons = await sql.select_assoc('repo_lesson','id,phase_id,lesson_name',select_lesson);
 
-    const lessons = await sql.select_assoc('repo_lesson', 'id,phase_id,lesson_name', select_lesson, 'phase_id', 'lesson_name');
-    // console.log(lessons);
-    // const pahses = await sql.select_assoc('repo_user', 'id, phase_name', {status:1});
-    // const pahses = await sql.select_assoc('repo_user', 'id, phase_name', {status:1});
+    pahses.forEach(phase_element => {
+        if( typeof pahse_var[phase_element['id']] == 'undefined' ){
+            pahse_var[phase_element['id']] = [ phase_element['phase_name'] ];
+        }
+        lessons.forEach(lesson_element => {
+            if(lesson_element['phase_id'] == phase_element['id']){
+                pahse_var[phase_element['id']].push(lesson_element);
+            }
+        });
+    });
 
+    pahse_var.shift();
+    console.log(pahse_var);
 
-    res.render('./basic-course.ejs');
+    res.render('./basic-course.ejs', { pahse_var });
 }
 
 const Rearrangement = (req, res) => {
@@ -1372,40 +1383,11 @@ const AdminAddFindCorrectSentenceSET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
-const GeteditTipsSET = async (req, res) => {
-    const { id, title_name, youtube_link, status } = req.body;
-    response = { status: 0, res: "Something went wrong !!" };
+const testing = (req, res) =>{
+    const {pahse_id,lesson_id} = req.params;
 
-    let columns = {};
-    if (status) {
-        columns.status = status;
-    }
-
-    if (!title_name) {
-        response = { status: 2, res: "Title is required !!" };
-    } else {
-        columns.title_name = title_name;
-    } if (!youtube_link) {
-        response = { status: 2, res: "Youtube is required" };
-    } else {
-        columns.youtube_link = youtube_link;
-    }
-    if (response.status != 2) {
-        try {
-            if (typeof id != 'undefined') {
-                result = await sql.update('repo_tips', 'id', id, columns);
-                response = { status: 1, res: "Updated Successfully" };
-            } else {
-                result = await sql.insert('repo_tips', columns);
-                response = { status: 1, res: "Inserted Successfully" };
-            }
-        } catch (error) {
-        }
-    }
-
-    res.send(JSON.stringify(response));
+    res.send(JSON.stringify({pahse_id,lesson_id}));
 }
-
 
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
@@ -1415,6 +1397,8 @@ module.exports = {
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminEditBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
+
+    testing,
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,

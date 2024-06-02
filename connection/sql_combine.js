@@ -56,7 +56,6 @@ let functions = {
     select_assoc: async (tbl_name, columns, where = { 1: 1 }, order_by = false, key_col = false, val_col = false) => {
         let sql = `SELECT ${columns} FROM ${tbl_name} WHERE `;
         for (const [key, val] of Object.entries(where)) {
-            console.log(val);
             param = processString(val);
             if(param){
                 sql += `${key} ${param.criteria} ${param.val} AND `;
@@ -78,12 +77,11 @@ let functions = {
 
             if(key_col && val_col){
                 response = [];
-                res.forEach((key,element) => {
+                res.forEach(element => {
                     response[element[key_col]] = element[val_col]
-                    console.log(key);
                 });
+                response.shift();
                 res = response
-
             }
 
             return res;

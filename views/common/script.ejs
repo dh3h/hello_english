@@ -95,7 +95,28 @@
     });
 
 
-    $(document).on('click', '.openLessonInPopUp', function (e) {
+    $(document).on('click', '.open_lesson_modal', function (e) {
+        const element = $(this);
+        const title = element.data('title');
+        const lesson_id = element.data('lesson_id');
+        const lesson_name = element.data('lesson_name');
+        const phase_id = element.data('phase_id');
+
+        $('#lesson_title').text(title);
+        $('#lesson_name').text(lesson_name);
+
+        $('.lesson_links').each(function () {
+            let href = $(this).attr('href');
+            if(typeof href == 'undefined'){
+                return;
+            }
+            href = href.split('/');
+            href[2] = phase_id;
+            href[3] = lesson_id;
+            href = href.join('/');
+            $(this).attr('href', href);
+        });
+
         $('#showLessonPupParent').show();
         $('#showLessonPup').show(300, () => {
             $('.showPopOptions').slideDown(300);
