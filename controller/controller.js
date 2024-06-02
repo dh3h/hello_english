@@ -471,12 +471,15 @@ const AdminEditAudio = (req, res) => {
 
 //  ------------------------ Tips --------------------//
 
-const GetTips = (req, res) => {
-    res.render('./admin/tips-list.ejs', { title: 'Tips List' });
+const GetTips = async (req, res) => {
+    const tip_list = await sql.run("SELECT * FROM `repo_tips` ORDER BY id DESC;");
+// console.log(tip_list);
+    res.render('./admin/tips-list.ejs', { title: 'Tips List',tip_list});
+
 }
 
 const GeteditTips = (req, res) => {
-    res.render('./admin/edit-tips.ejs', { title: 'Edit Tips List' });
+    res.render('./admin/edit-tips.ejs', { title: 'Edit Tips List', });
 }
 
 
@@ -493,7 +496,6 @@ const AdminEditBook = (req, res) => {
 const AdminGetBlank =async (req, res) => {
 
     const f_i_b_list = await sql.run("SELECT repo_fill_blank.id, repo_fill_blank.phase_id, repo_fill_blank.lesson_id, repo_fill_blank.question,repo_fill_blank.date,repo_fill_blank.status,repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_fill_blank` INNER JOIN repo_phase ON repo_fill_blank.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_fill_blank.lesson_id = repo_lesson.id);");
-
     res.render('./admin/get-blank-list.ejs', { title: 'Fill In the Blank',f_i_b_list });
 }
 const AdminEditBlank = async (req, res) => {
@@ -716,8 +718,10 @@ const adminListLessonAPI_Set = async (req, res) => {
 }
 
 // ============================= find out the correct sentence =============================== //
-const AdminFindCorrectSentence = (req, res) => {
-    res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence' });
+const AdminFindCorrectSentence = async (req, res) => {
+    const correct_list_data = await sql.run("SELECT repo_correct_sentence.id, repo_correct_sentence.phase_id,repo_correct_sentence.lesson_id, repo_correct_sentence.question, repo_correct_sentence.config, repo_correct_sentence.status, repo_correct_sentence.date, repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_correct_sentence` INNER JOIN repo_phase ON repo_correct_sentence.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_correct_sentence.lesson_id = repo_lesson.id) ORDER BY id DESC;");
+
+    res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence',correct_list_data });
 }
 const AdminAddFindCorrectSentence = async (req, res) => {
 
@@ -733,8 +737,10 @@ const AdminAddFindCorrectSentence = async (req, res) => {
     res.render('./admin/get-add-find-correct-sentence.ejs', { title: 'ADD find out the correct sentence',phase,lesson, correct_options});
 }
 // ============================= Listen & Type (sentences / words) =============================== //
-const AdminListenTypeList = (req, res) => {
-    res.render('./admin/get-find-listen-&-type-list.ejs', { title: 'List Listen & Type (sentences / words)' });
+const AdminListenTypeList = async (req, res) => {
+    const Listen_type_data = await sql.run("SELECT repo_correct_sentence.id, repo_correct_sentence.phase_id,repo_correct_sentence.lesson_id, repo_correct_sentence.question, repo_correct_sentence.config, repo_correct_sentence.status, repo_correct_sentence.date, repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_correct_sentence` INNER JOIN repo_phase ON repo_correct_sentence.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_correct_sentence.lesson_id = repo_lesson.id) ORDER BY id DESC;");
+
+    res.render('./admin/get-find-listen-&-type-list.ejs', { title: 'List Listen & Type (sentences / words)', Listen_type_data });
 }
 const AdminEditListenType = async (req, res) => {
     const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
