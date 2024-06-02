@@ -53,8 +53,8 @@ const {
      updateStatus, deleteEntity,
      AdminBlankSet,
 
-     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
-
+     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET,AdminEditListenTypeSET
+     ,AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET,AdminAddFindCorrectSentenceSET
 
 } = require("../controller/controller");
 
@@ -156,32 +156,50 @@ Router.route("/admin/set-rearrangements-list").post(AdminEditrearrangementsAPI_S
 //  ------------------------- find out the correct sentence ------------------------- //
 Router.route("/admin/get-find-correct-sentence").get(AdminFindCorrectSentence);
 Router.route("/admin/get-add-find-correct-sentence").get(AdminAddFindCorrectSentence);
+Router.route("/admin/get-add-find-correct-sentence/:id").get(AdminAddFindCorrectSentence);
+Router.route("/admin/set-find-correct-sentence-data").post(AdminAddFindCorrectSentenceSET);
 //  ------------------------- Listen & Type (sentences / words) ------------------------- //
 Router.route("/admin/get-Listen-&-Type-list").get(AdminListenTypeList);
 Router.route("/admin/get-Edit-Listen-&-Type").get(AdminEditListenType);
-//  ------------------------- Listen & Type (sentences / words) ------------------------- //
+Router.route("/admin/get-Edit-Listen-&-Type/:id").get(AdminEditListenType);
+Router.route("/admin/set-Edit-Listen-&-Type").post(AdminEditListenTypeSET);
+
+//  ------------------------- conversation ------------------------- //
 Router.route("/admin/get-conversation-list").get(AdminConversationList);
 Router.route("/admin/get-conversation-add").get(AdminAddconversation);
+Router.route("/admin/get-conversation-add/:id").get(AdminAddconversation);
+Router.route("/admin/set-conversation-data").post(AdminAddconversationSET);
 
 //  ------------------------- Story ------------------------- //
 Router.route("/admin/get-Story-list").get(AdminStoryList);
 Router.route("/admin/get-Story-add").get(AdminAddStory);
+Router.route("/admin/get-Story-add/:id").get(AdminAddStory);
+Router.route("/admin/set-Story-add").post(AdminAddStorySET);
+
 
 //  ------------------------- Answer-the-questions ------------------------- //
 Router.route("/admin/get-answer-the-questions-list").get(AdminAnswer_the_questions_list);
 Router.route("/admin/get-answer-the-questions-add").get(AdminAnswer_the_questions_add);
+Router.route("/admin/get-answer-the-questions-add/:id").get(AdminAnswer_the_questions_add);
+Router.route("/admin/set-answer-the-questions-data").post(AdminAnswer_the_questions_addSET);
 
 //  ------------------------- finding-the-gems ------------------------- //
 Router.route("/admin/get-finding-the-gems-list").get(Adminfinding_the_gems_list);
 Router.route("/admin/get-finding-the-gems-add").get(Adminfinding_the_gems_add);
+Router.route("/admin/get-finding-the-gems-add/:id").get(Adminfinding_the_gems_add);
+Router.route("/admin/set-finding-the-gems-add").post(Adminfinding_the_gems_addSET);
 
 //  ------------------------- Listen and select ------------------------- //
 Router.route("/admin/get-listen-select-list").get(Adminlisten_select_list);
 Router.route("/admin/get-listen-select-add").get(Adminlisten_select_add);
+Router.route("/admin/get-listen-select-add/:id").get(Adminlisten_select_add);
+Router.route("/admin/set-listen-select-add").post(Adminlisten_select_addSET);
 
 //  ------------------------- Fill the code from video tips ------------------------- //
 Router.route("/admin/get-video-code-list").get(AdminVideo_code_list);
 Router.route("/admin/get-video-code-add").get(AdminVideo_code_add);
+Router.route("/admin/get-video-code-add/:id").get(AdminVideo_code_add);
+Router.route("/admin/set-video-code-add").post(AdminVideo_code_addSET);
 
 //  ------------------------- News ------------------------- //
 Router.route("/admin/get-news-list").get(AdminNews_list);

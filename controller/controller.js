@@ -476,10 +476,10 @@ const AdminGetBlank = (req, res) => {
 const AdminEditBlank = async (req, res) => {
     const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
     const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
-    
+
     const id = req.params.id;
     let f_i_b = [];
-    if(id){
+    if (id) {
         f_i_b = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
     }
 
@@ -489,17 +489,17 @@ const AdminEditBlank = async (req, res) => {
 
 //  ------------------------ rearrangements --------------------//
 const AdminGetrearrangements = async (req, res) => {
-   
+
     const phase_id = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
     // console.log(phase_id);
     const lesson_id = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
     // console.log(lesson_id);
     const rearrangements_list = await sql.run("SELECT repo_rearrangements.id, repo_rearrangements.phase_id, repo_rearrangements.lesson_id,repo_rearrangements.question,repo_rearrangements.date_and_time,repo_rearrangements.status,repo_phase.phase_name,repo_lesson.lesson_name FROM ((`repo_rearrangements` INNER JOIN repo_phase ON repo_rearrangements.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_rearrangements.lesson_id = repo_lesson.id);");
-    
-    res.render('./admin/get-rearrangements-list.ejs', { title: 'List Rearrangements', phase_id: phase_id,lesson_id: lesson_id,rearrangements_list: rearrangements_list, });            
+
+    res.render('./admin/get-rearrangements-list.ejs', { title: 'List Rearrangements', phase_id: phase_id, lesson_id: lesson_id, rearrangements_list: rearrangements_list, });
 }
 const AdminGetrearrangementsAPI = async (req, res) => {
-    let { id, phase_id,lesson_id,question, date_and_time, status, order_by } = req.body;
+    let { id, phase_id, lesson_id, question, date_and_time, status, order_by } = req.body;
     let response = { status: 0, res: "Something gone wrong !!" };
 
     let where = {};
@@ -509,13 +509,13 @@ const AdminGetrearrangementsAPI = async (req, res) => {
     if (typeof phase_id != 'undefined') {
         where.phase_id = phase_id;
     }
-    if(typeof lesson_id != 'undefined'){
+    if (typeof lesson_id != 'undefined') {
         where.lesson_id = lesson_id;
     }
-    if(typeof question != 'undefined'){
+    if (typeof question != 'undefined') {
         where.question = question;
     }
-   
+
     if (typeof date_and_time != 'undefined') {
         where.date_and_time = date_and_time;
     } if (typeof status != 'undefined') {
@@ -540,7 +540,7 @@ const AdminGetrearrangementsAPI = async (req, res) => {
 }
 
 const AdminEditrearrangementsAPI_SET = async (req, res) => {
-    const { id, phase_id, lesson_id,question, status, type } = req.body;
+    const { id, phase_id, lesson_id, question, status, type } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -602,8 +602,8 @@ const adminListLessons = async (req, res) => {
             if (!error && response.statusCode == 200) {
                 const rep = await sql.run("SELECT repo_lesson.id, repo_lesson.lesson_name,repo_lesson.lessons_discription,repo_lesson.date_and_time,repo_lesson.status,repo_phase.phase_name FROM `repo_lesson` INNER JOIN repo_phase ON repo_lesson.phase_id = repo_phase.id;");
                 console.table(rep);
-                res.render('./admin/get-lessons-list.ejs', { title: 'List Phase', phase_id: body['res'], lesson_list: rep,  });
-            
+                res.render('./admin/get-lessons-list.ejs', { title: 'List Phase', phase_id: body['res'], lesson_list: rep, });
+
             } else {
                 res.send('User Not Found');
             }
@@ -652,7 +652,7 @@ const adminListLessonsAPI = async (req, res) => {
 }
 
 const adminListLessonAPI_Set = async (req, res) => {
-    const { id, phase_id, lesson_name,lessons_discription, status, type } = req.body;
+    const { id, phase_id, lesson_name, lessons_discription, status, type } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -695,63 +695,145 @@ const adminListLessonAPI_Set = async (req, res) => {
 const AdminFindCorrectSentence = (req, res) => {
     res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence' });
 }
-const AdminAddFindCorrectSentence = (req, res) => {
-    res.render('./admin/get-add-find-correct-sentence.ejs', { title: 'ADD find out the correct sentence' });
+const AdminAddFindCorrectSentence = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let correct_options = [];
+    if (id) {
+        correct_options = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+    res.render('./admin/get-add-find-correct-sentence.ejs', { title: 'ADD find out the correct sentence',phase,lesson, correct_options});
 }
 // ============================= Listen & Type (sentences / words) =============================== //
 const AdminListenTypeList = (req, res) => {
     res.render('./admin/get-find-listen-&-type-list.ejs', { title: 'List Listen & Type (sentences / words)' });
 }
-const AdminEditListenType = (req, res) => {
-    res.render('./admin/get-add-listen-&-type.ejs', { title: 'ADD Listen & Type' });
+const AdminEditListenType = async (req, res) => {
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let listen_type = [];
+    if (id) {
+        listen_type = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+    res.render('./admin/get-add-listen-&-type.ejs', { title: 'ADD Listen & Type', phase, lesson, listen_type });
 }
+
 
 // ============================= conversation =============================== //
 const AdminConversationList = (req, res) => {
     res.render('./admin/get-conversation-list.ejs', { title: 'List Conversation' });
 }
-const AdminAddconversation = (req, res) => {
-    res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation' });
+const AdminAddconversation = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let conversation_list = [];
+    if (id) {
+        conversation_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+
+    res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation', phase,lesson,conversation_list});
 }
 
 // ============================= Story =============================== //
 const AdminStoryList = (req, res) => {
     res.render('./admin/get-story-list.ejs', { title: 'List Story' });
 }
-const AdminAddStory = (req, res) => {
-    res.render('./admin/get-add-story.ejs', { title: 'ADD Story' });
+const AdminAddStory = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let listen_type = [];
+    if (id) {
+        listen_type = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+    res.render('./admin/get-add-story.ejs', { title: 'ADD Story', phase,lesson,listen_type});
 }
 
-// ============================= Story =============================== //
+// ============================= anserr questions =============================== //
 const AdminAnswer_the_questions_list = (req, res) => {
     res.render('./admin/get-answer-the-questions-list.ejs', { title: 'List Answer the Questions' });
 }
-const AdminAnswer_the_questions_add = (req, res) => {
-    res.render('./admin/get-answer-the-questions-add.ejs', { title: 'ADD Answer the Questions' });
+const AdminAnswer_the_questions_add = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let ans_qus_list = [];
+    if (id) {
+        ans_qus_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+
+    res.render('./admin/get-answer-the-questions-add.ejs', { title: 'ADD Answer the Questions', phase, lesson,ans_qus_list });
 }
 
 // ============================= finding-the-gems =============================== //
 const Adminfinding_the_gems_list = (req, res) => {
     res.render('./admin/get-finding-the-gems-list.ejs', { title: 'List Finding the Gems' });
 }
-const Adminfinding_the_gems_add = (req, res) => {
-    res.render('./admin/get-finding-the-gems-add.ejs', { title: 'ADD Finding the Gems' });
+const Adminfinding_the_gems_add = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let gems_list = [];
+    if (id) {
+        gems_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+
+    res.render('./admin/get-finding-the-gems-add.ejs', { title: 'ADD Finding the Gems',phase, lesson,gems_list});
 }
 
 // ============================= listen select-list =============================== //
 const Adminlisten_select_list = (req, res) => {
     res.render('./admin/get-listen-select-list.ejs', { title: 'List Listen & select the correct sentence' });
 }
-const Adminlisten_select_add = (req, res) => {
-    res.render('./admin/get-listen-select-add.ejs', { title: 'ADD Listen & select the correct sentence' });
+const Adminlisten_select_add = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let listen_select_list = [];
+    if (id) {
+        listen_select_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+    res.render('./admin/get-listen-select-add.ejs', { title: 'ADD Listen & select the correct sentence' ,phase,lesson,listen_select_list });
 }
 
 // ============================= Fill the code from video tips =============================== //
 const AdminVideo_code_list = (req, res) => {
     res.render('./admin/get-video-code-list.ejs', { title: 'Fill the code from video tipse' });
 }
-const AdminVideo_code_add = (req, res) => {
-    res.render('./admin/get-video-code-add.ejs', { title: 'ADD Fill the code from video tips' });
+const AdminVideo_code_add = async (req, res) => {
+
+    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
+    const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
+    const id = req.params.id;
+    let video_code_list = [];
+    if (id) {
+        video_code_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
+    res.render('./admin/get-video-code-add.ejs', { title: 'ADD Fill the code from video tips',phase ,lesson,video_code_list });
 }
 
 // ============================= news =============================== //
@@ -832,19 +914,19 @@ const updateStatus = async (req, res) => {
     tbl = "repo_" + tbl;
     let columns = {};
     columns.status = 0;
-    if ( entity_status ) {
+    if (entity_status) {
         columns.status = Number(entity_status);
     }
 
     let id = 'id';
     let col = 'id';
-    if (typeof condition != 'undefined' ) {
+    if (typeof condition != 'undefined') {
         condition = JSON.parse(condition);
         id = condition.id;
         col = condition.col;
     }
 
-    if(id && col){
+    if (id && col) {
         try {
             result = await sql.update(tbl, id, col, columns);
             response = { status: 1, res: "Status Updated" };
@@ -862,8 +944,8 @@ const deleteEntity = async (req, res) => {
     response = { status: 0, res: "Something went wrong !!" };
 
     tbl = "repo_" + tbl;
- 
-    if(id){
+
+    if (id) {
         try {
             result = await sql.delete(tbl, 'id', id);
             response = { status: 1, res: "Deleted Successfully" };
@@ -874,7 +956,7 @@ const deleteEntity = async (req, res) => {
 
     res.send(JSON.stringify(response));
 }
-
+// ====================================== All Set API here =========================================== //
 
 const AdminBlankSet = async (req, res) => {
     const { id, phase_id, lesson_id, questions, config, status } = req.body;
@@ -919,7 +1001,346 @@ const AdminBlankSet = async (req, res) => {
 
     res.send(JSON.stringify(response));
 }
+const AdminEditListenTypeSET = async (req, res) => {
+    const { id, phase_id, lesson_id, listen_words, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
 
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!listen_words) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.word = listen_words;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    }
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_listen_type', 'id', id, columns);
+                response = { status: 1, res: " Updated Successfully !!" };
+            } else {
+                result = await sql.insert('rapo_listen_type', columns);
+                response = { status: 1, res: "Inserted Successfully !!" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminAddStorySET = async (req, res) => {
+    const { id, phase_id, lesson_id, story_discription, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!story_discription) {
+        response = { status: 2, res: "Story is required" };
+    } else {
+        columns.story = story_discription;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    }
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_story', 'id', id, columns);
+                response = { status: 1, res: " Updated Successfully !!" };
+            } else {
+                result = await sql.insert('rapo_story', columns);
+                response = { status: 1, res: "Inserted Successfully !!" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const Adminfinding_the_gems_addSET = async (req, res) => {
+    const { id, phase_id, lesson_id, questions, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    } if (!questions) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.question = questions;
+    } if (!config) {
+        response = { status: 2, res: "Options are required" };
+    } else {
+        columns.config = config;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_finding_the_gem', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('rapo_finding_the_gem', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const Adminlisten_select_addSET = async (req, res) => {
+    const { id, phase_id, lesson_id, questions, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    } if (!questions) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.question = questions;
+    } if (!config) {
+        response = { status: 2, res: "Options are required" };
+    } else {
+        columns.config = config;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_listen_select', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('rapo_listen_select', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminVideo_code_addSET = async (req, res) => {
+    const { id, phase_id, lesson_id, questions, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    } if (!questions) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.question = questions;
+    } if (!config) {
+        response = { status: 2, res: "Options are required" };
+    } else {
+        columns.config = config;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_video_code', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('rapo_video_code', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminAnswer_the_questions_addSET = async (req, res) => {
+    const { id, phase_id, lesson_id, questions, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    } if (!questions) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.question = questions;
+    } if (!config) {
+        response = { status: 2, res: "Options are required" };
+    } else {
+        columns.config = config;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_answere_question', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('rapo_answere_question', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminAddconversationSET = async (req, res) => {
+    const { id, phase_id, lesson_id, conversation1, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!conversation1) {
+        response = { status: 2, res: "conversation is required" };
+    } else {
+        columns.conversation1 = conversation1;
+    } 
+    if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    }  if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_conversation', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_conversation', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminAddFindCorrectSentenceSET = async (req, res) => {
+    const { id, phase_id, lesson_id, questions, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!phase_id) {
+        response = { status: 2, res: "Phase is required" };
+    } else {
+        columns.phase_id = phase_id;
+    } if (!lesson_id) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.lesson_id = lesson_id;
+    } if (!questions) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.question = questions;
+    } if (!config) {
+        response = { status: 2, res: "Options are required" };
+    } else {
+        columns.config = config;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_correct_sentence', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_correct_sentence', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
 
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
@@ -938,5 +1359,7 @@ module.exports = {
     updateStatus, deleteEntity,
     AdminBlankSet,
 
-    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET
+    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
+    AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET
+    ,AdminAddFindCorrectSentenceSET
 };

@@ -13,33 +13,33 @@
                                 <div class="card-header">
                                     <h6 class="title">Add Story</h6>
                                 </div>
-                                <form class="profile-form">
+                                <form class="profile-form" id="story_form">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-6 m-b30">
                                                 <label class="form-label">Select Phace</label>
                                                 
-                                                <select name="select_Phace" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Phases </option>
-                                                    <option value="">Phace 1</option>
-                                                    <option value="">Phace 2</option>
-                                                    <option value="">Phace 3</option>
-                                                    <option value="">Phace 4</option>
+                                                <select name="phase_id" class="form-control" id="">
+                                                    <option value="" selected disabled>Select Phases</option>
+                                                    <% Object.keys(phase).forEach(function(prop) { %>
+                                                        <option value="<%- phase[prop]['id'] %>"><%-
+                                                                phase[prop]['phase_name'] %></option>
+                                                        <% }); %>
                                                 </select>
                                             </div>
                                             <div class="col-sm-6 m-b30">
                                                 <label class="form-label">Select Lesson</label>
-                                                <select name="select_lessions" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Lessons </option>
-                                                    <option value="">Lessons 1</option>
-                                                    <option value="">Lessons 2</option>
-                                                    <option value="">Lessons 3</option>
-                                                    <option value="">Lessons 4</option>
+                                                <select name="lesson_id" class="form-control" id="">
+                                                    <option value="" selected disabled>Select Lessons</option>
+                                                    <% Object.keys(lesson).forEach(function(prop) { %>
+                                                        <option value="<%- lesson[prop]['id'] %>"><%-
+                                                                lesson[prop]['lesson_name'] %></option>
+                                                        <% }); %>
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 m-b30">
-                                                <label class="form-label">Story</label>
-                                                <textarea name="story" id="about_discriptions" class="form-control"
+                                                <label class="form-label">Story Discriptions</label>
+                                                <textarea name="story_discription" id="about_discriptions" class="form-control"
                                                     rows="10" cols="10" placeholder="Enter Story here ...."></textarea>
                                             </div>
 
@@ -69,5 +69,30 @@
                                     }
                                 }
                             });
+
+                            $(document).on('submit', '#story_form', function (e) {
+                                e.preventDefault();
+                                const form_data = new FormData(this);
+                                $.ajax({
+                                    url: "/admin/set-Story-add",
+                                    type: "POST",
+                                    data: form_data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: (response) => {
+                                        const json = JSON.parse(response);
+                                        if (json.status != 2) {
+                                            msg('success', json.res);
+                                            setTimeout(() => {
+                                              location.reload();
+                                            }, 1200);
+                                        } else {
+                                            msg('error', json.res);
+                                        }
+                                    }
+                                });
+                            });
+
+
                         })
                     </script>
