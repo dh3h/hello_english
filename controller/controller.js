@@ -490,12 +490,16 @@ const AdminEditBook = (req, res) => {
 }
 
 //  ------------------------ Fill in the Blank --------------------//
-const AdminGetBlank = (req, res) => {
-    res.render('./admin/get-blank-list.ejs', { title: 'Fill In the Blank' });
+const AdminGetBlank =async (req, res) => {
+
+    const f_i_b_list = await sql.run("SELECT repo_fill_blank.id, repo_fill_blank.phase_id, repo_fill_blank.lesson_id, repo_fill_blank.question,repo_fill_blank.date,repo_fill_blank.status,repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_fill_blank` INNER JOIN repo_phase ON repo_fill_blank.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_fill_blank.lesson_id = repo_lesson.id);");
+
+    res.render('./admin/get-blank-list.ejs', { title: 'Fill In the Blank',f_i_b_list });
 }
 const AdminEditBlank = async (req, res) => {
     const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
     const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
+
 
     const id = req.params.id;
     let f_i_b = [];
@@ -504,7 +508,7 @@ const AdminEditBlank = async (req, res) => {
     }
 
 
-    res.render('./admin/get-edit-blank.ejs', { title: 'Edit Fill In the Blank', phase, lesson, f_i_b });
+    res.render('./admin/get-edit-blank.ejs', { title: 'Edit Fill In the Blank', phase, lesson, f_i_b, });
 }
 
 //  ------------------------ rearrangements --------------------//
