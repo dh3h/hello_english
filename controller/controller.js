@@ -175,8 +175,12 @@ const page_chat = (req, res) => {
     res.render('./page-chat.ejs', { title: '/page chat' });
 }
 
-const fill_in_the_blank = (req, res) => {
-    res.render('./fill-in-the-blank.ejs', { title: '/Fill In The Blank' });
+const fill_in_the_blank = async (req, res) => {
+    const {lesson_id} = req.params;
+
+    const fill_blank = await sql.select_assoc('repo_fill_blank', '*', {lesson_id});
+
+    res.render('./fill-in-the-blank.ejs', { title: '/Fill In The Blank', fill_blank });
 }
 
 const find_correct_sentence = (req, res) => {
@@ -1426,7 +1430,6 @@ module.exports = {
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminEditBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
 
-    testing,
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
