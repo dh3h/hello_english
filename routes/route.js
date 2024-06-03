@@ -42,13 +42,13 @@ const {
     artical,artical_details,game,Videos,ask_a_questions,videos_details,books,books_details,book_open,addUser, AdminLogin, AdminAnsToQuestion,fill_code_videos,
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,
-     AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,
+     AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,
 
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
      AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,Adminlisten_select_list,Adminlisten_select_add,
-     AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,
+     AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,Admin_Contest_list,
 
      // ADMIN APIS
      updateStatus, deleteEntity,
@@ -61,7 +61,7 @@ const {
 Router.route('/').get(isLoggedIn, home);
 Router.route('/my-profile').get(isLoggedIn, myProfile);
 Router.route('/basic-course').get(isLoggedIn, basicCourse);
-Router.route('/Rearrangement').get(isLoggedIn, Rearrangement);
+Router.route('/Rearrangement/:pahse_id/:lesson_id').get(isLoggedIn, Rearrangement);
 Router.route('/edit-profile').get(isLoggedIn, editProfile);
 Router.route('/public-profile').get(isLoggedIn, public_profile);
 Router.route('/practice').get(isLoggedIn, peactice);
@@ -88,12 +88,13 @@ Router.route('/refer-friends').get(isLoggedIn, refer_friends);
 Router.route('/app-about').get(isLoggedIn, page_about);
 Router.route('/helpline').get(isLoggedIn, helpline);
 Router.route('/page-chat').get(isLoggedIn, page_chat);
-Router.route('/find-correct-sentence').get(isLoggedIn, find_correct_sentence);
-Router.route('/answer-the-questions').get(isLoggedIn, answer_the_questions);
-Router.route('/finding-the-gems').get(isLoggedIn, finding_the_gems);
-Router.route('/listen-select-options').get(isLoggedIn, listen_select_options);
-Router.route('/fill-code-videos').get(isLoggedIn, fill_code_videos);
-
+Router.route('/find-correct-sentence/:pahse_id/:lesson_id').get(isLoggedIn, find_correct_sentence);
+Router.route('/answer-the-questions/:pahse_id/:lesson_id').get(isLoggedIn, answer_the_questions);
+Router.route('/finding-the-gems/:pahse_id/:lesson_id').get(isLoggedIn, finding_the_gems);
+Router.route('/listen-select-options/:pahse_id/:lesson_id').get(isLoggedIn, listen_select_options);
+Router.route('/fill-code-videos/:pahse_id/:lesson_id').get(isLoggedIn, fill_code_videos);
+Router.route('/story/:pahse_id/:lesson_id').get(isLoggedIn, story);
+Router.route('/listen-and-type/:pahse_id/:lesson_id').get(isLoggedIn, listen_and_type);
 Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, fill_in_the_blank);
 
 
@@ -214,6 +215,9 @@ Router.route("/admin/set-video-code-add").post(AdminVideo_code_addSET);
 Router.route("/admin/get-news-list").get(AdminNews_list);
 Router.route("/admin/get-news-add").get(AdminNews_add);
 
+//  ------------------------- Contest ------------------------- //
+Router.route("/admin/get-Contest-list").get(Admin_Contest_list);
+// Router.route("/admin/get-news-add").get(AdminNews_add);
 // Router.route("/sign-up").get(isLoggedOut, signUp);
 // Router.route("/verify-login-otp").get(isLoggedOut, verifyOTP);
 app.use(Router);
