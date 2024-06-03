@@ -41,7 +41,7 @@ const {
     verifyOTP, basicCourse,Rearrangement,public_profile, editProfile,private_profile,challange,maintenance,apptips,news,Conversation,listen_select_options,
     artical,artical_details,game,Videos,ask_a_questions,videos_details,books,books_details,book_open,addUser, AdminLogin, AdminAnsToQuestion,fill_code_videos,
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
-    adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,
+    adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,
      AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,
 
@@ -83,6 +83,7 @@ Router.route('/my-friends').get(isLoggedIn, my_friends);
 Router.route('/ask-a-questions').get(isLoggedIn, ask_a_questions);
 Router.route('/type-questions').get(isLoggedIn, type_questions);
 Router.route('/all-anwers').get(isLoggedIn, all_anwers);
+Router.route('/contest').get(isLoggedIn, contest);
 Router.route('/type-answers').get(isLoggedIn, type_answers);
 Router.route('/refer-friends').get(isLoggedIn, refer_friends);
 Router.route('/app-about').get(isLoggedIn, page_about);
