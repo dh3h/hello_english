@@ -13,7 +13,7 @@
                                 <div class="card-header">
                                     <h6 class="title">Add News</h6>
                                 </div>
-                                <form class="profile-form">
+                                <form class="profile-form" id="news_form">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-6 m-b30">
@@ -23,8 +23,8 @@
                                             </div>
                                             <div class="col-sm-12 m-b30">
                                                 <label class="form-label">News Details</label>
-                                                <textarea name="new_details" id="about_discriptions" class="form-control"
-                                                    rows="10" cols="10"></textarea>
+                                                <textarea name="news_details" id="about_discriptions"
+                                                    class="form-control" rows="10" cols="10"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -52,5 +52,32 @@
                                     }
                                 }
                             });
+
+                            $(document).on('submit', '#news_form', function (e) {
+                                e.preventDefault();
+                                const form_data = new FormData(this);
+
+                                $.ajax({
+                                    url: "/admin/set-news",
+                                    type: "POST",
+                                    data: form_data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: (response) => {
+                                        const json = JSON.parse(response);
+                                        if (json.status != 2) {
+                                            msg('success', json.res);
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1200);
+                                        } else {
+                                            msg('error', json.res);
+                                        }
+                                    }
+                                });
+
+                            });
+
+
                         })
                     </script>

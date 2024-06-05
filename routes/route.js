@@ -52,7 +52,7 @@ const {
 
      // ADMIN APIS
      updateStatus, deleteEntity,
-     AdminBlankSet,GeteditTipsSET,
+     AdminBlankSet,GeteditTipsSET,AdminNews_SET,adminGetArtical_SET,
 
      adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET,AdminEditListenTypeSET
      ,AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET,AdminAddFindCorrectSentenceSET
@@ -130,6 +130,8 @@ Router.route("/admin/").get(isAdminLogin, adminHome);
 
 Router.route("/admin/artical-list").get(adminGetArtical);
 Router.route("/admin/get-edit-artical").get(adminGetArticaledit);
+Router.route("/admin/get-edit-artical/:id").get(adminGetArticaledit);
+Router.route("/admin/set-edit-artical").post(adminGetArtical_SET);
 
 Router.route("/admin/video-list").get(adminGetVideos);
 Router.route("/admin/get-edit-video").get(AdminEditVideos);
@@ -215,6 +217,8 @@ Router.route("/admin/set-video-code-add").post(AdminVideo_code_addSET);
 //  ------------------------- News ------------------------- //
 Router.route("/admin/get-news-list").get(AdminNews_list);
 Router.route("/admin/get-news-add").get(AdminNews_add);
+Router.route("/admin/get-news-add/:id").get(AdminNews_add);
+Router.route("/admin/set-news").post(AdminNews_SET);
 
 //  ------------------------- Contest ------------------------- //
 Router.route("/admin/get-Contest-list").get(Admin_Contest_list);

@@ -108,19 +108,21 @@ const apptips = (req, res) => {
     res.render('./app-tips.ejs', { title: 'tips' });
 }
 
-const news = (req, res) => {
-    res.render('./news.ejs', { title: 'news' });
+const news = async (req, res) => {
+    const News_list_app = await sql.run("SELECT * FROM `rapo_news`");
+    res.render('./news.ejs', { title: 'News', News_list_app });
 }
 
 const Conversation = (req, res) => {
     res.render('./Conversation.ejs', { title: 'Conversation' });
 }
 
-const artical = (req, res) => {
-    res.render('./artical.ejs', { title: 'artical' });
+const artical = async (req, res) => {
+    const artical_list = await sql.run("SELECT * FROM `repo_articals`");
+    res.render('./artical.ejs', { title: 'artical', artical_list });
 }
 
-const artical_details = (req, res) => {
+const artical_details = async (req, res) => {
     res.render('./artical-details.ejs', { title: 'Artical details' });
 }
 const game = (req, res) => {
@@ -512,8 +514,9 @@ const AdminEditSingleUser = (req, res) => {
 
 
 
-const adminGetArtical = (req, res) => {
-    res.render('./admin/artical-list.ejs', { title: 'Artical List' });
+const adminGetArtical = async (req, res) => {
+    const artical_list = await sql.run("SELECT * FROM `repo_articals` ORDER BY id DESC;");
+    res.render('./admin/artical-list.ejs', { title: 'Artical List', artical_list });
 }
 const adminGetArticaledit = (req, res) => {
     res.render('./admin/get-edit-artical.ejs', { title: 'Edit Artical List' });
@@ -942,10 +945,19 @@ const AdminVideo_code_add = async (req, res) => {
 }
 
 // ============================= news =============================== //
-const AdminNews_list = (req, res) => {
-    res.render('./admin/get-news-list.ejs', { title: 'List News' });
+const AdminNews_list = async (req, res) => {
+    const News_list = await sql.run("SELECT * FROM `rapo_news`");
+
+    res.render('./admin/get-news-list.ejs', { title: 'List News', News_list });
 }
-const AdminNews_add = (req, res) => {
+const AdminNews_add = async (req, res) => {
+
+    const id = req.params.id;
+    let News_list = [];
+    if (id) {
+        News_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+    }
+
     res.render('./admin/get-news-add.ejs', { title: 'ADD News' });
 }
 
@@ -1489,23 +1501,93 @@ const GeteditTipsSET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const AdminNews_SET = async (req, res) => {
+    const { id, news_title, news_details, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!news_details) {
+        response = { status: 2, res: "News Details is required !!" };
+    } else {
+        columns.news_details = news_details;
+    } if (!news_title) {
+        response = { status: 2, res: "News Title is required !!" };
+    } else {
+        columns.news_title = news_title;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('rapo_news', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('rapo_news', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const adminGetArtical_SET = async (req, res) => {
+    const { id, title_name, artical_disc, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!artical_disc) {
+        response = { status: 2, res: "Artical Details is required !!" };
+    } else {
+        columns.artical_disc = artical_disc;
+    } if (!title_name) {
+        response = { status: 2, res: "Artical Title is required !!" };
+    } else {
+        columns.title_name = title_name;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_articals', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_articals', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
-    adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options,contest,
+    adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminEditBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
 
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
-    Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add,Admin_Contest_list,
+    Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
 
     // ADMIN API
     updateStatus, deleteEntity,
-    AdminBlankSet, GeteditTipsSET,
+    AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET

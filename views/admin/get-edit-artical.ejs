@@ -11,21 +11,22 @@
             <div class="col-xl-12 col-lg-8">
               <div class="card profile-card card-bx m-b30">
                 <div class="card-header">
-                  <h6 class="title">Edit Tips List</h6>
+                  <h6 class="title">Edit Tips Articals</h6>
                 </div>
-                <form class="profile-form">
+                <form class="profile-form" id="artical_form">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-sm-12 m-b30">
-                        <label class="form-label">Tips title</label>
-                        <input type="text" class="form-control" placeholder="Enter Your Tips title">
+                        <label class="form-label">Articals title</label>
+                        <input type="text" class="form-control" name="title_name" placeholder="Enter Your Tips title">
                       </div>
 
                       <div class="col-sm-12 m-b30">
-                        <label class="form-label">Youtube Link </label>
-                        <input type="text" class="form-control" placeholder="Enter Youtube Link">
+                        <label class="form-label">Artical Discriptions </label>
+                        <textarea name="artical_disc" id="about_discriptions" class="form-control" rows="10"
+                          cols="10"></textarea>
                       </div>
-                      
+
                     </div>
                   </div>
                   <div class="card-footer">
@@ -52,5 +53,32 @@
                   }
                 }
               });
+
+              $(document).on('submit', '#artical_form', function (e) {
+                e.preventDefault();
+                const form_data = new FormData(this);
+
+                $.ajax({
+                  url: "/admin/set-edit-artical",
+                  type: "POST",
+                  data: form_data,
+                  contentType: false,
+                  processData: false,
+                  success: (response) => {
+                    const json = JSON.parse(response);
+                    if (json.status != 2) {
+                      msg('success', json.res);
+                      setTimeout(() => {
+                        location.reload();
+                      }, 1200);
+                    } else {
+                      msg('error', json.res);
+                    }
+                  }
+                });
+
+              });
+
+
             })
           </script>

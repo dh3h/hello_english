@@ -12,9 +12,10 @@
     </div>
     <!-- * App Header -->
 
-        <!-- App Capsule -->
-        <div id="appCapsule">
-            <ul class="listview image-listview media mb-2">
+    <!-- App Capsule -->
+    <div id="appCapsule">
+        <ul class="listview image-listview media mb-2">
+            <% Object.keys(News_list_app).forEach(function(prop) { %>
                 <li>
                     <a href="#" class="item">
                         <div class="imageWrapper">
@@ -22,93 +23,19 @@
                         </div>
                         <div class="in">
                             <div>
-                                Ms Dhoni fan who breached security to meet CSK legend...
+                                <%- News_list_app[prop]['news_title'] %>
                                 <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary">4 hours age. 30coins</span>
+                                <span class="badge badge-primary"><%- News_list_app[prop]['date'] %>. 30coins</span>
                             </div>
-                            
+
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="item">
-                        <div class="imageWrapper">
-                            <img src="/views/assets/img/app-assets/new-1.png" alt="image" class="imaged w64">
-                        </div>
-                        <div class="in">
-                            <div>
-                                Ms Dhoni fan who breached security to meet CSK legend...
-                                <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary">4 hours age. 30coins</span>
-                            </div>
-                            
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="item">
-                        <div class="imageWrapper">
-                            <img src="/views/assets/img/app-assets/new-1.png" alt="image" class="imaged w64" style="opacity: 0.4;">
-                        </div>
-                        <div class="in">
-                            <div>
-                                Ms Dhoni fan who breached security to meet CSK legend...
-                                <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary">4 hours age. 30coins</span>
-                            </div>
-                            
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="item">
-                        <div class="imageWrapper">
-                            <img src="/views/assets/img/app-assets/new-1.png" alt="image" class="imaged w64" style="opacity: 0.4;">
-                        </div>
-                        <div class="in">
-                            <div>
-                                Ms Dhoni fan who breached security to meet CSK legend...
-                                <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary">4 hours age. 30coins</span>
-                            </div>
-                            
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="item">
-                        <div class="imageWrapper">
-                            <img src="/views/assets/img/app-assets/new-1.png" alt="image" class="imaged w64" style="opacity: 0.4;">
-                        </div>
-                        <div class="in">
-                            <div>
-                                Ms Dhoni fan who breached security to meet CSK legend...
-                                <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary">4 hours age. 30coins</span>
-                            </div>
-                            
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="item">
-                        <div class="imageWrapper">
-                            <img src="/views/assets/img/app-assets/new-1.png" alt="image" class="imaged w64" style="opacity: 0.4;">
-                        </div>
-                        <div class="in">
-                            <div>
-                                Ms Dhoni fan who breached security to meet CSK legend...
-                                <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary">4 hours age. 30coins</span>
-                            </div>
-                            
-                        </div>
-                    </a>
-                </li>
-    
-            </ul>
-    
-    
-        </div>
-        <!-- * App Capsule -->
-<%- include('common/script') -%>
+                <% }); %>
+
+        </ul>
+
+
+    </div>
+    <!-- * App Capsule -->
+    <%- include('common/script') -%>
