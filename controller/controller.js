@@ -524,8 +524,8 @@ const adminGetArticaledit = (req, res) => {
 
 const adminGetVideos = async (req, res) => {
     const videos_list = await sql.run(" SELECT * FROM `repo_video_practice` ORDER BY id DESC;");
-   
-    res.render('./admin/get-video-list.ejs', { title: 'Videos List',videos_list });
+
+    res.render('./admin/get-video-list.ejs', { title: 'Videos List', videos_list });
 }
 const AdminEditVideos = (req, res) => {
     res.render('./admin/get-edit-video.ejs', { title: 'Edit Videos' });
@@ -554,11 +554,27 @@ const GeteditTips = (req, res) => {
 
 //  ------------------------ Books --------------------//
 
-const AdminGetBook = (req, res) => {
-    res.render('./admin/get-book-list.ejs', { title: 'Books List' });
+const AdminGetBook = async (req, res) => {
+
+    const book_list = await sql.run("SELECT * FROM `repo_books` ORDER BY id DESC;");
+
+    res.render('./admin/admin-book-list.ejs', { title: 'Books List', book_list });
 }
-const AdminEditBook = (req, res) => {
-    res.render('./admin/get-edit-book.ejs', { title: 'Edit Books' });
+
+
+// ================================== chapters ============================= //
+// AdminGetchapter,AdminGetaddchapter,AdminGetaddchapter_set,
+
+const AdminGetchapter = async (req, res) => {
+
+    const chapters_list = await sql.run("SELECT repo_book_lessions.id, repo_book_lessions.book_id,repo_book_lessions.lession_title,repo_book_lessions.lession_details ,repo_book_lessions.date ,repo_book_lessions.status, repo_books.book_name FROM repo_book_lessions INNER JOIN repo_books ON repo_book_lessions.book_id = repo_books.id;");
+    // console.log(chapters_list);
+    res.render('./admin/admin-chapter-list.ejs', { title: 'Chapter List',chapters_list });
+}
+
+const AdminGetaddchapter = async (req, res) => {
+    const book_list = await sql.run("SELECT * FROM `repo_books` ORDER BY id DESC;");
+    res.render('./admin/admin-edit-chapter.ejs', { title: 'Edit chapter', book_list });
 }
 
 //  ------------------------ Fill in the Blank --------------------//
@@ -1574,7 +1590,7 @@ const adminGetArtical_SET = async (req, res) => {
 }
 
 const AdminEditVideos_SET = async (req, res) => {
-    const { id, video_title,video_link,question, config, status } = req.body;
+    const { id, video_title, video_link, question, config, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1586,7 +1602,7 @@ const AdminEditVideos_SET = async (req, res) => {
         response = { status: 2, res: "Options is required !!" };
     } else {
         columns.config = config;
-    }if (!question) {
+    } if (!question) {
         response = { status: 2, res: "Questions is required !!" };
     } else {
         columns.question = question;
@@ -1618,7 +1634,7 @@ const AdminEditVideos_SET = async (req, res) => {
 }
 
 const AdminEditAudio_SET = async (req, res) => {
-    const { id, audio_title,audio_file,question, config, status } = req.body;
+    const { id, audio_title, audio_file, question, config, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1630,7 +1646,7 @@ const AdminEditAudio_SET = async (req, res) => {
         response = { status: 2, res: "Options is required !!" };
     } else {
         columns.config = config;
-    }if (!question) {
+    } if (!question) {
         response = { status: 2, res: "Questions is required !!" };
     } else {
         columns.question = question;
@@ -1661,6 +1677,81 @@ const AdminEditAudio_SET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const AdminGetBook_set = async (req, res) => {
+    const { id, book_name, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!book_name) {
+        response = { status: 2, res: "Options is required !!" };
+    } else {
+        columns.book_name = book_name;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_books', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_books', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminGetaddchapter_set = async (req, res) => {
+    const { id, book_id, lession_title, lession_details, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!lession_details) {
+        response = { status: 2, res: "Lessons Details required !!" };
+    } else {
+        columns.lession_details = lession_details;
+    }
+    if (!lession_title) {
+        response = { status: 2, res: "Lessons Title required !!" };
+    } else {
+        columns.lession_title = lession_title;
+    }
+
+    if (!book_id) {
+        response = { status: 2, res: "Select Book Name required !!" };
+    } else {
+        columns.book_id = book_id;
+    }
+
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_book_lessions', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_book_lessions', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
 
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
@@ -1669,7 +1760,7 @@ module.exports = {
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type,
-    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminEditBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
 
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
@@ -1677,10 +1768,10 @@ module.exports = {
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
 
     // ADMIN API
-    updateStatus, deleteEntity,AdminEditAudio_SET,
-    AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET,
+    updateStatus, deleteEntity, AdminEditAudio_SET,
+    AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
-    , AdminAddFindCorrectSentenceSET,AdminEditVideos_SET
+    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET
 };

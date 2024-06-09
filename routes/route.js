@@ -43,7 +43,7 @@ const {
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,
-     AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,
+     AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,AdminGetBook,AdminEditBook,
 
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
@@ -52,7 +52,7 @@ const {
 
      // ADMIN APIS
      updateStatus, deleteEntity,AdminEditAudio_SET,
-     AdminBlankSet,GeteditTipsSET,AdminNews_SET,adminGetArtical_SET,AdminEditVideos_SET,
+     AdminBlankSet,GeteditTipsSET,AdminNews_SET,adminGetArtical_SET,AdminEditVideos_SET,AdminGetBook_set,AdminGetchapter,AdminGetaddchapter,AdminGetaddchapter_set,
 
      adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET,AdminEditListenTypeSET
      ,AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET,AdminAddFindCorrectSentenceSET
@@ -144,7 +144,15 @@ Router.route("/admin/get-edit-audio/:id").get(AdminEditAudio);
 Router.route("/admin/set-edit-audio_set").post(AdminEditAudio_SET);
 
 //  ------------------------- Books ---------------------- ////
-// Router.route("/admin/get-book-list").get(AdminGetBook);
+Router.route("/admin/get-book-list").get(AdminGetBook);
+Router.route("/admin/set-book-list").post(AdminGetBook_set);
+
+// ----------------------- chapter --------------------- //
+Router.route("/admin/get-chapter-list").get(AdminGetchapter);
+Router.route("/admin/get-chapter-add").get(AdminGetaddchapter);
+Router.route("/admin/set-chapter-add").post(AdminGetaddchapter_set);
+
+
 // Router.route("/admin/get-edit-book").get(AdminEditBook);
 
 //  ------------------------- Tips ---------------------- ////
