@@ -67,17 +67,14 @@ const basicCourse = async (req, res) => {
     });
 
     pahse_var.shift();
-    console.log(pahse_var);
 
     res.render('./basic-course.ejs', { pahse_var });
 }
 
 const Rearrangement = async (req, res) => {
     const { lesson_id } = req.params;
-
-    const rearrangements_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
-
-    res.render('./Rearrangement.ejs', { title: 'Rearrangement', rearrangements_list });
+    const rearrangements_list = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1 });
+    res.render('./Rearrangement.ejs', { title: 'Re-arrangement', rearrangements_list });
 }
 
 const public_profile = (req, res) => {
@@ -113,8 +110,9 @@ const news = async (req, res) => {
     res.render('./news.ejs', { title: 'News', News_list_app });
 }
 
-const Conversation = (req, res) => {
-    res.render('./Conversation.ejs', { title: 'Conversation' });
+const Conversation = async (req, res) => {
+    const rearrangements_list = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1 });
+    res.render('./Conversation.ejs', { title: 'Conversation', });
 }
 
 const artical = async (req, res) => {
@@ -712,7 +710,6 @@ const adminListLessons = async (req, res) => {
         async function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 const rep = await sql.run("SELECT repo_lesson.id, repo_lesson.lesson_name,repo_lesson.lessons_discription,repo_lesson.date_and_time,repo_lesson.status,repo_phase.phase_name FROM `repo_lesson` INNER JOIN repo_phase ON repo_lesson.phase_id = repo_phase.id;");
-                console.table(rep);
                 res.render('./admin/get-lessons-list.ejs', { title: 'List Phase', phase_id: body['res'], lesson_list: rep, });
 
             } else {

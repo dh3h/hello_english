@@ -61,7 +61,7 @@ const {
 Router.route('/').get(isLoggedIn, home);
 Router.route('/my-profile').get(isLoggedIn, myProfile);
 Router.route('/basic-course').get(isLoggedIn, basicCourse);
-Router.route('/Rearrangement/:pahse_id/:lesson_id').get(isLoggedIn, Rearrangement);
+Router.route('/re-arrangement/:pahse_id/:lesson_id').get(isLoggedIn, Rearrangement);
 Router.route('/edit-profile').get(isLoggedIn, editProfile);
 Router.route('/public-profile').get(isLoggedIn, public_profile);
 Router.route('/practice').get(isLoggedIn, peactice);
@@ -70,7 +70,8 @@ Router.route('/challange').get(isLoggedIn, challange);
 Router.route('/maintenance').get(isLoggedIn, maintenance);
 Router.route('/app-tips').get(isLoggedIn, apptips);
 Router.route('/news').get(isLoggedIn, news);
-Router.route('/Conversation').get(isLoggedIn, Conversation);
+Router.route('/conversation/:pahse_id/:lesson_id').get(isLoggedIn, Conversation);
+// Router.route('/conversation/:pahse_id/:lesson_id').get(isLoggedIn, Conversation);
 Router.route('/artical').get(isLoggedIn, artical);
 Router.route('/artical-details').get(isLoggedIn, artical_details);
 Router.route('/game').get(isLoggedIn, game);
