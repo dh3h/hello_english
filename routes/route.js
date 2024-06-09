@@ -43,7 +43,7 @@ const {
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,
-     AdminEditAudio, AdminGetBook, AdminEditBook,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,
+     AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,
 
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
@@ -51,8 +51,8 @@ const {
      AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,Admin_Contest_list,
 
      // ADMIN APIS
-     updateStatus, deleteEntity,
-     AdminBlankSet,GeteditTipsSET,AdminNews_SET,adminGetArtical_SET,
+     updateStatus, deleteEntity,AdminEditAudio_SET,
+     AdminBlankSet,GeteditTipsSET,AdminNews_SET,adminGetArtical_SET,AdminEditVideos_SET,
 
      adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET,AdminEditListenTypeSET
      ,AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET,AdminAddFindCorrectSentenceSET
@@ -135,13 +135,17 @@ Router.route("/admin/set-edit-artical").post(adminGetArtical_SET);
 
 Router.route("/admin/video-list").get(adminGetVideos);
 Router.route("/admin/get-edit-video").get(AdminEditVideos);
+Router.route("/admin/get-edit-video/:id").get(AdminEditVideos);
+Router.route("/admin/set-edit-video").post(AdminEditVideos_SET);
 //  ------------------------- Audio ---------------------- ////
 Router.route("/admin/get-audio-list").get(AdminGetAudio);
 Router.route("/admin/get-edit-audio").get(AdminEditAudio);
+Router.route("/admin/get-edit-audio/:id").get(AdminEditAudio);
+Router.route("/admin/set-edit-audio_set").post(AdminEditAudio_SET);
 
 //  ------------------------- Books ---------------------- ////
-Router.route("/admin/get-book-list").get(AdminGetBook);
-Router.route("/admin/get-edit-book").get(AdminEditBook);
+// Router.route("/admin/get-book-list").get(AdminGetBook);
+// Router.route("/admin/get-edit-book").get(AdminEditBook);
 
 //  ------------------------- Tips ---------------------- ////
 Router.route("/admin/get-tip").get(GetTips);

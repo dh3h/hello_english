@@ -522,8 +522,10 @@ const adminGetArticaledit = (req, res) => {
     res.render('./admin/get-edit-artical.ejs', { title: 'Edit Artical List' });
 }
 
-const adminGetVideos = (req, res) => {
-    res.render('./admin/get-video-list.ejs', { title: 'Videos List' });
+const adminGetVideos = async (req, res) => {
+    const videos_list = await sql.run(" SELECT * FROM `repo_video_practice` ORDER BY id DESC;");
+   
+    res.render('./admin/get-video-list.ejs', { title: 'Videos List',videos_list });
 }
 const AdminEditVideos = (req, res) => {
     res.render('./admin/get-edit-video.ejs', { title: 'Edit Videos' });
@@ -1571,6 +1573,95 @@ const adminGetArtical_SET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const AdminEditVideos_SET = async (req, res) => {
+    const { id, video_title,video_link,question, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!config) {
+        response = { status: 2, res: "Options is required !!" };
+    } else {
+        columns.config = config;
+    }if (!question) {
+        response = { status: 2, res: "Questions is required !!" };
+    } else {
+        columns.question = question;
+    }
+    if (!video_link) {
+        response = { status: 2, res: "Video Links is required !!" };
+    } else {
+        columns.video_link = video_link;
+    } if (!video_title) {
+        response = { status: 2, res: "Video Title is required !!" };
+    } else {
+        columns.video_title = video_title;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_video_practice', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_video_practice', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminEditAudio_SET = async (req, res) => {
+    const { id, audio_title,audio_file,question, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!config) {
+        response = { status: 2, res: "Options is required !!" };
+    } else {
+        columns.config = config;
+    }if (!question) {
+        response = { status: 2, res: "Questions is required !!" };
+    } else {
+        columns.question = question;
+    }
+    if (!audio_file) {
+        response = { status: 2, res: "Upload Video Links is required !!" };
+    } else {
+        columns.audio_file = audio_file;
+    } if (!audio_title) {
+        response = { status: 2, res: "Audio Title is required !!" };
+    } else {
+        columns.audio_title = audio_title;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_video_practice', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_video_practice', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
@@ -1586,10 +1677,10 @@ module.exports = {
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
 
     // ADMIN API
-    updateStatus, deleteEntity,
+    updateStatus, deleteEntity,AdminEditAudio_SET,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
-    , AdminAddFindCorrectSentenceSET
+    , AdminAddFindCorrectSentenceSET,AdminEditVideos_SET
 };
