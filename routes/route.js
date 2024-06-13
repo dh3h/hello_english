@@ -43,7 +43,7 @@ const {
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,
-     AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,AdminGetBook,AdminEditBook,
+     AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,AdminGetBook,video_test,game_tea,start_game_tea,
 
      // -------------------------------- Admin Functions ------------------------------//
      adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
@@ -98,7 +98,9 @@ Router.route('/fill-code-videos/:pahse_id/:lesson_id').get(isLoggedIn, fill_code
 Router.route('/story/:pahse_id/:lesson_id').get(isLoggedIn, story);
 Router.route('/listen-and-type/:pahse_id/:lesson_id').get(isLoggedIn, listen_and_type);
 Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, fill_in_the_blank);
-
+Router.route('/videos-test').get(isLoggedIn, video_test);
+Router.route('/game-tea').get(isLoggedIn, game_tea);
+Router.route('/start-tea-game').get(isLoggedIn, start_game_tea);
 
 
 

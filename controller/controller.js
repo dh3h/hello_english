@@ -121,7 +121,8 @@ const artical = async (req, res) => {
 }
 
 const artical_details = async (req, res) => {
-    res.render('./artical-details.ejs', { title: 'Artical details' });
+    const artical_detail_id = await sql.run("SELECT * FROM `repo_articals` WHERE id = 1 AND status = 1;");
+    res.render('./artical-details.ejs', { title: 'Artical details', artical_detail_id });
 }
 const game = (req, res) => {
     res.render('./game.ejs', { title: 'Games' });
@@ -137,6 +138,11 @@ const Videos = (req, res) => {
 
 const videos_details = (req, res) => {
     res.render('./videos-details.ejs', { title: 'Videos details' });
+}
+
+const video_test = async (req, res) => {
+    const video_test_data = await sql.select_assoc('repo_video_practice', '*');
+    res.render('./videos-test.ejs', { title: 'Videos test', video_test_data });
 }
 
 const books = (req, res) => {
@@ -161,6 +167,15 @@ const ask_a_questions = (req, res) => {
 const type_questions = (req, res) => {
     res.render('./type-questions.ejs', { title: 'Type Questions' });
 }
+//  ===================================== game -==================================
+const game_tea = (req, res) => {
+    res.render('./tea-game.ejs', { title: 'Tea Game' });
+}
+
+const start_game_tea = (req, res) => {
+    res.render('./start-tea-game.ejs', { title: 'Tea Game' });
+}
+//  ===================================== End game -==================================
 
 const all_anwers = (req, res) => {
     res.render('./all-anwers.ejs', { title: 'All Answers' });
@@ -567,7 +582,7 @@ const AdminGetchapter = async (req, res) => {
 
     const chapters_list = await sql.run("SELECT repo_book_lessions.id, repo_book_lessions.book_id,repo_book_lessions.lession_title,repo_book_lessions.lession_details ,repo_book_lessions.date ,repo_book_lessions.status, repo_books.book_name FROM repo_book_lessions INNER JOIN repo_books ON repo_book_lessions.book_id = repo_books.id;");
     // console.log(chapters_list);
-    res.render('./admin/admin-chapter-list.ejs', { title: 'Chapter List',chapters_list });
+    res.render('./admin/admin-chapter-list.ejs', { title: 'Chapter List', chapters_list });
 }
 
 const AdminGetaddchapter = async (req, res) => {
@@ -1756,8 +1771,8 @@ module.exports = {
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type,
-    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test,game_tea,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,start_game_tea,
 
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
