@@ -175,6 +175,10 @@ const game_tea = (req, res) => {
 const start_game_tea = (req, res) => {
     res.render('./start-tea-game.ejs', { title: 'Tea Game' });
 }
+
+const human_hang_game = (req, res) => {
+    res.render('./human-hang-game.ejs', { title: 'Human Hang Game' });
+}
 //  ===================================== End game -==================================
 
 const all_anwers = (req, res) => {
@@ -1772,7 +1776,7 @@ module.exports = {
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test,game_tea,
-    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,start_game_tea,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,start_game_tea,human_hang_game,
 
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,

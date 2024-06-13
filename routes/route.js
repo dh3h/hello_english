@@ -42,7 +42,7 @@ const {
     artical,artical_details,game,Videos,ask_a_questions,videos_details,books,books_details,book_open,addUser, AdminLogin, AdminAnsToQuestion,fill_code_videos,
     my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,human_hang_game,
      AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,AdminGetBook,video_test,game_tea,start_game_tea,
 
      // -------------------------------- Admin Functions ------------------------------//
@@ -101,6 +101,7 @@ Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, fill_in_
 Router.route('/videos-test').get(isLoggedIn, video_test);
 Router.route('/game-tea').get(isLoggedIn, game_tea);
 Router.route('/start-tea-game').get(isLoggedIn, start_game_tea);
+Router.route('/Human-hang-game').get(isLoggedIn, human_hang_game);
 
 
 
