@@ -194,13 +194,13 @@ const fill_in_the_blank = async (req, res) => {
 const find_correct_sentence = async (req, res) => {
     const { lesson_id } = req.params;
 
-    const find_correct_sentence_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
+    const find_correct_sentence_list = await sql.select_assoc('repo_correct_sentence', '*', { lesson_id });
     res.render('./find-correct-sentence.ejs', { title: '/find out the correct sentence', find_correct_sentence_list });
 }
 const answer_the_questions = async (req, res) => {
     const { lesson_id } = req.params;
 
-    const answer_the_questions_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
+    const answer_the_questions_list = await sql.select_assoc('rapo_answere_question', '*', { lesson_id });
     res.render('./answer-the-questions.ejs', { title: '/Answer the questions', answer_the_questions_list });
 }
 
@@ -208,7 +208,7 @@ const finding_the_gems = async (req, res) => {
 
     const { lesson_id } = req.params;
 
-    const finding_the_gems_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
+    const finding_the_gems_list = await sql.select_assoc('rapo_finding_the_gem', '*', { lesson_id });
 
     res.render('./finding-the-gems.ejs', { title: '/Finding the gems', finding_the_gems_list });
 }
@@ -217,7 +217,7 @@ const listen_select_options = async (req, res) => {
 
     const { lesson_id } = req.params;
 
-    const listen_select_options_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
+    const listen_select_options_list = await sql.select_assoc('rapo_listen_select', '*', { lesson_id });
 
     res.render('./listen-select-options.ejs', { title: '/Listen & select the correct sentence', listen_select_options_list });
 }
@@ -225,7 +225,7 @@ const listen_select_options = async (req, res) => {
 const fill_code_videos = async (req, res) => {
     const { lesson_id } = req.params;
 
-    const fill_code_videos_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
+    const fill_code_videos_list = await sql.select_assoc('rapo_video_code', '*', { lesson_id });
     res.render('./fill-code-videos.ejs', { title: '/Fill the code from video tips', fill_code_videos_list });
 }
 
