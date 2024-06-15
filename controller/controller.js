@@ -241,6 +241,19 @@ const listen_select_options = async (req, res) => {
     res.render('./listen-select-options.ejs', { title: '/Listen & select the correct sentence', listen_select_options_list });
 }
 
+//  ========================================== App message ================================== //
+const Ask_teacher = async (req, res) => {
+    res.render('./ask-techer-chat.ejs', { title: 'Books List'});
+}
+
+const word_of_the_word = async (req, res) => {
+    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day'});
+}
+
+const tip_of_the_day = async (req, res) => {
+    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat'});
+}
+
 const fill_code_videos = async (req, res) => {
     const { lesson_id } = req.params;
 
@@ -577,6 +590,8 @@ const AdminGetBook = async (req, res) => {
 
     res.render('./admin/admin-book-list.ejs', { title: 'Books List', book_list });
 }
+
+
 
 
 // ================================== chapters ============================= //
@@ -993,6 +1008,34 @@ const AdminNews_add = async (req, res) => {
     }
 
     res.render('./admin/get-news-add.ejs', { title: 'ADD News' });
+}
+
+// ============================= message =============================== //
+// --------------------- Ask questions by students ---------------
+const AdminAQBS_chat = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
+}
+const AdminAQBS_read = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-read.ejs', { title: 'Ask questions by students Read' });
+}
+const AdminAQBS_add = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
+}
+
+// --------------------- Word of the day ---------------
+const Admin_WOTD_chat = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
+}
+const Admin_WOTD_add = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
+}
+
+// --------------------- ip Of the Day ---------------
+const Admin_TOTD_chat = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
+}
+const Admin_TOTB_add = async (req, res) => {
+    res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
 }
 
 // ============================= Contest =============================== //
@@ -1775,9 +1818,9 @@ module.exports = {
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test,game_tea,
-    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements,start_game_tea,human_hang_game,
-
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,
+    Ask_teacher,word_of_the_word,tip_of_the_day,
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
@@ -1790,4 +1833,6 @@ module.exports = {
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET
+    // message 
+    , AdminAQBS_chat,AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
 };

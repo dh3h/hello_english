@@ -38,24 +38,27 @@ const Router = express.Router();
 const {
     login, home, AuthLogin,
     logout, myProfile, signUp,
-    verifyOTP, basicCourse,Rearrangement,public_profile, editProfile,private_profile,challange,maintenance,apptips,news,Conversation,listen_select_options,
-    artical,artical_details,game,Videos,ask_a_questions,videos_details,books,books_details,book_open,addUser, AdminLogin, AdminAnsToQuestion,fill_code_videos,
-    my_friends,UsersList, GetQuestions, adminHome,peactice,type_questions,all_anwers,type_answers,refer_friends,page_about,helpline,finding_the_gems,
-    adminLoginPage, getUserList, AdminEditSingleUser,page_chat,fill_in_the_blank,find_correct_sentence,answer_the_questions,contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio,listen_and_type,human_hang_game,
-     AdminEditAudio,AdminGetBlank,AdminEditBlank,AdminGetrearrangements,story,AdminGetBook,video_test,game_tea,start_game_tea,
+    verifyOTP, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, listen_select_options,
+    artical, artical_details, game, Videos, ask_a_questions, videos_details, books, books_details, book_open, addUser, AdminLogin, AdminAnsToQuestion, fill_code_videos,
+    my_friends, UsersList, GetQuestions, adminHome, peactice, type_questions, all_anwers, type_answers, refer_friends, page_about, helpline, finding_the_gems,
+    adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, answer_the_questions, contest,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game,
+    AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea,
 
-     // -------------------------------- Admin Functions ------------------------------//
-     adminListPhase,adminListLessons,AdminFindCorrectSentence,AdminAddFindCorrectSentence,AdminListenTypeList,AdminEditListenType,AdminConversationList,AdminAddconversation,
-     AdminStoryList,AdminAddStory,AdminAnswer_the_questions_list,AdminAnswer_the_questions_add,Adminfinding_the_gems_list,Adminfinding_the_gems_add,Adminlisten_select_list,Adminlisten_select_add,
-     AdminVideo_code_list,AdminVideo_code_add,AdminNews_list,AdminNews_add,Admin_Contest_list,
+    // -------------------------------- Admin Functions ------------------------------//
+    adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
+    AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
+    AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
+    Ask_teacher,word_of_the_word,tip_of_the_day,
 
-     // ADMIN APIS
-     updateStatus, deleteEntity,AdminEditAudio_SET,
-     AdminBlankSet,GeteditTipsSET,AdminNews_SET,adminGetArtical_SET,AdminEditVideos_SET,AdminGetBook_set,AdminGetchapter,AdminGetaddchapter,AdminGetaddchapter_set,
+    // ADMIN APIS
+    updateStatus, deleteEntity, AdminEditAudio_SET,
+    AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminEditVideos_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
 
-     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set,AdminGetrearrangementsAPI,AdminEditrearrangementsAPI_SET,AdminEditListenTypeSET
-     ,AdminAddStorySET,Adminfinding_the_gems_addSET,Adminlisten_select_addSET,AdminVideo_code_addSET,AdminAnswer_the_questions_addSET,AdminAddconversationSET,AdminAddFindCorrectSentenceSET
+    adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
+    , AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddFindCorrectSentenceSET
+    // message 
+    ,AdminAQBS_chat,AdminAQBS_read,AdminAQBS_add,Admin_WOTD_chat,Admin_WOTD_add,Admin_TOTD_chat,Admin_TOTB_add
 } = require("../controller/controller");
 
 Router.route('/').get(isLoggedIn, home);
@@ -102,6 +105,12 @@ Router.route('/videos-test').get(isLoggedIn, video_test);
 Router.route('/game-tea').get(isLoggedIn, game_tea);
 Router.route('/start-tea-game').get(isLoggedIn, start_game_tea);
 Router.route('/Human-hang-game').get(isLoggedIn, human_hang_game);
+
+//   ======================== App message  ================================= //
+Router.route('/Ask-teacher').get(isLoggedIn, Ask_teacher);
+Router.route('/word-of-the-day').get(isLoggedIn, word_of_the_word);
+Router.route('/tip-of-the-day').get(isLoggedIn, tip_of_the_day);
+
 
 
 
@@ -235,6 +244,23 @@ Router.route("/admin/get-news-list").get(AdminNews_list);
 Router.route("/admin/get-news-add").get(AdminNews_add);
 Router.route("/admin/get-news-add/:id").get(AdminNews_add);
 Router.route("/admin/set-news").post(AdminNews_SET);
+
+//  ============================== message sections ============================= //
+//-----------------  Ask Questions By Students  --------------------//
+Router.route("/admin/Ask-questions-by-students-chat").get(AdminAQBS_chat);
+Router.route("/admin/Ask-questions-by-students-read").get(AdminAQBS_read);
+Router.route("/admin/Ask-questions-by-students-add").get(AdminAQBS_add);
+
+
+// --------------------- Word of the day ------------------------- //
+Router.route("/admin/Word-of-the-day-chat").get(Admin_WOTD_chat);
+Router.route("/admin/Word-of-the-day-add").get(Admin_WOTD_add);
+
+// --------------------- Tip Of the Day ------------------------- //
+Router.route("/admin/Tip-of-the-day-chat").get(Admin_TOTD_chat);
+Router.route("/admin/Tip-of-the-day-add").get(Admin_TOTB_add);
+
+
 
 //  ------------------------- Contest ------------------------- //
 Router.route("/admin/get-Contest-list").get(Admin_Contest_list);
