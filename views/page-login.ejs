@@ -1,0 +1,72 @@
+<%- include('common/head') -%>
+
+
+    <!-- App Capsule -->
+    <div id="appCapsule" class="pt-0">
+
+        <div class="login-form mt-1">
+            <div class="section">
+                <img src="/views/assets/img/app-assets/login-image.png" alt="image" class="form-image">
+            </div>
+            <div class="section mt-1">
+                <h1>Get started</h1>
+                <h4>Fill the form to log in</h4>
+            </div>
+            <div class="section mt-1 mb-5">
+                <form>
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                            <input type="email" class="form-control" id="email1" placeholder="Email address">
+                            <i class="clear-input">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </i>
+                        </div>
+                    </div>
+
+                    <div class="form-group boxed">
+                        <div class="input-wrapper">
+                            <input type="password" class="form-control" id="password1" placeholder="Password">
+                            <i class="clear-input">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </i>
+                        </div>
+                    </div>
+                    <div class="form-links mt-2">
+                        <div>
+                            <a href="page-register.php">Register Now</a>
+                        </div>
+                        <div><a href="page-register.php" class="text-muted">Forgot Password?</a></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block rounded mt-2"> <img
+                            src="/views/assets/img/app-assets/facebook-icon.png" class="pr-2" alt=""> Facebook</button>
+                    <div class="form-links mt-1">
+                        <!-- <button type="submit" class="btn btn-outline-primary rounded btn-block btn-lg mt-2"> <img src="./assets/img/app-assets/instagram-icon.png" class="pr-2" alt=""> Instagram</button> -->
+                        <!-- <button class="btn btn-light mb-2 login_success"><img src="views/images/icons/google.svg" > Continue with Google</button> -->
+                        <button
+                            class="btn btn-outline-primary rounded btn-block mt-2 login_success"> <img
+                                src="views/images/icons/google.svg" class="pr-2" alt=""> Continue with Google
+                            </button>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block rounded mt-2"> Login</button>
+                    <!-- 
+                    <div class="form-button-group">
+                        <button type="submit" class="btn btn-primary btn-block btn-lg">Log in</button>
+                    </div> -->
+
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- * App Capsule -->
+    <%- include('common/script') -%>
+        <script>
+            $(document).on('click', '.login_success', function () {
+                $('#loaderPage').fadeIn(300);
+                setTimeout(() => {
+                    window.location.assign('/');
+                }, 2000);
+            });
+        </script>
