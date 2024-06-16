@@ -68,8 +68,7 @@ let functions = {
         if (order_by) {
             sql += " ORDER BY '" + order_by + "'"
         }
-
-        console.log(sql);
+        // console.log(sql);
         try {
             let res = await new Promise((resolve, reject) => {
                 conn.query(sql, (err, result) => {

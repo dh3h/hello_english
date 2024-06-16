@@ -36,6 +36,14 @@ const logout = (req, res) => {
     res.redirect('/login');
 }
 
+const page_start = (req, res) => {
+    res.render('./start-page.ejs', { title: 'Start Page' });
+}
+
+const page_login_app = (req, res) => {
+    res.render('./page-login.ejs', { title: 'Start Page' });
+}
+
 const signUp = (req, res) => {
     res.render('./sign-up.ejs', { title: 'Sign up new account' });
 }
@@ -110,6 +118,13 @@ const news = async (req, res) => {
     res.render('./news.ejs', { title: 'News', News_list_app });
 }
 
+const news_details = async (req, res) => {
+    const { id } = req.params;
+    const news_details = await sql.select_assoc('rapo_news', '*', { id, status: 1 });
+    // console.log(news_details);
+    res.render('./news-details.ejs', { title: 'News Details', news_details });
+}
+
 const Conversation = async (req, res) => {
     const { lesson_id } = req.params;
     const convo_parents = await sql.select_assoc('repo_conversation', '*', { lesson_id, status: 1, parent_id:0 });
@@ -135,7 +150,9 @@ const artical = async (req, res) => {
 }
 
 const artical_details = async (req, res) => {
-    const artical_detail_id = await sql.run("SELECT * FROM `repo_articals` WHERE id = 1 AND status = 1;");
+    const { id } = req.params;
+    const artical_detail_id = await sql.select_assoc('repo_articals', '*', { id, status: 1 });
+    // const artical_detail_id = await sql.run("SELECT * FROM `repo_articals` WHERE id = '{}' AND status = 1;");
     res.render('./artical-details.ejs', { title: 'Artical details', artical_detail_id });
 }
 const game = (req, res) => {
@@ -146,28 +163,42 @@ const contest = (req, res) => {
     res.render('./contest.ejs', { title: 'Games' });
 }
 
-const Videos = (req, res) => {
-    res.render('./videos.ejs', { title: 'Videos' });
+const Videos = async (req, res) => {
+    const video_lists = await sql.select_assoc('repo_video_practice', '*', { status: 1 });
+    // console.log(video_lists);
+    res.render('./videos.ejs', { title: 'Videos', video_lists });
 }
 
-const videos_details = (req, res) => {
-    res.render('./videos-details.ejs', { title: 'Videos details' });
+const videos_details = async (req, res) => {
+    const { id } = req.params;
+    const videos_details = await sql.select_assoc('repo_video_practice', '*', { id, status: 1 });
+    // console.log(videos_details);
+    res.render('./videos-details.ejs', { title: 'Videos details', videos_details });
 }
 
 const video_test = async (req, res) => {
-    const video_test_data = await sql.select_assoc('repo_video_practice', '*');
+    const { id } = req.params;
+    const video_test_data = await sql.select_assoc('repo_video_practice', '*', { id, status: 1 });
+    // console.log(video_test_data);
     res.render('./videos-test.ejs', { title: 'Videos test', video_test_data });
 }
 
-const books = (req, res) => {
-    res.render('./books.ejs', { title: 'books' });
+const books = async (req, res) => {
+    const book_name_list = await sql.select_assoc('repo_books', '*', { status: 1 });
+    // console.log(book_name_list);
+    res.render('./books.ejs', { title: 'books', book_name_list });
 }
 
-const books_details = (req, res) => {
-    res.render('./books-details.ejs', { title: 'Books details' });
+const books_details = async (req, res) => {
+    const { id } = req.params;
+    const book_details = await sql.select_assoc('repo_book_lessions', '*', { book_id: id, status: 1 });
+    res.render('./books-details.ejs', { title: 'Books details', book_details });
 }
-const book_open = (req, res) => {
-    res.render('./book-open.ejs', { title: 'Books Open' });
+const book_open = async (req, res) => {
+    const { id } = req.params;
+    const { book_id } = req.params;
+    const book_read_details = await sql.select_assoc('repo_book_lessions', '*', { id, book_id: book_id, status: 1 });
+    res.render('./book-open.ejs', { title: 'Books Open',book_read_details });
 }
 
 const my_friends = (req, res) => {
@@ -741,7 +772,7 @@ const AdminGetrearrangementsAPI = async (req, res) => {
 }
 
 const AdminEditrearrangementsAPI_SET = async (req, res) => {
-    const { id, phase_id, lesson_id,type_list, question, status, type } = req.body;
+    const { id, phase_id, lesson_id, type_list, question, status, type } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1222,7 +1253,7 @@ const deleteEntity = async (req, res) => {
 // ====================================== All Set API here =========================================== //
 
 const AdminBlankSet = async (req, res) => {
-    const { id, phase_id, lesson_id,type_list, questions, config, status } = req.body;
+    const { id, phase_id, lesson_id, type_list, questions, config, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1880,9 +1911,9 @@ const AdminGetaddchapter_set = async (req, res) => {
 
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
-    
+
     ConversationPlay,
-    
+
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
@@ -1898,12 +1929,11 @@ module.exports = {
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
-    Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
-
+    Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list, news_details,
     // ADMIN API
-    updateStatus, deleteEntity, AdminEditAudio_SET, homework,
-    AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
-
+    updateStatus, deleteEntity, AdminEditAudio_SET, homework,page_start,
+    AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,page_login_app,
+    
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET

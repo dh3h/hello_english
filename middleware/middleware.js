@@ -3,8 +3,8 @@ const isLoggedIn = (req, res, next) => {
     const cookie = new Cookies();
     let userId = cookie.get(req, 'user_data');
     if (!userId) {
-        // res.render('login.ejs');
-        // return;
+        res.render('start-page.ejs');
+        return;
     }
     next();
 }
@@ -13,8 +13,8 @@ const isLoggedOut = (req, res, next) => {
     const cookie = new Cookies();
     let userId = cookie.get(req, 'user_data');
     if (userId) {
-        // res.render('404.ejs');
-        // return;
+        res.render('404.ejs');
+        return;
     }
     next();
 }

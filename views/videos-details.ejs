@@ -15,31 +15,35 @@
 
     <!-- App Capsule -->
     <div id="appCapsule">
-        <div class="section full mt-3 mb-2">
-            <div class="section-title">Watch Full Video carefully</div>
+        <% Object.keys(videos_details).forEach(function(prop) { %>
+            <div class="section full mt-3 mb-2">
+                <div class="section-title">Watch Full Video carefully</div>
 
-            <div class="wide-block pt-2 pb-2">
-                <p>
-                    Take notes on important points, and consider each option carefully before selecting. Stay focused
-                    and review your choices to ensure accuracy.
-                </p>
+                <div class="wide-block pt-2 pb-2">
+                    <p>
+                        Take notes on important points, and consider each option carefully before selecting. Stay
+                        focused
+                        and review your choices to ensure accuracy.
+                    </p>
+                </div>
+
+                <iframe width="330" height="200" src="<%- videos_details[prop]['video_link'] %>"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
             </div>
 
-            <iframe width="330" height="200" src="https://www.youtube.com/embed/TU9GTTvvVYo?si=Jr6XznjsJatAHrdX"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
 
-
-        <!-- chat footer -->
-        <div class="chatFooter">
-            <!-- <div class="row"> -->
-            <a href="/videos-test" type="button" class="btn btn-primary btn-block">Start Your test</a>
-            <!-- </div> -->
-        </div>
-        <!-- * chat footer -->
+            <!-- chat footer -->
+            <div class="chatFooter">
+                <!-- <div class="row"> -->
+                <a href="/videos-test/<%- videos_details[prop]['id'] %>" type="button" class="btn btn-primary btn-block">Start Your test</a>
+                <!-- </div> -->
+            </div>
+            <!-- * chat footer -->
     </div>
-    <!-- * App Capsule -->
+    <% }); %>
+        <!-- * App Capsule -->
 
-    <%- include('common/script') -%>
+        <%- include('common/script') -%>

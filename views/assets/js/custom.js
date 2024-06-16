@@ -1,6 +1,24 @@
+function formatDateTime(dateString) {
+    const date = new Date(dateString);
+
+    const dateOptions = {
+        day: '2-digit', // e.g., '23'
+        month: 'short', // e.g., 'Jun'
+    };
+
+    const timeOptions = {
+        hour: '2-digit', // e.g., '01'
+        minute: '2-digit', // e.g., '35'
+        hour12: true, // use 12-hour clock
+    };
+
+    const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+    const formattedTime = date.toLocaleTimeString('en-US', timeOptions).replace(' ', '');
+
+    return `${formattedDate}, ${formattedTime}`;
+}
+
 $(document).ready(function () {
-
-
 
     // USER REGISTRATION STEP-1
     $(document).on('submit', '#user_register', function (e) {
@@ -197,5 +215,11 @@ $(document).ready(function () {
                 }
             });
         });
+
+        $('.convert_date').each(function (){
+            console.log('hi');
+            $(this).text(formatDateTime($(this).text()));
+        })
+
     
 });

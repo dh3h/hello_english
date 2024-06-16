@@ -17,7 +17,7 @@
         <ul class="listview image-listview media mb-2">
             <% Object.keys(artical_list).forEach(function(prop) { %>
                 <li>
-                    <a href="/artical-details" class="item">
+                    <a href="/artical-details/<%- artical_list[prop]['id'] %>" class="item">
                         <div class="imageWrapper">
                             <img src="/views/assets/img/app-assets/artical.png" alt="image" class="imaged w64">
                         </div>
@@ -25,7 +25,7 @@
                             <div>
                                 <%- artical_list[prop]['title_name'] %>
                                     <div class="text-muted">Top. Moderate </div>
-                                    <span class="badge badge-primary"><%- artical_list[prop]['date'] %> 30coins</span>
+                                    <span class="badge badge-primary "><span class="convert_date"><%- artical_list[prop]['date'] %></span>- 30coins</span>
                             </div>
 
                         </div>

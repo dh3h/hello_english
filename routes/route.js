@@ -42,8 +42,8 @@ const {
     artical, artical_details, game, Videos, ask_a_questions, videos_details, books, books_details, book_open, addUser, AdminLogin, AdminAnsToQuestion, fill_code_videos,
     my_friends, UsersList, GetQuestions, adminHome, peactice, type_questions, all_anwers, type_answers, refer_friends, page_about, helpline, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, answer_the_questions, contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game,
-    AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea, ConversationPlay,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game,page_login,
+    AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea, ConversationPlay,news_details,page_start,page_login_app,
 
     // -------------------------------- Admin Functions ------------------------------//
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
@@ -63,6 +63,8 @@ const {
     // message 
     , AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
 } = require("../controller/controller");
+Router.route('/page-start').get(page_start);
+Router.route('/page-login').get(page_login_app);
 
 Router.route('/').get(isLoggedIn, home);
 Router.route('/my-profile').get(isLoggedIn, myProfile);
@@ -76,17 +78,18 @@ Router.route('/challange').get(isLoggedIn, challange);
 Router.route('/maintenance').get(isLoggedIn, maintenance);
 Router.route('/app-tips').get(isLoggedIn, apptips);
 Router.route('/news').get(isLoggedIn, news);
+Router.route('/new-details/:id').get(isLoggedIn, news_details);
 Router.route('/conversation/:pahse_id/:lesson_id').get(isLoggedIn, Conversation);
 Router.route('/conversation-play/:lesson_id/:parent_id').get(isLoggedIn, ConversationPlay);
 // Router.route('/conversation/:pahse_id/:lesson_id').get(isLoggedIn, Conversation);
 Router.route('/artical').get(isLoggedIn, artical);
-Router.route('/artical-details').get(isLoggedIn, artical_details);
+Router.route('/artical-details/:id').get(isLoggedIn, artical_details);
 Router.route('/game').get(isLoggedIn, game);
 Router.route('/videos').get(isLoggedIn, Videos);
-Router.route('/videos-details').get(isLoggedIn, videos_details);
+Router.route('/videos-details/:id').get(isLoggedIn, videos_details);
 Router.route('/books').get(isLoggedIn, books);
-Router.route('/books-details').get(isLoggedIn, books_details);
-Router.route('/book-open').get(isLoggedIn, book_open);
+Router.route('/books-details/:id').get(isLoggedIn, books_details);
+Router.route('/book-open/:book_id/:id').get(isLoggedIn, book_open);
 Router.route('/my-friends').get(isLoggedIn, my_friends);
 Router.route('/ask-a-questions').get(isLoggedIn, ask_a_questions);
 Router.route('/type-questions').get(isLoggedIn, type_questions);
@@ -105,7 +108,7 @@ Router.route('/fill-code-videos/:pahse_id/:lesson_id').get(isLoggedIn, fill_code
 Router.route('/story/:pahse_id/:lesson_id').get(isLoggedIn, story);
 Router.route('/listen-and-type/:pahse_id/:lesson_id').get(isLoggedIn, listen_and_type);
 Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, fill_in_the_blank);
-Router.route('/videos-test').get(isLoggedIn, video_test);
+Router.route('/videos-test/:id').get(isLoggedIn, video_test);
 Router.route('/game-tea').get(isLoggedIn, game_tea);
 Router.route('/start-tea-game').get(isLoggedIn, start_game_tea);
 Router.route('/Human-hang-game').get(isLoggedIn, human_hang_game);

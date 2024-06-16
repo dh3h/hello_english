@@ -17,7 +17,7 @@
         <ul class="listview image-listview media mb-2">
             <% Object.keys(News_list_app).forEach(function(prop) { %>
                 <li>
-                    <a href="#" class="item">
+                    <a href="/new-details/<%- News_list_app[prop]['id'] %>" class="item">
                         <div class="imageWrapper">
                             <img src="/views/assets/img/app-assets/new-1.png" alt="image" class="imaged w64">
                         </div>
@@ -25,7 +25,7 @@
                             <div>
                                 <%- News_list_app[prop]['news_title'] %>
                                 <div class="text-muted">Top. Moderate </div>
-                                <span class="badge badge-primary"><%- News_list_app[prop]['date'] %>. 30coins</span>
+                                <span class="badge badge-primary"><span class="convert_date"><%- News_list_app[prop]['date'] %></span> 30coins</span>
                             </div>
 
                         </div>
