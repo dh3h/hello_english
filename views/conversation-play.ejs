@@ -1,0 +1,230 @@
+<%- include('common/head') -%>
+<%- include('common/back-sidebar') -%>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #chatbox {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      padding: 20px;
+      height: 400px;
+      overflow-y: auto;
+    }
+
+    .message-container {
+      padding: 10px 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    b{
+        font-weight: 900 !important;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 5px;
+    }
+
+    .bot {
+      background-color: #4CAF50;
+      color: #fff;
+      margin-left: auto;
+    }
+
+    .user {
+      background-color: #e0e0e0;
+      color: #333;
+      margin-right: auto;
+    }
+
+    #startBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #startBtn:hover {
+      background-color: #45a049;
+    }
+
+    #instruction {
+      text-align: center;
+      font-size: 1.2em;
+      margin-top: 20px;
+      color: #555;
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animated {
+      animation: slideIn 0.3s ease;
+    }
+
+    .highlight {
+      color: rgb(194, 48, 48);
+      font-weight: bold;
+    }
+
+    /* Added styles for better readability */
+    .user-typing {
+      color: #555;
+      font-style: italic;
+    }
+
+    /* Added media query for responsive design */
+    @media only screen and (max-width: 600px) {
+      #chatbox {
+        border-radius: 0;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+
+      #startBtn {
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="chatbox"></div>
+        <button id="startBtn">Start Conversation</button>
+        <div id="instruction">Click "Start Conversation" and speak the responses.</div>
+    </div>
+    <%- include('common/script') -%>
+  <script>
+    function compareAndHighlight(str1, str2) {
+      let result = '';
+      for (let i = 0; i < Math.min(str1.length, str2.length); i++) {
+        if (str1[i] !== str2[i]) {
+          result += `<span class="highlight">${str1[i]}</span>`;
+        } else {
+          result += str1[i];
+        }
+      }
+      if (str1.length > str2.length) {
+        result += `<span class="highlight">${str1.substring(str2.length)}</span>`;
+      } else if (str2.length > str1.length) {
+        result += `<span class="highlight">${str2.substring(str1.length)}</span>`;
+      }
+      return result;
+    }
+
+    function filterSpecialCharacters(str) {
+      return str.replace(/[^\w\s]/gi, '');
+    }
+
+    const conversation = JSON.parse(<%- JSON.stringify(convo_list,) %>);
+
+    // const conversation = conversation_data[0]
+    console.log(conversation);
+
+    let currentStep = 0;
+    const chatbox = document.getElementById('chatbox');
+    const startBtn = document.getElementById('startBtn');
+    const instruction = document.getElementById('instruction');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = function (event) {
+      const spokenText = event.results[0][0].transcript.toLowerCase();
+      const expectedText = Object.values(conversation[currentStep])[0].toLowerCase();
+      if (spokenText === filterSpecialCharacters(expectedText)) {
+        addMessage('bot', expectedText);
+        currentStep++;
+        nextStep();
+      } else {
+        instruction.innerHTML = `Please say: <b>"${compareAndHighlight(filterSpecialCharacters(expectedText), spokenText)}"</b>`;
+        instruction.classList.add('user-typing'); // Added typing indicator
+        recognition.start();
+      }
+    };
+
+    recognition.onerror = function (event) {
+      console.error('Speech recognition error:', event.error);
+    };
+
+    recognition.onend = function () {
+      if (currentStep < conversation.length && Object.keys(conversation[currentStep])[0] === 'u') {
+        instruction.classList.remove('user-typing');
+        recognition.start();
+      }
+    };
+
+    startBtn.addEventListener('click', () => {
+      startBtn.style.display = 'none';
+      nextStep();
+    });
+
+    function addMessage(sender, text) {
+      const messageContainer = document.createElement('div');
+      messageContainer.classList.add('message-container', 'animated');
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', sender);
+      messageDiv.textContent = text;
+      messageContainer.appendChild(messageDiv);
+      chatbox.appendChild(messageContainer);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function nextStep() {
+      if (currentStep < conversation.length) {
+        const current = conversation[currentStep];
+        const [key, value] = Object.entries(current)[0];
+        if (key === 'b') {
+          addMessage('user', value);
+          currentStep++;
+          nextStep();
+        } else if (key === 'u') {
+            // console.log(value);
+          instruction.innerHTML = `Listening...<br>Please Say: <b>${value}</b>`;
+          instruction.classList.remove('user-typing'); // Remove typing indicator
+          recognition.start();
+        }
+      } else {
+        instruction.textContent = 'Conversation complete!';
+      }
+    }
+  </script>

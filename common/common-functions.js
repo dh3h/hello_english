@@ -54,6 +54,8 @@ const generateUid = async (type) => {
 };
 
 
+
+
 class Cookies {
     /**
      * This function is used to set cookies on user Browser
@@ -95,9 +97,12 @@ class Cookies {
 
 }
 
-
+const getCurrentUser = (req) => {
+    const cookie = new Cookies();
+    return cookie.get(req, 'user_data');
+}
 
 module.exports = {
     Cookies,
-    randomStr, obj_not_empty, generateUid
+    randomStr, obj_not_empty, generateUid, getCurrentUser
 }

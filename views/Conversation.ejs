@@ -18,72 +18,22 @@
 <!-- App Capsule -->
 <div id="appCapsule">
     <ul class="listview image-listview media mb-2">
-        <li>
-            <a href="/conversation/8/2/2" class="item">
-               
-                <div class="in">
-                    <div>
-                        <!-- <header>Name</header> -->
-                        Introducing Yourself
-                        <footer class="text-success">Easy</footer>
-                    </div>
-                    <img src="/views/assets/img/app-assets/conver.png" alt="image" class="image">
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="item">
-               
-                <div class="in">
-                    <div>
-                        <!-- <header>Name</header> -->
-                        Greetings
-                        <footer class="text-success">Easy</footer>
-                    </div>
-                    <img src="/views/assets/img/app-assets/conver.png" alt="image" class="image">
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="item">
-               
-                <div class="in">
-                    <div>
-                        <!-- <header>Name</header> -->
-                        Asking for Introduction
-                        <footer class="text-success">Easy</footer>
-                    </div>
-                    <img src="/views/assets/img/app-assets/conver.png" alt="image" class="image">
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="item">
-               
-                <div class="in">
-                    <div>
-                        <!-- <header>Name</header> -->
-                        How are you ?
-                        <footer class="text-success">Easy</footer>
-                    </div>
-                    <img src="/views/assets/img/app-assets/conver.png" alt="image" class="image">
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="item">
-               
-                <div class="in">
-                    <div>
-                        <!-- <header>Name</header> -->
-                     Etiquette Conversations
-                        <footer class="text-success">Easy</footer>
-                    </div>
-                    <img src="/views/assets/img/app-assets/conver.png" alt="image" class="image">
-                </div>
-            </a>
-        </li>
 
+        
+        <% Object.keys(convo_parents).forEach(function(prop) { %>
+            <li>
+                <a href="/conversation-play/<%- lesson_id -%>/<%- convo_parents[prop]['id'] %>" class="item">
+                
+                    <div class="in">
+                        <div>
+                            <%- convo_parents[prop]['conversation'] %>
+                            <footer class="text-success">Easy</footer>
+                        </div>
+                        <img src="/views/assets/img/app-assets/conver.png" alt="image" class="image">
+                    </div>
+                </a>
+            </li>
+        <% }); %>
     </ul>
 
 

@@ -16,17 +16,7 @@
                                 <form class="profile-form" id="conversation_form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Select Phace</label>
-                                                <select name="phase_id" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Phases</option>
-                                                    <% Object.keys(phase).forEach(function(prop) { %>
-                                                        <option value="<%- phase[prop]['id'] %>"><%-
-                                                                phase[prop]['phase_name'] %></option>
-                                                        <% }); %>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-6 m-b30">
+                                            <div class="col-sm-12 m-b30">
                                                 <label class="form-label">Select Lesson</label>
                                                 <select name="lesson_id" class="form-control" id="">
                                                     <option value="" selected disabled> Select Lesson</option>
@@ -37,9 +27,32 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 m-b30">
-                                                <label class="form-label">Conversation 1</label>
-                                                <input type="text" name="conversation1" class="form-control"
-                                                    placeholder="Enter Conversation 1">
+                                                <label class="form-label">Conversation</label>
+                                                <div class="row">
+                                                    <div class="col-12" >
+                                                        <div class="row" id="add_more_convo">
+                                                            <div class="col-6 mt-2">
+                                                                <div class="row">
+                                                                    <div class="col-2 pe-0">
+                                                                        <select class="convos_type form-control" >
+                                                                            <option value="u">User</option>
+                                                                            <option value="b">Bot</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-10 ps-0">
+                                                                        <input type="text" class="convos_text form-control"
+                                                                    placeholder="Enter Conversation">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 mt-3">
+                                                        <button type="button" id="add_more_convo_btn" class="btn-block btn btn-outline-primary">+ Add More</button>
+                                                    </div>
+                                                </div>
+                                                
                                             </div>
 
                                         </div>
@@ -72,6 +85,16 @@
                                 e.preventDefault();
                                 const form_data = new FormData(this);
 
+                                let convo = [];
+
+                                $('.convos_text').each(function() {
+                                    if($(this).val()){
+                                        convo.push({[$(this).closest('.col-10.ps-0').prev().find('.convos_type').val()]: $(this).val()})
+                                    }
+                                });
+
+                                form_data.append('conversation', JSON.stringify(convo));
+
                                 $.ajax({
                                     url: "/admin/set-conversation-data",
                                     type: "POST",
@@ -94,5 +117,24 @@
                             });
 
 
+                            $(document).on('click', '#add_more_convo_btn', function (){
+                                
+                                $('#add_more_convo').append(
+                                    `<div class="col-6 mt-2">
+                                        <div class="row">
+                                            <div class="col-2 pe-0">
+                                                <select class="convos_type form-control" >
+                                                    <option value="u">User</option>
+                                                    <option value="b">Bot</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-10 ps-0">
+                                                <input type="text" class="convos_text form-control"
+                                            placeholder="Enter Conversation">
+                                            </div>
+                                        </div>
+                                    </div>`
+                                );
+                            })
                         })
                     </script>

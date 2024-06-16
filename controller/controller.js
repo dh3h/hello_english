@@ -5,7 +5,7 @@ var request = require('request');
 
 const sql = require("../connection/sql_combine");
 
-const { Cookies, generateUid } = require('../common/common-functions');
+const { Cookies, generateUid, getCurrentUser } = require('../common/common-functions');
 const userCookies = new Cookies();
 
 
@@ -112,14 +112,21 @@ const news = async (req, res) => {
 
 const Conversation = async (req, res) => {
     const { lesson_id } = req.params;
-    const convo_parents = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1 });
-    res.render('./Conversation.ejs', { title: 'Conversation', convo_parents});
+    const convo_parents = await sql.select_assoc('repo_conversation', '*', { lesson_id, status: 1, parent_id:0 });
+    // console.log(convo_parents);
+    res.render('./Conversation.ejs', { title: 'Conversation', convo_parents, lesson_id});
 }
 
 const ConversationPlay = async (req, res) => {
-    const { lesson_id, convo_id } = req.params;
-    const convo_list = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1, parent_id: convo_id });
-    res.render('./conversation-play.ejs', { title: 'Conversation', convo_list});
+    const { lesson_id, parent_id } = req.params;
+    // console.log(getCurrentUser(req));
+    const convo_list = await sql.select_assoc('repo_conversation', '*', { parent_id, status: 1 });
+    // console.log(convo_list);
+    if (typeof convo_list[0] != 'undefined') {
+        res.render('./conversation-play.ejs', { title: 'Conversation', convo_list: convo_list[0]['conversation']});
+    }else{
+        res.render('./Conversation.ejs', { title: 'Conversation', convo_parents: [], lesson_id: []});
+    }
 }
 
 const artical = async (req, res) => {
@@ -935,18 +942,14 @@ const AdminConversationList = (req, res) => {
     res.render('./admin/get-conversation-list.ejs', { title: 'List Conversation' });
 }
 const AdminAddconversation = async (req, res) => {
-
-    const phase = await sql.run("SELECT * FROM repo_phase WHERE status = 1");
     const lesson = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
-
     const id = req.params.id;
     let conversation_list = [];
     if (id) {
         conversation_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
     }
 
-
-    res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation', phase, lesson, conversation_list });
+    res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation', lesson, conversation_list });
 }
 
 // ============================= Story =============================== //
@@ -1526,7 +1529,7 @@ const AdminAnswer_the_questions_addSET = async (req, res) => {
 }
 
 const AdminAddconversationSET = async (req, res) => {
-    const { id, phase_id, lesson_id, conversation1, status } = req.body;
+    const { id, lesson_id, conversation, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1534,20 +1537,17 @@ const AdminAddconversationSET = async (req, res) => {
         columns.status = status;
     }
 
-    if (!conversation1) {
-        response = { status: 2, res: "conversation is required" };
+    if (!conversation) {
+        response = { status: 2, res: "Conversation is required" };
     } else {
-        columns.conversation1 = conversation1;
+        columns.conversation = conversation;
     }
     if (!lesson_id) {
         response = { status: 2, res: "Lesson is required" };
     } else {
-        columns.lesson_id = lesson_id;
-    } if (!phase_id) {
-        response = { status: 2, res: "Phase is required" };
-    } else {
-        columns.phase_id = phase_id;
+        columns.lesson_id = 2;
     }
+    columns.parent_id = 3;
 
 
     if (response.status != 2) {

@@ -77,7 +77,7 @@ Router.route('/maintenance').get(isLoggedIn, maintenance);
 Router.route('/app-tips').get(isLoggedIn, apptips);
 Router.route('/news').get(isLoggedIn, news);
 Router.route('/conversation/:pahse_id/:lesson_id').get(isLoggedIn, Conversation);
-Router.route('/conversation/:pahse_id/:lesson_id/:convo_id').get(isLoggedIn, ConversationPlay);
+Router.route('/conversation-play/:lesson_id/:parent_id').get(isLoggedIn, ConversationPlay);
 // Router.route('/conversation/:pahse_id/:lesson_id').get(isLoggedIn, Conversation);
 Router.route('/artical').get(isLoggedIn, artical);
 Router.route('/artical-details').get(isLoggedIn, artical_details);
