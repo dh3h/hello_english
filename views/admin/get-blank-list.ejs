@@ -7,9 +7,9 @@
         <div class="container-fluid">
           <div class="row">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <a href="/admin/get-edit-blank" class="btn btn-primary btn-sm ms-2">+ Add Fill in the Blank</a>
+              <a href="/admin/get-edit-blank" class="btn btn-primary btn-sm ms-2">+ Add Fill in the Blank</a>
               <div class="d-flex align-items-center">
-                
+
 
               </div>
             </div>
@@ -31,6 +31,7 @@
                             <th>Phases</th>
                             <th>Lesson</th>
                             <th>Questions</th>
+                            <th>Type's</th>
                             <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -39,54 +40,64 @@
                         </thead>
                         <tbody>
                           <% Object.keys(f_i_b_list).forEach(function(prop) { %>
-                          <tr>
-                            <td>
-                              <div class="form-check custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
-                                <label class="form-check-label" for="customCheckBox5"></label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
-                                <p class="mb-0 ms-2"><%- f_i_b_list[prop]['phase_name'] %></p>
-                              </div>
-                            </td>
-                            <td><%- f_i_b_list[prop]['lesson_name'] %></td>
-                            <td><%- f_i_b_list[prop]['question'] %></td>
-                            <td><%- f_i_b_list[prop]['date'] %></td>
-                            <td> <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                              
-                            </div>
-                           </td>
-                            <td>
-                              <div class="dropdown">
-                                <div class="btn-link" data-bs-toggle="dropdown">
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                    <path
-                                      d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                    <path
-                                      d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                  </svg>
+                            <tr class="delete_blank_parent">
+                              <td>
+                                <div class="form-check custom-checkbox">
+                                  <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
+                                  <label class="form-check-label" for="customCheckBox5"></label>
                                 </div>
-                                <div class="dropdown-menu dropdown-menu-right" style="">
-                                  <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              </td>
+                              <td>
+                                <div class="d-flex align-items-center">
+                                  <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
+                                  <p class="mb-0 ms-2"><%- f_i_b_list[prop]['phase_name'] %></p>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <% }); %>
+                              </td>
+                              <td><%- f_i_b_list[prop]['lesson_name'] %></td>
+                              <td><%- f_i_b_list[prop]['question'] %></td>
+                             
+                              <td>
+                                <span class="badge badge-primary light border-0 me-1"><%- f_i_b_list[prop]['type_list'] %></span>
+                              </td>
+                              <td><%- f_i_b_list[prop]['date'] %></td>
+                              <td>
+                                <div class="form-check form-switch">
+                                  <input class="form-check-input phase_list_status" data-id="id"
+                                  data-col="<%- f_i_b_list[prop]['id'] %>" <% if(f_i_b_list[prop]['status'] ==1 ){ %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
+
+                                </div>
+                              </td>
+                              <td>
+                                <div class="dropdown">
+                                  <div class="btn-link" data-bs-toggle="dropdown">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                      xmlns="http://www.w3.org/2000/svg">
+                                      <path
+                                        d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
+                                        stroke="#737B8B" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                      </path>
+                                      <path
+                                        d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
+                                        stroke="#737B8B" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                      </path>
+                                      <path
+                                        d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
+                                        stroke="#737B8B" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                      </path>
+                                    </svg>
+                                  </div>
+                                  <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                    <a class="dropdown-item delete_blank" data-id="<%- f_i_b_list[prop]['id'] %>"
+                                      href="javascript:void(0);">Delete</a>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <% }); %>
 
                         </tbody>
 
@@ -106,6 +117,9 @@
         <%- include('common/script'); %>
 
           <script>
+            status_update('.blank_list_status', 'repo_fill_blank');
+            delete_entity('.delete_blank', 'repo_fill_blank', '.delete_blank_parent');
+
             $(document).ready(function () {
               var table = $('#userListTable').DataTable({
                 responsive: true,

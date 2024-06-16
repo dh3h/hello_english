@@ -243,16 +243,60 @@ const listen_select_options = async (req, res) => {
 
 //  ========================================== App message ================================== //
 const Ask_teacher = async (req, res) => {
-    res.render('./ask-techer-chat.ejs', { title: 'Books List'});
+    res.render('./ask-techer-chat.ejs', { title: 'Books List' });
 }
 
 const word_of_the_word = async (req, res) => {
-    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day'});
+    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day' });
 }
 
 const tip_of_the_day = async (req, res) => {
-    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat'});
+    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat' });
 }
+
+//  ========================================= holiday ===================================== ///
+const homework = async (req, res) => {
+    res.render('./holiday.ejs', { title: 'Holiday' });
+}
+
+//   ------------------------------------------- holiday components ------------------------------- //
+const homeword_fill_in_the_blank = async (req, res) => {
+    res.render('./homeword-fill-in-the-blank.ejs', { title: 'Fill in the Blank' });
+}
+const homework_Rearrangement = async (req, res) => {
+    res.render('./homework-Rearrangement.ejs', { title: 'Holiday' });
+}
+const homework_find_correct_sentence = async (req, res) => {
+    res.render('./homework-find-correct-sentence.ejs', { title: 'Holiday' });
+}
+const homework_listen_and_type = async (req, res) => {
+    res.render('./homework-listen-and-type.ejs', { title: 'Holiday' });
+}
+const homework_Conversation = async (req, res) => {
+    res.render('./homework-Conversation.ejs', { title: 'Holiday' });
+}
+
+const homework_story = async (req, res) => {
+    res.render('./homework-story.ejs', { title: 'Holiday' });
+}
+const homework_answer_the_questions = async (req, res) => {
+    res.render('./homework-answer-the-questions.ejs', { title: 'Holiday' });
+}
+const homework_finding_the_gems = async (req, res) => {
+    res.render('./homework-finding-the-gems.ejs', { title: 'Holiday' });
+}
+const homework_listen_select_options = async (req, res) => {
+    res.render('./homework-listen-select-options.ejs', { title: 'Holiday' });
+}
+const homework_fill_code_videos = async (req, res) => {
+    res.render('./homework-fill-code-videos.ejs', { title: 'Holiday' });
+}
+
+//   -------------------------------- End holiday components ------------------------------- //
+
+
+
+
 
 const fill_code_videos = async (req, res) => {
     const { lesson_id } = req.params;
@@ -612,7 +656,7 @@ const AdminGetaddchapter = async (req, res) => {
 //  ------------------------ Fill in the Blank --------------------//
 const AdminGetBlank = async (req, res) => {
 
-    const f_i_b_list = await sql.run("SELECT repo_fill_blank.id, repo_fill_blank.phase_id, repo_fill_blank.lesson_id, repo_fill_blank.question,repo_fill_blank.date,repo_fill_blank.status,repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_fill_blank` INNER JOIN repo_phase ON repo_fill_blank.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_fill_blank.lesson_id = repo_lesson.id);");
+    const f_i_b_list = await sql.run("SELECT repo_fill_blank.id, repo_fill_blank.phase_id, repo_fill_blank.lesson_id, repo_fill_blank.type_list,  repo_fill_blank.question,repo_fill_blank.date,repo_fill_blank.status,repo_phase.phase_name, repo_lesson.lesson_name FROM ((`repo_fill_blank` INNER JOIN repo_phase ON repo_fill_blank.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_fill_blank.lesson_id = repo_lesson.id);");
     res.render('./admin/get-blank-list.ejs', { title: 'Fill In the Blank', f_i_b_list });
 }
 const AdminEditBlank = async (req, res) => {
@@ -637,7 +681,7 @@ const AdminGetrearrangements = async (req, res) => {
     // console.log(phase_id);
     const lesson_id = await sql.run("SELECT * FROM repo_lesson WHERE status = 1");
     // console.log(lesson_id);
-    const rearrangements_list = await sql.run("SELECT repo_rearrangements.id, repo_rearrangements.phase_id, repo_rearrangements.lesson_id,repo_rearrangements.question,repo_rearrangements.date_and_time,repo_rearrangements.status,repo_phase.phase_name,repo_lesson.lesson_name FROM ((`repo_rearrangements` INNER JOIN repo_phase ON repo_rearrangements.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_rearrangements.lesson_id = repo_lesson.id);");
+    const rearrangements_list = await sql.run("SELECT repo_rearrangements.id, repo_rearrangements.phase_id,repo_rearrangements.type_list, repo_rearrangements.lesson_id,repo_rearrangements.question,repo_rearrangements.date_and_time,repo_rearrangements.status,repo_phase.phase_name,repo_lesson.lesson_name FROM ((`repo_rearrangements` INNER JOIN repo_phase ON repo_rearrangements.phase_id = repo_phase.id)INNER JOIN repo_lesson ON repo_rearrangements.lesson_id = repo_lesson.id);");
 
     res.render('./admin/get-rearrangements-list.ejs', { title: 'List Rearrangements', phase_id: phase_id, lesson_id: lesson_id, rearrangements_list: rearrangements_list, });
 }
@@ -683,7 +727,7 @@ const AdminGetrearrangementsAPI = async (req, res) => {
 }
 
 const AdminEditrearrangementsAPI_SET = async (req, res) => {
-    const { id, phase_id, lesson_id, question, status, type } = req.body;
+    const { id, phase_id, lesson_id,type_list, question, status, type } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -695,6 +739,13 @@ const AdminEditrearrangementsAPI_SET = async (req, res) => {
     } else {
         columns.question = question;
     }
+
+    if (!type_list) {
+        response = { status: 2, res: "Types is required !!" };
+    } else {
+        columns.type_list = type_list;
+    }
+
     if (!lesson_id) {
         response = { status: 2, res: "Select Lesson required !!" };
     } else {
@@ -1161,7 +1212,7 @@ const deleteEntity = async (req, res) => {
 // ====================================== All Set API here =========================================== //
 
 const AdminBlankSet = async (req, res) => {
-    const { id, phase_id, lesson_id, questions, config, status } = req.body;
+    const { id, phase_id, lesson_id,type_list, questions, config, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1177,7 +1228,15 @@ const AdminBlankSet = async (req, res) => {
         response = { status: 2, res: "Lesson is required" };
     } else {
         columns.lesson_id = lesson_id;
-    } if (!questions) {
+    }
+
+    if (!type_list) {
+        response = { status: 2, res: "Select Type is required" };
+    } else {
+        columns.type_list = type_list;
+    }
+
+    if (!questions) {
         response = { status: 2, res: "Quesrtion is required" };
     } else {
         columns.question = questions;
@@ -1820,19 +1879,24 @@ module.exports = {
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,
-    Ask_teacher,word_of_the_word,tip_of_the_day,
+    Ask_teacher, word_of_the_word, tip_of_the_day,
+    //  =================================  homework ==========================================
+    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
+
+
+
     // ------------------------------- Admin functions ------------------ ///
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
 
     // ADMIN API
-    updateStatus, deleteEntity, AdminEditAudio_SET,
+    updateStatus, deleteEntity, AdminEditAudio_SET, homework,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET
     // message 
-    , AdminAQBS_chat,AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
+    , AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
 };

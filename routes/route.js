@@ -49,7 +49,10 @@ const {
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
     AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
-    Ask_teacher,word_of_the_word,tip_of_the_day,
+    Ask_teacher, word_of_the_word, tip_of_the_day, homework,
+    // ======================== homework ===========================
+    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
+
 
     // ADMIN APIS
     updateStatus, deleteEntity, AdminEditAudio_SET,
@@ -58,7 +61,7 @@ const {
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
     , AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddFindCorrectSentenceSET
     // message 
-    ,AdminAQBS_chat,AdminAQBS_read,AdminAQBS_add,Admin_WOTD_chat,Admin_WOTD_add,Admin_TOTD_chat,Admin_TOTB_add
+    , AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
 } = require("../controller/controller");
 
 Router.route('/').get(isLoggedIn, home);
@@ -110,6 +113,22 @@ Router.route('/Human-hang-game').get(isLoggedIn, human_hang_game);
 Router.route('/Ask-teacher').get(isLoggedIn, Ask_teacher);
 Router.route('/word-of-the-day').get(isLoggedIn, word_of_the_word);
 Router.route('/tip-of-the-day').get(isLoggedIn, tip_of_the_day);
+
+//  ========================= homework =========================================== //
+Router.route('/HomeWork').get(isLoggedIn, homework);
+
+//    ---------------  Home Work Details Page --------------- //
+Router.route('/homework-fill-in-the-blank').get(isLoggedIn, homeword_fill_in_the_blank);
+Router.route('/homework-re-arrangement').get(isLoggedIn, homework_Rearrangement);
+Router.route('/homework-find-correct-sentence').get(isLoggedIn, homework_find_correct_sentence);
+Router.route('/homework-listen-and-type').get(isLoggedIn, homework_listen_and_type);
+Router.route('/homework-conversation').get(isLoggedIn, homework_Conversation);
+Router.route('/homework-story').get(isLoggedIn, homework_story);
+Router.route('/homework-answer-the-questions').get(isLoggedIn, homework_answer_the_questions);
+Router.route('/homework-finding-the-gems').get(isLoggedIn, homework_finding_the_gems);
+Router.route('/homework-listen-select-options').get(isLoggedIn, homework_listen_select_options);
+Router.route('/homework-fill-code-videos').get(isLoggedIn, homework_fill_code_videos);
+
 
 
 
