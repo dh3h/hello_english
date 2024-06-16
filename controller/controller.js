@@ -111,8 +111,15 @@ const news = async (req, res) => {
 }
 
 const Conversation = async (req, res) => {
-    const rearrangements_list = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1 });
-    res.render('./Conversation.ejs', { title: 'Conversation', });
+    const { lesson_id } = req.params;
+    const convo_parents = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1 });
+    res.render('./Conversation.ejs', { title: 'Conversation', convo_parents});
+}
+
+const ConversationPlay = async (req, res) => {
+    const { lesson_id, convo_id } = req.params;
+    const convo_list = await sql.select_assoc('repo_rearrangements', '*', { lesson_id, status: 1, parent_id: convo_id });
+    res.render('./conversation-play.ejs', { title: 'Conversation', convo_list});
 }
 
 const artical = async (req, res) => {
@@ -1873,6 +1880,9 @@ const AdminGetaddchapter_set = async (req, res) => {
 
 module.exports = {
     login, logout, AuthLogin, signUp, verifyOTP,
+    
+    ConversationPlay,
+    
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
