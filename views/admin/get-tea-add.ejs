@@ -1,0 +1,114 @@
+<%- include('common/head') -%>
+    <%- include('common/header'); %>
+        <%- include('common/sidebar'); %>
+
+            <div class="content-body">
+                <!-- row -->
+                <div class="container-fluid">
+                    <!-- row -->
+                    <div class="row">
+
+                        <div class="col-xl-12 col-lg-8">
+                            <div class="card profile-card card-bx m-b30">
+                                <div class="card-header">
+                                    <h6 class="title">Add Tea Game Add</h6>
+                                </div>
+                                <form class="profile-form" id="tea_data_form">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            
+                                            <div class="col-sm-12 m-b30">
+                                                <label class="form-label">Questions</label>
+                                                <textarea name="questions" id="about_discriptions" class="form-control"
+                                                    rows="10" cols="10"></textarea>
+                                            </div>
+
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Options ID: 1</label>
+                                                <input type="text" id="options1" class="form-control"
+                                                    placeholder="Enter Options 1">
+                                            </div>
+
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Options ID: 2</label>
+                                                <input type="text" id="options2" class="form-control"
+                                                    placeholder="Enter Options 2">
+                                            </div>
+
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Enter the Correct ID Option's</label>
+                                                <input type="text" id="correct_ans" class="form-control"
+                                                    placeholder="Enter the Option ID here">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('common/footer') -%>
+                <%- include('common/script'); %>
+
+                    <script>
+                        $(document).ready(function () {
+                            var table = $('#userListTable').DataTable({
+                                responsive: true,
+                                language: {
+                                    paginate: {
+                                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                                        previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+                                    }
+                                }
+                            });
+
+                            $(document).on('submit', '#tea_data_form', function (e) {
+                                e.preventDefault();
+                                let opt_1 = $('#options1').val();
+                                let opt_2 = $('#options2').val();
+                              
+                                let ans = $('#correct_ans').val()
+
+                                if (!opt_1 || !opt_2 || !ans) {
+                                    msg('error', 'Fill all options and Answer');
+                                    return;
+                                }
+                                let config = {
+                                    '1': opt_1,
+                                    '2': opt_2,
+                                    ans
+                                }
+
+                                const form_data = new FormData(this);
+                                form_data.append('config', JSON.stringify(config));
+
+                                $.ajax({
+                                    url: "/admin/set-tea-game",
+                                    type: "POST",
+                                    data: form_data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: (response) => {
+                                        const json = JSON.parse(response);
+                                        if (json.status != 2) {
+                                            msg('success', json.res);
+                                            // setTimeout(() => {
+                                            //   location.reload();
+                                            // }, 1200);
+                                        } else {
+                                            msg('error', json.res);
+                                        }
+                                    }
+                                });
+                            });
+
+
+
+                        })
+                    </script>

@@ -28,7 +28,7 @@
                                 <label class="form-check-label" for="checkAll"></label>
                               </div>
                             </th>
-                            <th>Phases</th>
+                            <!-- <th>Phases</th> -->
                             <th>Lesson</th>
                             <th>Questions</th>
                             <th>Type's</th>
@@ -47,23 +47,20 @@
                                   <label class="form-check-label" for="customCheckBox5"></label>
                                 </div>
                               </td>
-                              <td>
-                                <div class="d-flex align-items-center">
-                                  <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
-                                  <p class="mb-0 ms-2"><%- f_i_b_list[prop]['phase_name'] %></p>
-                                </div>
-                              </td>
+
                               <td><%- f_i_b_list[prop]['lesson_name'] %></td>
                               <td><%- f_i_b_list[prop]['question'] %></td>
-                             
+
                               <td>
-                                <span class="badge badge-primary light border-0 me-1"><%- f_i_b_list[prop]['type_list'] %></span>
+                                <span class="badge badge-primary light border-0 me-1"><%- f_i_b_list[prop]['type_list']
+                                    %></span>
                               </td>
-                              <td><%- f_i_b_list[prop]['date'] %></td>
+                              <td><span class="convert_date"><%- f_i_b_list[prop]['date'] %></span></td>
                               <td>
                                 <div class="form-check form-switch">
-                                  <input class="form-check-input phase_list_status" data-id="id"
-                                  data-col="<%- f_i_b_list[prop]['id'] %>" <% if(f_i_b_list[prop]['status'] ==1 ){ %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
+                                  <input class="form-check-input blank_list_status" data-id="id"
+                                    data-col="<%- f_i_b_list[prop]['id'] %>" <% if(f_i_b_list[prop]['status']==1 ){
+                                    %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
 
                                 </div>
                               </td>
@@ -130,5 +127,10 @@
                   }
                 }
               });
+
+              $('.convert_date').each(function () {
+                console.log('hi');
+                $(this).text(formatDateTime($(this).text()));
+              })
             })
           </script>

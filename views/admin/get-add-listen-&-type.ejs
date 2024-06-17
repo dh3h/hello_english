@@ -16,17 +16,7 @@
                                 <form class="profile-form" id="ListenType_form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Select Phace</label>
 
-                                                <select name="phase_id" class="form-control" id="">
-                                                    <option value="" selected disabled>Select Phases</option>
-                                                    <% Object.keys(phase).forEach(function(prop) { %>
-                                                        <option value="<%- phase[prop]['id'] %>"><%-
-                                                                phase[prop]['phase_name'] %></option>
-                                                        <% }); %>
-                                                </select>
-                                            </div>
                                             <div class="col-sm-6 m-b30">
                                                 <label class="form-label">Select Lesson</label>
                                                 <select name="lesson_id" class="form-control" id="">
@@ -35,6 +25,14 @@
                                                         <option value="<%- lesson[prop]['id'] %>"><%-
                                                                 lesson[prop]['lesson_name'] %></option>
                                                         <% }); %>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Select Type</label>
+                                                <select name="type_list" class="form-control" id="">
+                                                    <option value="" selected disabled>Select Type</option>
+                                                    <option value="Basic Cources">Basic Cources</option>
+                                                    <option value="Homework">Homework</option>
                                                 </select>
                                             </div>
                                             <div class="col-sm-12 m-b30">
@@ -85,7 +83,7 @@
                                         if (json.status != 2) {
                                             msg('success', json.res);
                                             setTimeout(() => {
-                                              location.reload();
+                                                location.reload();
                                             }, 1200);
                                         } else {
                                             msg('error', json.res);

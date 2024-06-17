@@ -217,7 +217,7 @@ $(document).ready(function () {
         });
 
         $('.convert_date').each(function (){
-            console.log('hi');
+            // console.log('hi');
             $(this).text(formatDateTime($(this).text()));
         })
 

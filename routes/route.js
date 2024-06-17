@@ -49,7 +49,7 @@ const {
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
     AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
-    Ask_teacher, word_of_the_word, tip_of_the_day, homework,
+    Ask_teacher, word_of_the_word, tip_of_the_day, homework,Admin_tea_list,Admin_tea_add,Admin_tea_game_set,
     // ======================== homework ===========================
     homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
@@ -283,6 +283,10 @@ Router.route("/admin/Word-of-the-day-add").get(Admin_WOTD_add);
 Router.route("/admin/Tip-of-the-day-chat").get(Admin_TOTD_chat);
 Router.route("/admin/Tip-of-the-day-add").get(Admin_TOTB_add);
 
+//  =========================== gaming Sections ======================= //
+Router.route("/admin/get-tea-list").get(Admin_tea_list);
+Router.route("/admin/get-tea-add").get(Admin_tea_add);
+Router.route("/admin/set-tea-game").get(Admin_tea_game_set);
 
 
 //  ------------------------- Contest ------------------------- //

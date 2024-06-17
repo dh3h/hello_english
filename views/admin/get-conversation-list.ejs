@@ -7,9 +7,9 @@
         <div class="container-fluid">
           <div class="row">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <a href="/admin/get-conversation-add" class="btn btn-primary btn-sm ms-2">+ Add conversation</a>
+              <a href="/admin/get-conversation-add" class="btn btn-primary btn-sm ms-2">+ Add conversation</a>
               <div class="d-flex align-items-center">
-                
+
 
               </div>
             </div>
@@ -28,7 +28,7 @@
                                 <label class="form-check-label" for="checkAll"></label>
                               </div>
                             </th>
-                            <th>Phases</th>
+                            <!-- <th>Phases</th> -->
                             <th>Lesson</th>
                             <th>Questions</th>
                             <th>Date</th>
@@ -38,101 +38,55 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <% Object.keys(conversation_list_ld).forEach(function(prop) { %>
 
-                          <tr>
-                            <td>
-                              <div class="form-check custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
-                                <label class="form-check-label" for="customCheckBox5"></label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
-                                <p class="mb-0 ms-2">Phase 1</p>
-                              </div>
-                            </td>
-                            <td>Lesson 1</td>
-                            <td>My name is Ramu</td>
-                            <td>18 Mar 2023</td>
-                            <td> <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                              
-                            </div>
-                           </td>
-                            <td>
-                              <div class="dropdown">
-                                <div class="btn-link" data-bs-toggle="dropdown">
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                    <path
-                                      d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                    <path
-                                      d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                  </svg>
+                            <tr>
+                              <td>
+                                <div class="form-check custom-checkbox">
+                                  <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
+                                  <label class="form-check-label" for="customCheckBox5"></label>
                                 </div>
-                                <div class="dropdown-menu dropdown-menu-right" style="">
-                                  <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              </td>
+
+                              <td><%- conversation_list_ld[prop]['lesson_name'] %></td>
+                              <td><%- conversation_list_ld[prop]['conversation'] %></td>
+                              <td><%- conversation_list_ld[prop]['date'] %></td>
+                              <td>
+                                <div class="form-check form-switch">
+                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
-                                <label class="form-check-label" for="customCheckBox5"></label>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
-                                <p class="mb-0 ms-2">Phase 1</p>
-                              </div>
-                            </td>
-                            <td>Lesson 2</td>
-                            <td>I am Doing my word</td>
-                            <td>18 Mar 2023</td>
-                            <td> <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                              
-                            </div>
-                           </td>
-                            <td>
-                              <div class="dropdown">
-                                <div class="btn-link" data-bs-toggle="dropdown">
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                    <path
-                                      d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                    <path
-                                      d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
-                                      stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    </path>
-                                  </svg>
+                              </td>
+                              <td>
+                                <div class="dropdown">
+                                  <div class="btn-link" data-bs-toggle="dropdown">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                      xmlns="http://www.w3.org/2000/svg">
+                                      <path
+                                        d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
+                                        stroke="#737B8B" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                      </path>
+                                      <path
+                                        d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
+                                        stroke="#737B8B" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                      </path>
+                                      <path
+                                        d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
+                                        stroke="#737B8B" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                      </path>
+                                    </svg>
+                                  </div>
+                                  <div class="dropdown-menu dropdown-menu-right" style="">
+                                    <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                                    <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                  </div>
                                 </div>
-                                <div class="dropdown-menu dropdown-menu-right" style="">
-                                  <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
+                            <% }); %>
 
                         </tbody>
 
@@ -163,4 +117,16 @@
                 }
               });
             })
+
+            const text = "Your 100-word text goes here. Make sure it's exactly 100 words for this example jhfkjdsfhsjkdhg gdfgdfkg dflg .";
+
+            function shortenText(text, wordLimit) {
+              const words = text.split(' ');
+              const shortText = words.slice(0, wordLimit).join(' ');
+              return shortText;
+            }
+
+            const shortText = shortenText(text, 10);
+            console.log(shortText);
+
           </script>

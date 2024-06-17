@@ -16,16 +16,7 @@
                                 <form class="profile-form" id="finding_the_gems_form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Select Phace</label>
-                                                <select name="phase_id" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Phases</option>
-                                                    <% Object.keys(phase).forEach(function(prop) { %>
-                                                        <option value="<%- phase[prop]['id'] %>"><%-
-                                                                phase[prop]['phase_name'] %></option>
-                                                        <% }); %>
-                                                </select>
-                                            </div>
+
                                             <div class="col-sm-6 m-b30">
                                                 <label class="form-label">Select Lesson</label>
                                                 <select name="lesson_id" class="form-control" id="">
@@ -36,40 +27,48 @@
                                                         <% }); %>
                                                 </select>
                                             </div>
+                                            <div class="col-sm-6 m-b30">
+                                                <label class="form-label">Select Type </label>
+                                                <select name="type_list" class="form-control" id="">
+                                                    <option value="" selected disabled>Select Type</option>
+                                                    <option value="Basic_cources">Basic Cources</option>
+                                                    <option value="homework">Homework</option>
+                                                </select>
+                                            </div>
                                             <div class="col-sm-12 m-b30">
-                                                <label class="form-label">Questions</label>
+                                                <label class="form-label">Questions </label>
                                                 <textarea name="questions" id="about_discriptions" class="form-control"
                                                     rows="10" cols="10"></textarea>
                                             </div>
 
                                             <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Options 1</label>
+                                                <label class="form-label">Options ID: 1</label>
                                                 <input type="text" id="options1" class="form-control"
                                                     placeholder="Enter Options 1">
                                             </div>
 
                                             <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Options 2</label>
+                                                <label class="form-label">Options ID: 2</label>
                                                 <input type="text" id="options2" class="form-control"
                                                     placeholder="Enter Options 2">
                                             </div>
 
                                             <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Options 3</label>
+                                                <label class="form-label">Options ID: 3</label>
                                                 <input type="text" id="options3" class="form-control"
                                                     placeholder="Enter Options 3">
                                             </div>
 
                                             <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Options 4</label>
+                                                <label class="form-label">Options ID: 4</label>
                                                 <input type="text" id="options4" class="form-control"
                                                     placeholder="Enter Options 4">
                                             </div>
 
                                             <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Write Correct Option</label>
+                                                <label class="form-label">WEnter the Correct ID Option's</label>
                                                 <input type="text" id="correct_ans" class="form-control"
-                                                    placeholder="Enter Correct Option">
+                                                    placeholder="Enter the Options ID here">
                                             </div>
 
                                         </div>

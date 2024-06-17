@@ -18,18 +18,7 @@
                                 <form id="rearrangements_form" class="profile-form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Select Phace</label>
-
-                                                <select name="phase_id" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Phases </option>
-                                                    <% Object.keys(phase_id).forEach(function(prop) { %>
-                                                        <option value="<%- phase_id[prop]['id'] %>"><%-
-                                                                phase_id[prop]['phase_name'] %></option>
-                                                        <% }); %>
-                                            
-                                                </select>
-                                            </div>
+                                           
                                             <div class="col-sm-6 m-b30">
                                                 <label class="form-label">Select Lesson</label>
                                                 <select name="lesson_id" class="form-control" id="">
@@ -38,6 +27,7 @@
                                                         <option value="<%- lesson_id[prop]['id'] %>"><%-
                                                                 lesson_id[prop]['lesson_name'] %></option>
                                                         <% }); %>
+                                                        
                                                 </select>
                                             </div>
                                             <div class="col-sm-6 m-b30">
@@ -85,7 +75,7 @@
                                                                 <label class="form-check-label" for="checkAll"></label>
                                                             </div>
                                                         </th>
-                                                        <th>Phases</th>
+                                                        <!-- <th>Phases</th> -->
                                                         <th>Lesson</th>
                                                         <th>Questions</th>
                                                         <th>Date</th>
@@ -106,14 +96,7 @@
                                                                         for="customCheckBox5"></label>
                                                                 </div>
                                                             </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <!-- <img src="images/contacts/pic666.jpg" class="avatar rounded-circle" alt=""> -->
-                                                                    <p class="mb-0 ms-2"><%-
-                                                                            rearrangements_list[prop]['phase_name'] %>
-                                                                    </p>
-                                                                </div>
-                                                            </td>
+                                                            
                                                             <td><%- rearrangements_list[prop]['lesson_name'] %></td>
                                                             <td><%- rearrangements_list[prop]['question'] %></td>
                                                             <td><%- rearrangements_list[prop]['date_and_time'] %></td>
