@@ -1,4 +1,6 @@
-<!-- views\admin\get-tea-list.ejs -->
+<!-- 
+    views/admin/get-rearrangements-list.ejs
+ -->
 <%- include('common/head') -%>
     <%- include('common/header'); %>
         <%- include('common/sidebar'); %>
@@ -7,12 +9,35 @@
                 <!-- row -->
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <a href="/admin/get-tea-add" class="btn btn-primary btn-sm ms-2">+ Add Tea Game</a>
-                            <div class="d-flex align-items-center">
+                        <!-- <div class="d-flex justify-content-between align-items-center mb-4">
+                         <div class="row"> -->
 
+                        <div class="col-xl-12 col-lg-8">
+                            <div class="card profile-card card-bx m-b30">
 
+                                <form id="word_of_the_day_form" class="profile-form">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12 m-b30">
+                                                <label class="form-label">Enter Your Tips</label>
+                                                <textarea name="words" id="about_discriptions" class="form-control"
+                                                    rows="10" cols="10"></textarea>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="mt-4">
+                                                    <button class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </form>
                             </div>
+                            <!-- </div>
+                         </div> -->
+
+
                         </div>
                         <div class="col-xl-12 active-p">
                             <div class="tab-content" id="pills-tabContent">
@@ -31,17 +56,18 @@
                                                             </div>
                                                         </th>
                                                         <!-- <th>Phases</th> -->
+                                                        <!-- <th>Lesson</th> -->
                                                         <th>Questions</th>
-                                                        <th>Options</th>
                                                         <th>Date</th>
+                                                        <!-- <th>Type</th> -->
                                                         <th>Status</th>
                                                         <th>Action</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <% Object.keys(tea_game_list).forEach(function(prop) { %>
-                                                        <tr class="delete_listen_type_parent">
+                                                    <% Object.keys(word_of_the_day).forEach(function(prop) { %>
+                                                        <tr>
                                                             <td>
                                                                 <div class="form-check custom-checkbox">
                                                                     <input type="checkbox" class="form-check-input"
@@ -51,9 +77,10 @@
                                                                 </div>
                                                             </td>
 
-                                                            <td><%- tea_game_list[prop]['question'] %></td>
-                                                            <td><%- tea_game_list[prop]['config'] %></td>
-                                                            <td><%- tea_game_list[prop]['date'] %></td>
+                                                            <td><%- word_of_the_day[prop]['words'] %></td>
+                                                            <td><%- word_of_the_day[prop]['date'] %></td>
+                                                            <!-- <td>sjhfkjfjgj</td> -->
+                                                            
                                                             <td>
                                                                 <div class="form-check form-switch">
                                                                     <input class="form-check-input" type="checkbox"
@@ -91,14 +118,13 @@
                                                                         style="">
                                                                         <a class="dropdown-item"
                                                                             href="javascript:void(0);">Edit</a>
-                                                                        <a class="dropdown-item delete_listen_type"
+                                                                        <a class="dropdown-item"
                                                                             href="javascript:void(0);">Delete</a>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         <% }); %>
-
                                                 </tbody>
 
                                             </table>
@@ -117,12 +143,7 @@
                 <%- include('common/script'); %>
 
                     <script>
-
-                        // status_update('.blank_list_status', 'rapo_listen_type');
-                        // delete_entity('.delete_listen_type', 'rapo_listen_type', '.delete_listen_type_parent');
-
                         $(document).ready(function () {
-
                             var table = $('#userListTable').DataTable({
                                 responsive: true,
                                 language: {
@@ -131,6 +152,31 @@
                                         previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
                                     }
                                 }
+                            });
+
+                            $(document).on('submit', '#word_of_the_day_form', function (e) {
+                                e.preventDefault();
+                                const form_data = new FormData(this);
+
+                                $.ajax({
+                                    url: "/admin/Word-of-the-day-set",
+                                    type: "POST",
+                                    data: form_data,
+                                    contentType: false,
+                                    processData: false,
+                                    success: (response) => {
+                                        const json = JSON.parse(response);
+                                        if (json.status != 2) {
+                                            msg('success', json.res);
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 1200);
+                                        } else {
+                                            msg('error', json.res);
+                                        }
+                                    }
+                                });
+
                             });
                         })
                     </script>

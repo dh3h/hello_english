@@ -29,30 +29,33 @@
                                             <div class="col-sm-12 m-b30">
                                                 <label class="form-label">Conversation</label>
                                                 <div class="row">
-                                                    <div class="col-12" >
+                                                    <div class="col-12">
                                                         <div class="row" id="add_more_convo">
                                                             <div class="col-6 mt-2">
                                                                 <div class="row">
                                                                     <div class="col-2 pe-0">
-                                                                        <select class="convos_type form-control" >
+                                                                        <select class="convos_type form-control">
                                                                             <option value="u">User</option>
                                                                             <option value="b">Bot</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-10 ps-0">
-                                                                        <input type="text" class="convos_text form-control"
-                                                                    placeholder="Enter Conversation">
+                                                                        <input type="text"
+                                                                            class="convos_text form-control"
+                                                                            placeholder="Enter Conversation">
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                           
+
                                                         </div>
                                                     </div>
                                                     <div class="col-12 mt-3">
-                                                        <button type="button" id="add_more_convo_btn" class="btn-block btn btn-outline-primary">+ Add More</button>
+                                                        <button type="button" id="add_more_convo_btn"
+                                                            class="btn-block btn btn-outline-primary">+ Add
+                                                            More</button>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
 
                                         </div>
@@ -87,9 +90,9 @@
 
                                 let convo = [];
 
-                                $('.convos_text').each(function() {
-                                    if($(this).val()){
-                                        convo.push({[$(this).closest('.col-10.ps-0').prev().find('.convos_type').val()]: $(this).val()})
+                                $('.convos_text').each(function () {
+                                    if ($(this).val()) {
+                                        convo.push({ [$(this).closest('.col-10.ps-0').prev().find('.convos_type').val()]: $(this).val() })
                                     }
                                 });
 
@@ -117,8 +120,8 @@
                             });
 
 
-                            $(document).on('click', '#add_more_convo_btn', function (){
-                                
+                            $(document).on('click', '#add_more_convo_btn', function () {
+
                                 $('#add_more_convo').append(
                                     `<div class="col-6 mt-2">
                                         <div class="row">

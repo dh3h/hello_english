@@ -36,6 +36,8 @@ passport.deserializeUser((user, done) => done(null, user));
 // Import and use your routes
 const Router = express.Router();
 const {
+    customLogin,
+
     login, home, AuthLogin,
     logout, myProfile, signUp,
     verifyOTP, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, listen_select_options,
@@ -49,22 +51,26 @@ const {
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
     AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
-    Ask_teacher, word_of_the_word, tip_of_the_day, homework,Admin_tea_list,Admin_tea_add,Admin_tea_game_set,
+    Ask_teacher, word_of_the_word, tip_of_the_day, homework,Admin_tea_list,Admin_tea_add,Admin_tea_game_SET,
     // ======================== homework ===========================
     homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
 
     // ADMIN APIS
-    updateStatus, deleteEntity, AdminEditAudio_SET,
+    updateStatus, deleteEntity, AdminEditAudio_SET,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminEditVideos_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
     , AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddFindCorrectSentenceSET
     // message 
-    , AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
+    , AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
 } = require("../controller/controller");
 Router.route('/page-start').get(page_start);
 Router.route('/page-login').get(page_login_app);
+Router.route('/custom-login').get(customLogin);
+
+
+
 
 Router.route('/').get(isLoggedIn, home);
 Router.route('/my-profile').get(isLoggedIn, myProfile);
@@ -277,16 +283,27 @@ Router.route("/admin/Ask-questions-by-students-add").get(AdminAQBS_add);
 
 // --------------------- Word of the day ------------------------- //
 Router.route("/admin/Word-of-the-day-chat").get(Admin_WOTD_chat);
-Router.route("/admin/Word-of-the-day-add").get(Admin_WOTD_add);
+Router.route("/admin/Word-of-the-day-set").post(Admin_WOTD_SET);
 
 // --------------------- Tip Of the Day ------------------------- //
 Router.route("/admin/Tip-of-the-day-chat").get(Admin_TOTD_chat);
 Router.route("/admin/Tip-of-the-day-add").get(Admin_TOTB_add);
 
 //  =========================== gaming Sections ======================= //
+
+// ----------------- tea game -------------- //
 Router.route("/admin/get-tea-list").get(Admin_tea_list);
 Router.route("/admin/get-tea-add").get(Admin_tea_add);
-Router.route("/admin/set-tea-game").get(Admin_tea_game_set);
+Router.route("/admin/get-tea-add/:id").get(Admin_tea_add);
+Router.route("/admin/set-tea-game").post(Admin_tea_game_SET);
+
+// ---------------- Spellings Games ------------ // 
+Router.route("/admin/get-spellings-list").get(Admin_spellings_list);
+Router.route("/admin/get-spellings-add").get(Admin_spellings_add);
+Router.route("/admin/get-spellings-add/:id").get(Admin_spellings_add);
+Router.route("/admin/get-spellings-SET").post(Admin_spellings_SET);
+
+
 
 
 //  ------------------------- Contest ------------------------- //

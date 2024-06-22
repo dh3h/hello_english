@@ -400,6 +400,16 @@ const AuthLogin = async (req, res) => {
     res.redirect('/');
 }
 
+const customLogin = async (req, res) => {
+    const user_exists = await sql.select_assoc('repo_user', '*', {'email':'dilshads1@gmail.com'});
+    let user_db_data = [];
+    if(user_exists && user_exists[0]){
+        user_db_data = user_exists[0];
+    }
+    console.log(user_exists);
+    userCookies.set(res, 'user_data', user_db_data);
+    res.send("Login Successfull");
+}
 
 
 const addUser = async (req, res) => {
@@ -1114,14 +1124,17 @@ const AdminAQBS_add = async (req, res) => {
 
 // --------------------- Word of the day ---------------
 const Admin_WOTD_chat = async (req, res) => {
-    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
+    const word_of_the_day = await sql.run("SELECT * FROM `repo_word_of_day` ORDER BY id DESC;");
+
+    res.render('./admin/get-word-of-the-day-list.ejs', { title: 'Word OF the Days',word_of_the_day });
 }
-const Admin_WOTD_add = async (req, res) => {
-    res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
-}
+// const Admin_WOTD_add = async (req, res) => {
+//     res.render('./admin/get-word-of-the-day-add.ejs', { title: 'Ask questions by students Add' });
+// }
 
 // --------------------- ip Of the Day ---------------
 const Admin_TOTD_chat = async (req, res) => {
+
     res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
 }
 const Admin_TOTB_add = async (req, res) => {
@@ -1251,12 +1264,25 @@ const deleteEntity = async (req, res) => {
 
 // ================================= Gaming ============================== //
 const Admin_tea_list = async (req, res) => {
-    res.render('./admin/get-tea-list.ejs', { title: 'Tea Game List' });
+
+    const tea_game_list = await sql.run("SELECT * FROM `repo_tea_game` ORDER BY id DESC;");
+
+    res.render('./admin/get-tea-list.ejs', { title: 'Tea Game List', tea_game_list });
 }
 
 const Admin_tea_add = async (req, res) => {
     res.render('./admin/get-tea-add.ejs', { title: 'Tea Game Add' });
 }
+
+// ------------------ Spelling Gaming -------------------- //
+const Admin_spellings_list = async (req, res) => {
+    res.render('./admin/get-spelling-list.ejs', { title: 'Spelling Gaming List' });
+}
+
+const Admin_spellings_add = async (req, res) => {
+    res.render('./admin/get-spelling-add.ejs', { title: 'Spelling Gaming Add' });
+}
+
 
 
 
@@ -1924,7 +1950,8 @@ const AdminGetaddchapter_set = async (req, res) => {
 }
 
 
-const Admin_tea_game_set = async (req, res) => {
+const Admin_tea_game_SET = async (req, res) => {
+    // alert();
     const { id, questions, config, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
@@ -1934,25 +1961,91 @@ const Admin_tea_game_set = async (req, res) => {
     }
 
     if (!questions) {
-        response = { status: 2, res: "Lesson is required" };
+        response = { status: 2, res: "Quesrtion is required" };
     } else {
-        columns.questions = questions;
-    }
-     if (!config) {
+        columns.question = questions;
+    } if (!config) {
         response = { status: 2, res: "Options are required" };
     } else {
         columns.config = config;
     }
 
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_tea_game', 'id', id, columns);
+                response = { status: 1, res: "Tea Game Updated" };
+            } else {
+                result = await sql.insert('repo_tea_game', columns);
+                response = { status: 1, res: "Tea Game Inserted" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const Admin_spellings_SET = async (req, res) => {
+    // alert();
+    const { id, questions, config, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!questions) {
+        response = { status: 2, res: "Quesrtion is required" };
+    } else {
+        columns.question = questions;
+    } if (!config) {
+        response = { status: 2, res: "Options are required" };
+    } else {
+        columns.config = config;
+    }
 
     if (response.status != 2) {
         try {
             if (typeof id != 'undefined') {
-                result = await sql.update('repo_correct_sentence', 'id', id, columns);
-                response = { status: 1, res: "Updated Successfully" };
+                result = await sql.update('repo_tea_game', 'id', id, columns);
+                response = { status: 1, res: "Tea Game Updated" };
             } else {
-                result = await sql.insert('repo_correct_sentence', columns);
-                response = { status: 1, res: "Inserted Successfully" };
+                result = await sql.insert('repo_tea_game', columns);
+                response = { status: 1, res: "Tea Game Inserted" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const Admin_WOTD_SET = async (req, res) => {
+    // alert();
+    const { id, words, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!words) {
+        response = { status: 2, res: "Words Of The Day is required" };
+    } else {
+        columns.words = words;
+    } 
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_word_of_day', 'id', id, columns);
+                response = { status: 1, res: "Word Of The Day Updated" };
+            } else {
+                result = await sql.insert('repo_word_of_day', columns);
+                response = { status: 1, res: "Word Of The Day Inserted" };
             }
         } catch (error) {
         }
@@ -1963,6 +2056,7 @@ const Admin_tea_game_set = async (req, res) => {
 
 
 module.exports = {
+    customLogin,
     login, logout, AuthLogin, signUp, verifyOTP,
 
     ConversationPlay,
@@ -1984,12 +2078,12 @@ module.exports = {
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list, news_details,
     // ADMIN API
-    updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start,
+    updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set, page_login_app,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
-    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add,Admin_tea_game_set,
+    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,
     // message 
-    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_add, Admin_TOTD_chat, Admin_TOTB_add
+    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
 };

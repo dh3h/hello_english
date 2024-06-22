@@ -16,7 +16,7 @@
                                 <form class="profile-form" id="tea_data_form">
                                     <div class="card-body">
                                         <div class="row">
-                                            
+
                                             <div class="col-sm-12 m-b30">
                                                 <label class="form-label">Questions</label>
                                                 <textarea name="questions" id="about_discriptions" class="form-control"
@@ -72,7 +72,6 @@
                                 e.preventDefault();
                                 let opt_1 = $('#options1').val();
                                 let opt_2 = $('#options2').val();
-                              
                                 let ans = $('#correct_ans').val()
 
                                 if (!opt_1 || !opt_2 || !ans) {
@@ -98,9 +97,9 @@
                                         const json = JSON.parse(response);
                                         if (json.status != 2) {
                                             msg('success', json.res);
-                                            // setTimeout(() => {
-                                            //   location.reload();
-                                            // }, 1200);
+                                            setTimeout(() => {
+                                                window.location.href = '/admin/get-tea-list';
+                                            }, 1200);
                                         } else {
                                             msg('error', json.res);
                                         }
