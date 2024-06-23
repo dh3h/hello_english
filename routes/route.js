@@ -44,7 +44,7 @@ const {
     artical, artical_details, game, Videos, ask_a_questions, videos_details, books, books_details, book_open, addUser, AdminLogin, AdminAnsToQuestion, fill_code_videos,
     my_friends, UsersList, GetQuestions, adminHome, peactice, type_questions, all_anwers, type_answers, refer_friends, page_about, helpline, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, answer_the_questions, contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game,page_login,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game ,Ask_teacher_SET,
     AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea, ConversationPlay,news_details,page_start,page_login_app,
 
     // -------------------------------- Admin Functions ------------------------------//
@@ -121,6 +121,8 @@ Router.route('/Human-hang-game').get(isLoggedIn, human_hang_game);
 
 //   ======================== App message  ================================= //
 Router.route('/Ask-teacher').get(isLoggedIn, Ask_teacher);
+Router.route('/Ask-teacher_SET').post(isLoggedIn, Ask_teacher_SET);
+
 Router.route('/word-of-the-day').get(isLoggedIn, word_of_the_word);
 Router.route('/tip-of-the-day').get(isLoggedIn, tip_of_the_day);
 

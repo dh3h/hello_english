@@ -15,39 +15,30 @@
 
         <!-- App Capsule -->
         <div id="appCapsule">
+            <% Object.keys(chat_list).forEach(function(prop) { %>
 
-            <div class="message-divider">
-                Friday, Sep 20, 10:40 AM
-            </div>
+                <div class="message-item <% if(chat_list[prop]['from_user'] !== 'A'){ %> user <% } %> ">
+                    <div class="content">
+                        <div class="bubble">
+                            <%- chat_list[prop]['message'] %>
+                        </div>
+                        <div class="footer">10:40 AM</div>
+                    </div>
+                </div>
 
-            <div class="message-item user">
-                <div class="content">
-                    <div class="bubble">
-                        Hello Sir !
-                    </div>
-                    <div class="footer">10:40 AM</div>
-                </div>
-            </div>
-            <div class="message-item">
-                <img src="/views/assets/img/app-assets/avtar.png" alt="avatar" class="avatar">
-                <div class="content">
-                    <div class="title">Teacher</div>
-                    <div class="bubble">
-                        Hello Nice to meet you !
-                    </div>
-                    <div class="footer">10:40 PM</div>
-                </div>
-            </div>
+                <% }); %>
         </div>
         <!-- * App Capsule -->
 
         <!-- chat footer -->
         <div class="chatFooter">
             <form id="form_data_users">
-                
+
                 <div class="form-group boxed" style=" width: max-content;">
                     <div class="input-wrapper">
-                        <input type="text" class="form-control" name="message_user" placeholder="Type a message...">
+                        <input type="hidden" name="from" class="form-control" value="<%- user['user_uid'] %>">
+                        <input type="text" class="form-control" id="message_inp" name="message"
+                            placeholder="Type a message...">
                         <i class="clear-input">
                             <ion-icon name="close-circle"></ion-icon>
                         </i>
@@ -61,3 +52,51 @@
         <!-- * chat footer -->
 
         <%- include('common/script') -%>
+            <script>
+
+                $(document).on('submit', '#form_data_users', function (e) {
+                    e.preventDefault();
+                    const form_data = new FormData(this);
+                    const msg = $('#message_inp').val();
+                    $.ajax({
+                        url: "/Ask-teacher_SET",
+                        type: "POST",
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: (response) => {
+                            const json = JSON.parse(response);
+                            if (json.status != 2) {
+                                // msg('success', json.()res);
+                                $('#appCapsule').append(`
+                                    <div class="message-item user">
+                                        <div class="content">
+                                            <div class="bubble">
+                                                ${msg}
+                                            </div>
+                                            <div class="footer">Now</div>
+                                        </div>
+                                    </div>
+                                `);
+                                window.scrollTo({
+                                    top: document.body.scrollHeight,
+                                    behavior: 'smooth'
+                                });
+                                $('#message_inp').val('');
+                                // setTimeout(() => {
+                                //     location.reload();
+                                // }, 1200);
+                            } else {
+                                // console.log(json.res);
+                                // msg('error', json.res);
+                            }
+                        }
+                    });
+
+                });
+                $(document).ready(function () {
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                    });
+                });
+            </script>

@@ -288,7 +288,11 @@ const listen_select_options = async (req, res) => {
 
 //  ========================================== App message ================================== //
 const Ask_teacher = async (req, res) => {
-    res.render('./ask-techer-chat.ejs', { title: 'Books List' });
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+    const chat_list = await sql.run(`SELECT from_user,to_user,message,date FROM repo_ask_teacher WHERE from_user = ${user_uid} OR to_user = ${user_uid} `);
+    console.log(chat_list); 
+    res.render('./ask-techer-chat.ejs', { title: 'Books List', user, chat_list });
 }
 
 const word_of_the_word = async (req, res) => {
@@ -401,9 +405,9 @@ const AuthLogin = async (req, res) => {
 }
 
 const customLogin = async (req, res) => {
-    const user_exists = await sql.select_assoc('repo_user', '*', {'email':'dilshads1@gmail.com'});
+    const user_exists = await sql.select_assoc('repo_user', '*', { 'email': 'dilshads1@gmail.com' });
     let user_db_data = [];
-    if(user_exists && user_exists[0]){
+    if (user_exists && user_exists[0]) {
         user_db_data = user_exists[0];
     }
     console.log(user_exists);
@@ -1126,7 +1130,7 @@ const AdminAQBS_add = async (req, res) => {
 const Admin_WOTD_chat = async (req, res) => {
     const word_of_the_day = await sql.run("SELECT * FROM `repo_word_of_day` ORDER BY id DESC;");
 
-    res.render('./admin/get-word-of-the-day-list.ejs', { title: 'Word OF the Days',word_of_the_day });
+    res.render('./admin/get-word-of-the-day-list.ejs', { title: 'Word OF the Days', word_of_the_day });
 }
 // const Admin_WOTD_add = async (req, res) => {
 //     res.render('./admin/get-word-of-the-day-add.ejs', { title: 'Ask questions by students Add' });
@@ -1148,6 +1152,44 @@ const Admin_Contest_list = (req, res) => {
 // const AdminNews_add = (req, res) => {
 //     res.render('./admin/get-news-add.ejs', { title: 'ADD News' });
 // }
+
+const Ask_teacher_SET = async (req, res) => {
+    const { id, from, to, message, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!from) {
+        response = { status: 2, res: "Something Error" };
+    } else {
+        columns.from_user = from;
+    } if (to) {
+        response = { status: 2, res: "Lesson is required" };
+    } else {
+        columns.to_user = 'A';
+    } if (!message) {
+        response = { status: 2, res: "message is required" };
+    } else {
+        columns.message = message;
+    }
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_ask_teacher', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_ask_teacher', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
 
 const adminListPhaseAPI = async (req, res) => {
     let { id, phase_name, date_and_time, status, order_by } = req.body;
@@ -2036,7 +2078,7 @@ const Admin_WOTD_SET = async (req, res) => {
         response = { status: 2, res: "Words Of The Day is required" };
     } else {
         columns.words = words;
-    } 
+    }
 
     if (response.status != 2) {
         try {
@@ -2065,7 +2107,7 @@ module.exports = {
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
-    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea,
+    GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea, Ask_teacher_SET,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,
     Ask_teacher, word_of_the_word, tip_of_the_day,
     //  =================================  homework ==========================================
@@ -2078,12 +2120,12 @@ module.exports = {
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list, news_details,
     // ADMIN API
-    updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,
+    updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start, Admin_spellings_list, Admin_spellings_add, Admin_spellings_SET,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set, page_login_app,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,
     // message 
-    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
+    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
 };
