@@ -381,7 +381,7 @@ const AuthLogin = async (req, res) => {
     let email = user_data.email;
 
     try {
-        const user_exists = await sql.select_assoc('repo_user',  '*', {email});
+        const user_exists = await sql.select_assoc('repo_user', '*', { email });
         let user_db_data = user_exists[0] ?? false;
         if (!user_db_data) {
             const new_guid = await generateUid('user');
@@ -1117,14 +1117,16 @@ const AdminNews_add = async (req, res) => {
 // --------------------- Ask questions by students ---------------
 const AdminAQBS_chat = async (req, res) => {
     const chat_list = await sql.run("SELECT repo_ask_teacher.id, repo_ask_teacher.from_user, repo_ask_teacher.to_user, repo_ask_teacher.message, repo_ask_teacher.date,repo_user.user_uid, repo_user.name, repo_user.mobile, repo_user.pic, repo_user.lang, repo_user.coin, repo_user.email, repo_user.password, repo_user.city, repo_user.state, repo_user.country, repo_user.status FROM repo_ask_teacher INNER JOIN repo_user ON repo_ask_teacher.from_user = repo_user.id GROUP BY from_user ORDER BY id DESC;");
-    
-    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat',chat_list });
+
+    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat', chat_list });
 }
 const AdminAQBS_read = async (req, res) => {
-    const {get_user_id} = req.params
+    const { get_user_id } = req.params
     const admin_chat_list = await sql.run(`SELECT from_user,to_user,message,date FROM repo_ask_teacher WHERE from_user = ${get_user_id} OR to_user = ${get_user_id} `);
-    console.log(admin_chat_list);
-    res.render('./admin/get-Ask-questions-by-students-read.ejs', { title: 'Ask questions by students Read',admin_chat_list });
+    console.log(typeof admin_chat_list);
+    console.log(get_user_id);
+    // return;
+    res.render('./admin/get-Ask-questions-by-students-read.ejs', { title: 'Ask questions by students Read', admin_chat_list, get_user_id });
 }
 const AdminAQBS_add = async (req, res) => {
     res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
@@ -2120,11 +2122,41 @@ const postUserLogin = async (req, res) => {
     if (response.status != 2) {
         result = await sql.select_assoc('repo_user', '*', where);
         response = { status: 1, res: "Login Successfull!" };
-        if(!result.length){
+        if (!result.length) {
             response = { status: 2, res: "User Not Found!!" };
             userCookies.set(res, 'user_data', []);
-        }else{
+        } else {
             userCookies.set(res, 'user_data', result);
+        }
+    }
+    res.send(JSON.stringify(response));
+}
+
+const AdminAQBS_SET = async (req, res) => {
+    const { to_user, message } = req.body;
+    const where = {};
+    response = { status: 0, res: "Something went wrongsdd !!" };
+
+
+    where.from_user = 'A';
+    if (!to_user) {
+        response = { status: 2, res: "Something Error" };
+    } else {
+        where.to_user = to_user;
+    }
+    if (!message) {
+        response = { status: 2, res: "Message is required" };
+    } else {
+        where.message = message;
+    }
+
+    if (response.status != 2 ) {
+        try {
+
+            result = await sql.insert('repo_ask_teacher', where);
+            response = { status: 1, res: " Inserted" };
+
+        } catch (error) {
         }
     }
     res.send(JSON.stringify(response));
@@ -2161,5 +2193,5 @@ module.exports = {
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,
     // message 
-    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
+    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
 };

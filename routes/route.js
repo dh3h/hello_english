@@ -64,7 +64,7 @@ const {
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
     , AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddFindCorrectSentenceSET
     // message 
-    , AdminAQBS_chat, AdminAQBS_read, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
+    , AdminAQBS_chat, AdminAQBS_read,AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
 } = require("../controller/controller");
 Router.route('/page-start').get(page_start);
 Router.route('/page-login').get(page_login_app);
@@ -281,6 +281,7 @@ Router.route("/admin/set-news").post(AdminNews_SET);
 //-----------------  Ask Questions By Students  --------------------//
 Router.route("/admin/Ask-questions-by-students-chat").get(AdminAQBS_chat);
 Router.route("/admin/Ask-questions-by-students-read/:get_user_id").get(AdminAQBS_read);
+Router.route("/admin/Ask-questions-by-students-SET").post(AdminAQBS_SET);
 Router.route("/admin/Ask-questions-by-students-add").get(AdminAQBS_add);
 
 
