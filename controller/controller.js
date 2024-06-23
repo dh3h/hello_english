@@ -385,7 +385,7 @@ const AuthLogin = async (req, res) => {
         let user_db_data = user_exists[0] ?? false;
         if (!user_db_data) {
             const new_guid = await generateUid('user');
-            let set_data = { user_uid: new_guid, email, name: user_data.name };
+            let set_data = { user_uid: new_guid, email, name: user_data.name, coin: 400 };
             sql.insert('repo_user', set_data);
             user_db_data = {
                 ...set_data, pic: 0, mobile: '', lang: 'ENG', coin: 0
