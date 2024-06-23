@@ -38,6 +38,7 @@ const Router = express.Router();
 const {
     customLogin,
 
+    postUserLogin,
     login, home, AuthLogin,
     logout, myProfile, signUp,
     verifyOTP, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, listen_select_options,
@@ -145,8 +146,8 @@ Router.route('/homework-fill-code-videos').get(isLoggedIn, homework_fill_code_vi
 
 
 // User
-Router.route("/login").get(isLoggedOut, login);
-Router.route("/sign-up").get(isLoggedOut, signUp);
+Router.route("/login").get(isLoggedOut, page_login_app).post(postUserLogin);
+Router.route("/sign-up").get(isLoggedOut, signUp).post(isLoggedOut, );
 Router.route("/verify-login-otp").get(isLoggedOut, verifyOTP);
 Router.route("/logout").get(isLoggedIn, logout);
 Router.route('/auth/google').get(isLoggedOut, passport.authenticate('google', { scope: ['profile', 'email'] }));

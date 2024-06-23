@@ -377,7 +377,7 @@ const AuthLogin = async (req, res) => {
     let email = user_data.email;
 
     try {
-        const user_exists = await sql.select_assoc('repo_user', 'email', email);
+        const user_exists = await sql.select_assoc('repo_user',  '*', {email});
         let user_db_data = user_exists[0] ?? false;
         if (!user_db_data) {
             const new_guid = await generateUid('user');
@@ -406,7 +406,7 @@ const customLogin = async (req, res) => {
     if(user_exists && user_exists[0]){
         user_db_data = user_exists[0];
     }
-    console.log(user_exists);
+
     userCookies.set(res, 'user_data', user_db_data);
     res.send("Login Successfull");
 }
@@ -977,7 +977,6 @@ const AdminEditListenType = async (req, res) => {
 // ============================= conversation =============================== //
 const AdminConversationList = async (req, res) => {
     const conversation_list_ld = await sql.run("SELECT repo_conversation.id, repo_conversation.phase_id, repo_conversation.lesson_id, repo_conversation.conversation,repo_conversation.date ,repo_conversation.parent_id, repo_conversation.status,repo_lesson.phase_id, repo_lesson.lesson_name FROM `repo_conversation` INNER JOIN repo_lesson ON repo_conversation.lesson_id = repo_lesson.id;");
-    console.log();
     res.render('./admin/get-conversation-list.ejs', { title: 'List Conversation', conversation_list_ld });
 }
 const AdminAddconversation = async (req, res) => {
@@ -2036,7 +2035,7 @@ const Admin_WOTD_SET = async (req, res) => {
         response = { status: 2, res: "Words Of The Day is required" };
     } else {
         columns.words = words;
-    } 
+    }
 
     if (response.status != 2) {
         try {
@@ -2054,10 +2053,40 @@ const Admin_WOTD_SET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const postUserLogin = async (req, res) => {
+    const { email, password } = req.body;
+    const where = [];
+    response = { status: 0, res: "Something went wrong !!" };
+
+
+    if (!email) {
+        response = { status: 2, res: "Email is required" };
+    } else {
+        where.email = email;
+    }
+    if (!password) {
+        response = { status: 2, res: "Password is required" };
+    } else {
+        where.password = password;
+    }
+
+    if (response.status != 2) {
+        result = await sql.select_assoc('repo_user', '*', where);
+        response = { status: 1, res: "Login Successfull!" };
+        if(!result.length){
+            response = { status: 2, res: "User Not Found!!" };
+            userCookies.set(res, 'user_data', []);
+        }else{
+            userCookies.set(res, 'user_data', result);
+        }
+    }
+    res.send(JSON.stringify(response));
+}
+
 
 module.exports = {
     customLogin,
-    login, logout, AuthLogin, signUp, verifyOTP,
+    postUserLogin, login, logout, AuthLogin, signUp, verifyOTP,
 
     ConversationPlay,
 

@@ -108,13 +108,8 @@
               <h3 class="name">Subham Singh</h3>
 
               <h5 class="subtext">BCA</h5>
-              <h6>
-                <div class="copy-text">
-                  <input type="hidden" class="text" value="SUBHAM8394" />
-                  <button><ion-icon name="copy-outline"></ion-icon></button>
-                </div>
-
-                SUBHAM8394 &nbsp;&nbsp;<ion-icon name="copy-outline"></ion-icon>
+              <h6 id="click_copy" data-text="SUBHAM8394">
+                SUBHAM8394 <ion-icon name="copy-outline"></ion-icon>
               </h6>
               <h5 class="subtext" style="font-size: 0.7rem;">subhamsingh839@gmail.com</h5>
             </div>
@@ -729,64 +724,9 @@
       <!-- * App Capsule -->
       <%- include('common/script') -%>
         <script>
-          function readURL(input) {
-            if (input.files && input.files[0]) {
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
-                $('#imagePreview').hide();
-                $('#imagePreview').fadeIn(650);
-              }
-              reader.readAsDataURL(input.files[0]);
-            }
-          }
-          $("#imageUpload").change(function () {
-            readURL(this);
-          });
-
-
-
-          $('#circle1').circleProgress({
-            value: 0.75,
-            size: 500, // do not delete this
-            fill: {
-              gradient: ["#1E74FD", "#592BCA"]
-            },
-            animation: {
-              duration: 2000
-            }
-          });
-          $('#circle2').circleProgress({
-            value: 0.25,
-            size: 500, // do not delete this
-            fill: {
-              gradient: ["#EC4433", "#FE9500"]
-            },
-            animation: {
-              duration: 2000
-            }
-          });
-          $('#circle3').circleProgress({
-            value: 0.55,
-            size: 500, // do not delete this
-            fill: {
-              gradient: ["#00CDFF", "#1E74FD"]
-            },
-            animation: {
-              duration: 2000
-            }
-          });
-
-          let copyText = document.querySelector(".copy-text");
-          copyText.querySelector("button").addEventListener("click", function () {
-            let input = copyText.querySelector("input.text");
-            input.select();
-            document.execCommand("copy");
-            copyText.classList.add("active");
-            window.getSelection().removeAllRanges();
-            setTimeout(function () {
-              copyText.classList.remove("active");
-            }, 2500);
+          $(document).on('click', '#click_copy', function (e) {
+            navigator.clipboard.writeText($(this).data('text'));
+            swaMsg('success', 'Copied');
           });
 
         </script>

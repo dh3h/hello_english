@@ -13,10 +13,10 @@
                 <h4>Fill the form to log in</h4>
             </div>
             <div class="section mt-1 mb-5">
-                <form>
+                <form id="user_login_form">
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="email" class="form-control" id="email1" placeholder="Email address">
+                            <input type="email" name="email" class="form-control" id="email1" placeholder="Email address">
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
@@ -25,17 +25,21 @@
 
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="password" class="form-control" id="password1" placeholder="Password">
+                            <input type="password" name="password" class="form-control" id="password1" placeholder="Password">
                             <i class="clear-input">
                                 <ion-icon name="close-circle"></ion-icon>
                             </i>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg rounded mt-1 mb-2">Login</button>
+
+                    <hr class="my-4" />
+
                     <div class="form-links mt-2">
                         <div>
-                            <a href="page-register.php">Register Now</a>
+                            <a href="/sign-up">Register Now</a>
                         </div>
-                        <div><a href="page-register.php" class="text-muted">Forgot Password?</a></div>
+                        <div><a href="#" class="text-muted">Forgot Password?</a></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block rounded mt-2"> <img
@@ -43,12 +47,10 @@
                     <div class="form-links mt-1">
                         <!-- <button type="submit" class="btn btn-outline-primary rounded btn-block btn-lg mt-2"> <img src="./assets/img/app-assets/instagram-icon.png" class="pr-2" alt=""> Instagram</button> -->
                         <!-- <button class="btn btn-light mb-2 login_success"><img src="views/images/icons/google.svg" > Continue with Google</button> -->
-                        <button
-                            class="btn btn-outline-primary rounded btn-block mt-2 login_success"> <img
+                        <a class="btn btn-outline-primary rounded btn-block mt-2 login_success" href="/auth/googleapis"> <img
                                 src="views/images/icons/google.svg" class="pr-2" alt=""> Continue with Google
-                            </button>
+                        </a>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block rounded mt-2"> Login</button>
                     <!-- 
                     <div class="form-button-group">
                         <button type="submit" class="btn btn-primary btn-block btn-lg">Log in</button>
@@ -68,5 +70,27 @@
                 setTimeout(() => {
                     window.location.assign('/');
                 }, 2000);
+            });
+
+            $(document).on('submit', '#user_login_form', function(e){
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                $.ajax({
+                    url:'/login',
+                    type: 'POST',
+                    data: formData,
+                    contentType:false,
+                    processData:false,
+                    success: function(data){
+                        const json = JSON.parse(data);
+                        if(json.status == 1){
+                            swaMsg('success', json.res);
+                            location.assign('/');
+                        }else{
+                            swaMsg('error', json.res);
+                        }
+                    }
+                });
             });
         </script>

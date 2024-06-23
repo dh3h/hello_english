@@ -14,13 +14,22 @@ function swaMsg(icon, message, bg){
           toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
       })
+
+      let color = '#fff';
+      switch (icon) {
+        case 'error':
+          color = '#f27474';
+          break;
+        case 'success':
+          color = '#a5dc86';
+          break;
+      }
       
       Toast.fire({
         icon: icon,
         title: message,
-        color:'#fff',
+        color,
         background: bg,
-        
       })    
   }
   /*  xxxxxxxxxxxxxxxxxxxxxxx  Sweet Alert swal function Function xxxxxxxxxxxxxxxxxxx */
