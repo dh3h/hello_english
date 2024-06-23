@@ -291,7 +291,7 @@ const Ask_teacher = async (req, res) => {
     const user = getCurrentUser(req);
     const user_uid = user['user_uid'];
     const chat_list = await sql.run(`SELECT from_user,to_user,message,date FROM repo_ask_teacher WHERE from_user = ${user_uid} OR to_user = ${user_uid} `);
-    console.log(chat_list); 
+    // console.log(chat_list); 
     res.render('./ask-techer-chat.ejs', { title: 'Books List', user, chat_list });
 }
 
@@ -1116,10 +1116,15 @@ const AdminNews_add = async (req, res) => {
 // ============================= message =============================== //
 // --------------------- Ask questions by students ---------------
 const AdminAQBS_chat = async (req, res) => {
-    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
+    const chat_list = await sql.run("SELECT repo_ask_teacher.id, repo_ask_teacher.from_user, repo_ask_teacher.to_user, repo_ask_teacher.message, repo_ask_teacher.date,repo_user.user_uid, repo_user.name, repo_user.mobile, repo_user.pic, repo_user.lang, repo_user.coin, repo_user.email, repo_user.password, repo_user.city, repo_user.state, repo_user.country, repo_user.status FROM repo_ask_teacher INNER JOIN repo_user ON repo_ask_teacher.from_user = repo_user.id GROUP BY from_user ORDER BY id DESC;");
+    
+    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat',chat_list });
 }
 const AdminAQBS_read = async (req, res) => {
-    res.render('./admin/get-Ask-questions-by-students-read.ejs', { title: 'Ask questions by students Read' });
+    const {get_user_id} = req.params
+    const admin_chat_list = await sql.run(`SELECT from_user,to_user,message,date FROM repo_ask_teacher WHERE from_user = ${get_user_id} OR to_user = ${get_user_id} `);
+    console.log(admin_chat_list);
+    res.render('./admin/get-Ask-questions-by-students-read.ejs', { title: 'Ask questions by students Read',admin_chat_list });
 }
 const AdminAQBS_add = async (req, res) => {
     res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });

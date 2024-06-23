@@ -280,7 +280,7 @@ Router.route("/admin/set-news").post(AdminNews_SET);
 //  ============================== message sections ============================= //
 //-----------------  Ask Questions By Students  --------------------//
 Router.route("/admin/Ask-questions-by-students-chat").get(AdminAQBS_chat);
-Router.route("/admin/Ask-questions-by-students-read").get(AdminAQBS_read);
+Router.route("/admin/Ask-questions-by-students-read/:get_user_id").get(AdminAQBS_read);
 Router.route("/admin/Ask-questions-by-students-add").get(AdminAQBS_add);
 
 
