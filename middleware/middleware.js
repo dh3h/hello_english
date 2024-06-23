@@ -13,7 +13,7 @@ const isLoggedOut = (req, res, next) => {
     const cookie = new Cookies();
     let userId = cookie.get(req, 'user_data');
     if (userId) {
-        res.render('404.ejs');
+        res.render('index.ejs');
         return;
     }
     next();

@@ -112,13 +112,13 @@
                 function shareOnWhatsApp(e) {
                     e.preventDefault();
                     const url = window.location.href;
-                    window.open(`https://wa.me/?text=${encodeURIComponent(url)}`, "_blank");
+                    window.open(`https://wa.me/?text=${encodeURIComponent(url)+"?user_id=1000"}`, "_blank");
                 }
 
                 function shareOnTelegram(e) {
                     e.preventDefault();
                     const url = window.location.href;
-                    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}`, "_blank");
+                    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}/`, "_blank");
                 }
 
                 function generalShare(e) {
