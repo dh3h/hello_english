@@ -388,7 +388,7 @@ const AuthLogin = async (req, res) => {
             let set_data = { user_uid: new_guid, email, name: user_data.name, coin: 400 };
             sql.insert('repo_user', set_data);
             user_db_data = {
-                ...set_data, pic: 0, mobile: '', lang: 'ENG', coin: 0
+                ...set_data, pic: 0, mobile: '', lang: 'ENG'
             }
         }
 
