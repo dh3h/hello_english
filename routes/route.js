@@ -64,7 +64,7 @@ const {
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
     , AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddFindCorrectSentenceSET
     // message 
-    , AdminAQBS_chat, AdminAQBS_read,AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
+    , AdminAQBS_chat, AdminAQBS_read,AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat,Admin_TOTB_SET, Admin_TOTB_add
 } = require("../controller/controller");
 Router.route('/page-start').get(page_start);
 Router.route('/page-login').get(page_login_app);
@@ -125,6 +125,7 @@ Router.route('/Ask-teacher').get(isLoggedIn, Ask_teacher);
 Router.route('/Ask-teacher_SET').post(isLoggedIn, Ask_teacher_SET);
 
 Router.route('/word-of-the-day').get(isLoggedIn, word_of_the_word);
+
 Router.route('/tip-of-the-day').get(isLoggedIn, tip_of_the_day);
 
 //  ========================= homework =========================================== //
@@ -291,6 +292,7 @@ Router.route("/admin/Word-of-the-day-set").post(Admin_WOTD_SET);
 
 // --------------------- Tip Of the Day ------------------------- //
 Router.route("/admin/Tip-of-the-day-chat").get(Admin_TOTD_chat);
+Router.route("/admin/Tip-of-the-day-set").post(Admin_TOTB_SET);
 Router.route("/admin/Tip-of-the-day-add").get(Admin_TOTB_add);
 
 //  =========================== gaming Sections ======================= //

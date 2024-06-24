@@ -296,11 +296,14 @@ const Ask_teacher = async (req, res) => {
 }
 
 const word_of_the_word = async (req, res) => {
-    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day' });
+    const word_of_the_day_list = await sql.run("SELECT * FROM `repo_word_of_day` ORDER BY id DESC;");
+
+    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day',word_of_the_day_list });
 }
 
 const tip_of_the_day = async (req, res) => {
-    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat' });
+    const tip_of_days_list = await sql.run("SELECT * FROM `repo_tip_of_the_day` ORDER BY id DESC;");
+    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat',tip_of_days_list });
 }
 
 //  ========================================= holiday ===================================== ///
@@ -1144,8 +1147,8 @@ const Admin_WOTD_chat = async (req, res) => {
 
 // --------------------- ip Of the Day ---------------
 const Admin_TOTD_chat = async (req, res) => {
-
-    res.render('./admin/get-Ask-questions-by-students-chat.ejs', { title: 'Ask questions by students chat' });
+    const tip_of_the_days_list = await sql.run("SELECT * FROM `repo_tip_of_the_day` ORDER BY id DESC;");
+    res.render('./admin/get-tip-of-the-day.ejs', { title: 'Tip Of The Day',tip_of_the_days_list });
 }
 const Admin_TOTB_add = async (req, res) => {
     res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
@@ -2102,6 +2105,38 @@ const Admin_WOTD_SET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const Admin_TOTB_SET = async (req, res) => {
+    // alert();
+    const { tips, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!tips) {
+        response = { status: 2, res: "Words Of The Day is required" };
+    } else {
+        columns.tips = tips;
+    }
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_tip_of_the_day', 'id', id, columns);
+                response = { status: 1, res: "Tip Of the Days Updated" };
+            } else {
+                result = await sql.insert('repo_tip_of_the_day', columns);
+                response = { status: 1, res: "Tip OF the Day Inserted" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
 const postUserLogin = async (req, res) => {
     const { email, password } = req.body;
     const where = [];
@@ -2193,5 +2228,5 @@ module.exports = {
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,
     // message 
-    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_add
+    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat,Admin_TOTB_SET, Admin_TOTB_add
 };

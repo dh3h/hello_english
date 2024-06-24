@@ -15,29 +15,23 @@
 
         <!-- App Capsule -->
         <div id="appCapsule">
-
+<!-- 
             <div class="message-divider">
                 Friday, Sep 20, 10:40 AM
-            </div>
+            </div> -->
 
-            <div class="message-item user">
-                <div class="content">
-                    <div class="bubble">
-                        Hello Sir !
-                    </div>
-                    <div class="footer">10:40 AM</div>
-                </div>
-            </div>
+            <% Object.keys(tip_of_days_list).forEach(function(prop) { %>
             <div class="message-item">
                 <img src="/views/assets/img/app-assets/avtar.png" alt="avatar" class="avatar">
                 <div class="content">
                     <div class="title">Teacher</div>
                     <div class="bubble">
-                        Hello Nice to meet you !
+                        <%- tip_of_days_list[prop]['tips'] %>
                     </div>
-                    <div class="footer">10:40 PM</div>
+                    <!-- <div class="footer">10:40 PM</div> -->
                 </div>
             </div>
+            <% }); %>
         </div>
         <!-- * App Capsule -->
 
