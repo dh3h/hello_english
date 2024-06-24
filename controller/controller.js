@@ -945,7 +945,7 @@ const adminListLessonAPI_Set = async (req, res) => {
 // ============================= find out the correct sentence =============================== //
 const AdminFindCorrectSentence = async (req, res) => {
     const correct_list_data = await sql.run("SELECT repo_correct_sentence.id, repo_correct_sentence.phase_id,repo_correct_sentence.lesson_id, repo_correct_sentence.question,repo_correct_sentence.config,repo_correct_sentence.date, repo_correct_sentence.type_list, repo_correct_sentence.status,repo_lesson.phase_id, repo_lesson.lesson_name FROM repo_correct_sentence INNER JOIN repo_lesson ON repo_correct_sentence.lesson_id = repo_lesson.id ORDER BY id DESC;");
-    // console.log(correct_list_data);
+    console.log(correct_list_data);
     res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence', correct_list_data });
 }
 const AdminAddFindCorrectSentence = async (req, res) => {

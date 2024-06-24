@@ -78,7 +78,7 @@
                                             </thead>
                                             <tbody>
                                                 <% Object.keys(lesson_list).forEach(function(prop) { %>
-                                                    <tr>
+                                                    <tr class="delete_phase_parent">
                                                         <td>
                                                             <div class="form-check custom-checkbox">
                                                                 <input type="checkbox" class="form-check-input"
@@ -109,13 +109,15 @@
                                                         <td><%- lesson_list[prop]['lessons_discription'] %></td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    id="flexSwitchCheckChecked" checked>
+                                                                <input class="form-check-input lesson_list_status" data-id="id"
+                                                                data-col="<%- lesson_list[prop]['id'] %>" type="checkbox"
+                                                                    id="flexSwitchCheckChecked"  <% if(lesson_list[prop]['status']==1){ %>
+                                                                        checked <% } %>>
 
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i
+                                                            <a href="#" class="btn btn-danger shadow btn-xs delete_lesson sharp"><i
                                                                     class="fa fa-trash"></i></a>
                                                         </td>
                                                     </tr>
@@ -175,6 +177,8 @@
 
                             });
 
+                            delete_entity('.delete_lesson', 'lesson', '.delete_phase_parent');
+                            status_update('.lesson_list_status', 'lesson');
                         });
 
 
