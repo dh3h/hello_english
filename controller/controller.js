@@ -89,8 +89,13 @@ const public_profile = (req, res) => {
     res.render('./public-profile.ejs', { title: 'Public Profile' });
 }
 
-const private_profile = (req, res) => {
-    res.render('./page-profile.ejs', { title: 'My Profile' });
+const private_profile = async (req, res) => {
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+    const all_users_questions = await sql.run(`SELECT * FROM repo_questions WHERE user_id = '${user_uid}';`);
+    const all_users_answeres = await sql.run(`SELECT * FROM repo_questions WHERE user_id = '${user_uid}';`);
+
+    res.render('./page-profile.ejs', { title: 'My Profile',all_users_questions,all_users_answeres });
 }
 
 const peactice = (req, res) => {
