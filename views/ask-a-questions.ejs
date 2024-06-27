@@ -102,7 +102,7 @@
           <div class="listview-title mt-2">My Questions</div>
           <% Object.keys(my_post_ask_questions).forEach(function(prop) { %>
           <li>
-            <a href="/all-anwers" class="item">
+            <a href="/all-anwers/<%- my_post_ask_questions[prop]['id'] %>" class="item">
               <!-- <img src="./assets/img/app-assets/avtar-icon.png" alt="image" class="image"> -->
               <div class="in">
                 <div>
@@ -128,7 +128,7 @@
           <div class="listview-title mt-2">My Answers</div>
           <% Object.keys(answere_user_list).forEach(function(prop) { %>
           <li>
-            <a href="/all-anwers" class="item">
+            <a href="/all-anwers/<%- answere_user_list[prop]['ques_id'] %>" class="item">
               <!-- <img src="./assets/img/app-assets/avtar-icon.png" alt="image" class="image"> -->
               <div class="in">
                 <div>
