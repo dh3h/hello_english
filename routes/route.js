@@ -43,7 +43,7 @@ const {
     logout, myProfile, signUp,
     verifyOTP, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, listen_select_options,
     artical, artical_details, game, Videos, ask_a_questions, videos_details, books, books_details, book_open, addUser, AdminLogin, AdminAnsToQuestion, fill_code_videos,
-    my_friends, UsersList, GetQuestions, adminHome, peactice, type_questions, all_anwers, type_answers, refer_friends, page_about, helpline, finding_the_gems,
+    my_friends, UsersList, GetQuestions, adminHome, peactice, type_questions, all_anwers, type_answers,type_answers_SET, refer_friends, page_about, helpline, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, answer_the_questions, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game ,Ask_teacher_SET,
     AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea, ConversationPlay,news_details,page_start,page_login_app,
@@ -58,7 +58,7 @@ const {
 
 
     // ADMIN APIS
-    updateStatus, deleteEntity, AdminEditAudio_SET,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,
+    updateStatus, deleteEntity, AdminEditAudio_SET,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,type_questions_set,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminEditVideos_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
@@ -98,11 +98,19 @@ Router.route('/books').get(isLoggedIn, books);
 Router.route('/books-details/:id').get(isLoggedIn, books_details);
 Router.route('/book-open/:book_id/:id').get(isLoggedIn, book_open);
 Router.route('/my-friends').get(isLoggedIn, my_friends);
+
+//  ================ Ask student Questions =================== //
 Router.route('/ask-a-questions').get(isLoggedIn, ask_a_questions);
 Router.route('/type-questions').get(isLoggedIn, type_questions);
-Router.route('/all-anwers').get(isLoggedIn, all_anwers);
+Router.route('/type-questions-set').post(isLoggedIn, type_questions_set);
+
+Router.route('/all-anwers/:id').get(isLoggedIn, all_anwers);
+Router.route('/type-answers/:id').get(isLoggedIn, type_answers);
+Router.route('/type-answers-set').post(isLoggedIn, type_answers_SET);
+
 Router.route('/contest').get(isLoggedIn, contest);
-Router.route('/type-answers').get(isLoggedIn, type_answers);
+
+
 Router.route('/refer-friends').get(isLoggedIn, refer_friends);
 Router.route('/app-about').get(isLoggedIn, page_about);
 Router.route('/helpline').get(isLoggedIn, helpline);

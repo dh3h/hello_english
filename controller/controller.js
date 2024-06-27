@@ -205,12 +205,29 @@ const my_friends = (req, res) => {
     res.render('./my-friends.ejs', { title: 'My Friends' });
 }
 
-const ask_a_questions = (req, res) => {
-    res.render('./ask-a-questions.ejs', { title: 'Ask a Questions' });
+const ask_a_questions = async (req, res) => {
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+    const ask_questions_list = await sql.run("SELECT * FROM `repo_questions` ORDER BY id DESC;");
+    const my_post_ask_questions = await sql.run(`SELECT * FROM repo_questions WHERE user_id = '${user_uid}';`);
+    const answere_user_list = await sql.run(`SELECT repo_answers_students.id,repo_answers_students.user_id,repo_answers_students.answere,repo_answers_students.date,repo_answers_students.ques_id, repo_user.user_uid,repo_user.name,repo_user.city,repo_user.state FROM repo_answers_students INNER JOIN repo_user ON repo_answers_students.user_id = repo_user.user_uid WHERE user_id = '${user_uid}';`);    
+
+    res.render('./ask-a-questions.ejs', { title: 'Ask a Questions', ask_questions_list, my_post_ask_questions,answere_user_list });
+}
+
+const type_answers = async (req, res) => {
+    const { id } = req.params;
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+
+    // console.log(answere_ask_list);
+    res.render('./type-answers.ejs', { title: 'Type Answers',id,user_uid });
 }
 
 const type_questions = (req, res) => {
-    res.render('./type-questions.ejs', { title: 'Type Questions' });
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+    res.render('./type-questions.ejs', { title: 'Type Questions', user_uid });
 }
 //  ===================================== game -==================================
 const game_tea = (req, res) => {
@@ -226,12 +243,14 @@ const human_hang_game = (req, res) => {
 }
 //  ===================================== End game -==================================
 
-const all_anwers = (req, res) => {
-    res.render('./all-anwers.ejs', { title: 'All Answers' });
-}
+const all_anwers = async (req, res) => {
+    const { id } = req.params;
+    const ask_questions_saprated = await sql.select_assoc('repo_questions', '*', { id });
 
-const type_answers = (req, res) => {
-    res.render('./type-answers.ejs', { title: 'Type Answers' });
+    // const ask_answere_list = await sql.run("SELECT * FROM `repo_questions` WHERE id = 5;");
+    const answere_ask_list = await sql.run(`SELECT repo_answers_students.id,repo_answers_students.user_id,repo_answers_students.answere,repo_answers_students.date,repo_answers_students.ques_id, repo_user.user_uid,repo_user.name,repo_user.city,repo_user.state FROM repo_answers_students INNER JOIN repo_user ON repo_answers_students.user_id = repo_user.user_uid WHERE ques_id = '${id}';`);    
+
+    res.render('./all-anwers.ejs', { title: 'All Answers',id, ask_questions_saprated,answere_ask_list });
 }
 
 const refer_friends = (req, res) => {
@@ -298,12 +317,12 @@ const Ask_teacher = async (req, res) => {
 const word_of_the_word = async (req, res) => {
     const word_of_the_day_list = await sql.run("SELECT * FROM `repo_word_of_day` ORDER BY id DESC;");
 
-    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day',word_of_the_day_list });
+    res.render('./word-of-the-day-chat.ejs', { title: 'word of the Day', word_of_the_day_list });
 }
 
 const tip_of_the_day = async (req, res) => {
     const tip_of_days_list = await sql.run("SELECT * FROM `repo_tip_of_the_day` ORDER BY id DESC;");
-    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat',tip_of_days_list });
+    res.render('./tip-of-the-day-chat.ejs', { title: 'Tip of the day Chat', tip_of_days_list });
 }
 
 //  ========================================= holiday ===================================== ///
@@ -1126,8 +1145,8 @@ const AdminAQBS_chat = async (req, res) => {
 const AdminAQBS_read = async (req, res) => {
     const { get_user_id } = req.params
     const admin_chat_list = await sql.run(`SELECT from_user,to_user,message,date FROM repo_ask_teacher WHERE from_user = ${get_user_id} OR to_user = ${get_user_id} `);
-    console.log(typeof admin_chat_list);
-    console.log(get_user_id);
+    // console.log(typeof admin_chat_list);
+    // console.log(get_user_id);
     // return;
     res.render('./admin/get-Ask-questions-by-students-read.ejs', { title: 'Ask questions by students Read', admin_chat_list, get_user_id });
 }
@@ -1148,7 +1167,7 @@ const Admin_WOTD_chat = async (req, res) => {
 // --------------------- ip Of the Day ---------------
 const Admin_TOTD_chat = async (req, res) => {
     const tip_of_the_days_list = await sql.run("SELECT * FROM `repo_tip_of_the_day` ORDER BY id DESC;");
-    res.render('./admin/get-tip-of-the-day.ejs', { title: 'Tip Of The Day',tip_of_the_days_list });
+    res.render('./admin/get-tip-of-the-day.ejs', { title: 'Tip Of The Day', tip_of_the_days_list });
 }
 const Admin_TOTB_add = async (req, res) => {
     res.render('./admin/get-Ask-questions-by-students-add.ejs', { title: 'Ask questions by students Add' });
@@ -2185,10 +2204,76 @@ const AdminAQBS_SET = async (req, res) => {
         where.message = message;
     }
 
-    if (response.status != 2 ) {
+    if (response.status != 2) {
         try {
 
             result = await sql.insert('repo_ask_teacher', where);
+            response = { status: 1, res: " Inserted" };
+
+        } catch (error) {
+        }
+    }
+    res.send(JSON.stringify(response));
+}
+
+const type_questions_set = async (req, res) => {
+    const { user_id, questions_users } = req.body;
+    const where = {};
+    response = { status: 0, res: "Something went wrong !!" };
+    const date = new Date();
+    let str = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+    where.date = str;
+
+    if (!user_id) {
+        response = { status: 2, res: "Something Wrong !!" };
+    } else {
+        where.user_id = user_id;
+    }
+    if (!questions_users) {
+        response = { status: 2, res: "Enter Your Question's" };
+    } else {
+        where.questions_users = questions_users;
+    }
+    if (response.status != 2) {
+        try {
+
+            result = await sql.insert('repo_questions', where);
+            response = { status: 1, res: " Inserted" };
+
+        } catch (error) {
+        }
+    }
+    res.send(JSON.stringify(response));
+}
+
+const type_answers_SET = async (req, res) => {
+    const {ques_id,user_id, answere } = req.body;
+    const where = {};
+    response = { status: 0, res: "Something went wrong !!" };
+    const date = new Date();
+    let str = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+    where.date = str;
+    if (!ques_id) {
+        response = { status: 2, res: "Something Wrong !!" };
+    } else {
+        where.ques_id = ques_id;
+    }
+    if (!user_id) {
+        response = { status: 2, res: "Something Wrong !!" };
+    } else {
+        where.user_id = user_id;
+    }
+    if (!answere) {
+        response = { status: 2, res: "Enter Your Answere's" };
+    } else {
+        where.answere = answere;
+    }
+    if (response.status != 2) {
+        try {
+
+            result = await sql.insert('repo_answers_students', where);
             response = { status: 1, res: " Inserted" };
 
         } catch (error) {
@@ -2206,11 +2291,11 @@ module.exports = {
 
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
-    UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
+    UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, type_answers_SET, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea, Ask_teacher_SET,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,
-    Ask_teacher, word_of_the_word, tip_of_the_day,
+    Ask_teacher, word_of_the_word, tip_of_the_day, type_questions_set,
     //  =================================  homework ==========================================
     homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
@@ -2228,5 +2313,5 @@ module.exports = {
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
     , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,
     // message 
-    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat,Admin_TOTB_SET, Admin_TOTB_add
+    AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_SET, Admin_TOTB_add
 };

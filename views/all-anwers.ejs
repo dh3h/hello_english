@@ -1,143 +1,118 @@
 <%- include('common/head') -%>
-    <%- include('common/sidebar') -%>
-        <!-- App Header -->
-        <div class="appHeader bg-primary text-light">
-            <div class="left">
-                <a href="javascript:;" class="headerButton goBack">
-                    <ion-icon name="chevron-back-outline"></ion-icon>
-                </a>
-            </div>
-            <div class="pageTitle">All Answers</div>
-            <div class="right">
-            </div>
+<%- include('common/sidebar') -%>
+<!-- App Header -->
+<div class="appHeader bg-primary text-light">
+  <div class="left">
+    <a href="javascript:;" class="headerButton goBack">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </a>
+  </div>
+  <div class="pageTitle">All Answers</div>
+  <div class="right">
+  </div>
+</div>
+<!-- * App Header -->
+
+<!-- App Capsule -->
+<div id="appCapsule">
+  <div class="card">
+    <% Object.keys(ask_questions_saprated).forEach(function(prop) { %>
+    <div class="card-body" style="background: #6d70d766;">
+      <h4> <%- ask_questions_saprated[prop]['questions_users'] %> </h4>
+      <div class="row mt-1">
+        <div class="col-6">
+          <div class="text-muted"> <%- ask_questions_saprated[prop]['date'] %> </div>
         </div>
-        <!-- * App Header -->
-
-        <!-- App Capsule -->
-        <div id="appCapsule">
-            <div class="card">
-                <div class="card-body" style="background: #6d70d766;">
-                    <h4>In the following sentence, should we use "him" or "he" ? I can run faster then ____ ? </h4>
-                    <div class="row mt-1">
-                        <div class="col-6">
-                            <div class="text-muted">January 12 , 2012 </div>
-                        </div>
-                        <div class="col-6" style="text-align: end;">
-                            <div class="text-muted"><ion-icon name="chatbox-outline"></ion-icon> 532 </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="wide-block pt-2 pb-2">
-
-                <!-- comment block -->
-                <div class="comment-block">
-                    <!--item -->
-                    <div class="item">
-                        <div class="avatar">
-                            <img src="/views/assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w32 rounded">
-                        </div>
-                        <div class="in">
-                            <div class="comment-header">
-                                <a href="page-public.php">
-                                    <h4 class="title">Sumit Singh <br><span class="time">City here</span></h4>
-                                </a>
-                                <span class="time">just now</span>
-                            </div>
-                            <div class="text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </div>
-                            <div class="comment-footer">
-                                <a href="javascript:;" class="comment-button">
-                                    <ion-icon name="heart-outline" role="img" class="md hydrated"
-                                        aria-label="heart outline"></ion-icon>
-                                    Like (523)
-                                </a>
-                                <a href="javascript:;" class="comment-button">
-                                    <ion-icon name="chatbubble-outline" role="img" class="md hydrated"
-                                        aria-label="chatbubble outline"></ion-icon>
-                                    Reply
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- * item -->
-                    <!--item -->
-                    <div class="item">
-                        <div class="avatar">
-                            <img src="/views/assets/img/sample/avatar/avatar3.jpg" alt="avatar" class="imaged w32 rounded">
-                        </div>
-                        <div class="in">
-                            <div class="comment-header">
-                                <a href="page-public.php">
-                                    <h4 class="title">Sumit Singh <br><span class="time">City here</span></h4>
-                                </a>
-                                <span class="time">05:50 PM</span>
-                            </div>
-                            <div class="text">
-                                Sed laoreet leo eget maximus ultricies. Nunc vitae enim facilisis tortor aliquet
-                                ullamcorper
-                                nec at tortor.
-                            </div>
-                            <div class="comment-footer">
-                                <a href="javascript:;" class="comment-button">
-                                    <ion-icon name="heart" class="text-danger md hydrated" role="img"
-                                        aria-label="heart"></ion-icon>
-                                    Like (4)
-                                </a>
-                                <a href="javascript:;" class="comment-button">
-                                    <ion-icon name="chatbubble-outline" role="img" class="md hydrated"
-                                        aria-label="chatbubble outline"></ion-icon>
-                                    Reply
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- * item -->
-                    <!--item -->
-                    <div class="item">
-                        <div class="avatar">
-                            <img src="/views/assets/img/sample/avatar/avatar4.jpg" alt="avatar" class="imaged w32 rounded">
-                        </div>
-                        <div class="in">
-                            <div class="comment-header">
-                                <a href="page-public.php">
-                                    <h4 class="title">Sumit Singh <br><span class="time">City here</span></h4>
-                                </a>
-                                <span class="time">Sep 23, 2020</span>
-                            </div>
-                            <div class="text">
-                                Vivamus lobortis, orci et commodo pulvinar, eros nibh volutpat ipsum, in rhoncus risus
-                                dolor
-                                sed ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec nisi
-                                odio,
-                                dapibus in felis vel, lobortis iaculis quam.
-                            </div>
-                            <div class="comment-footer">
-                                <a href="javascript:;" class="comment-button">
-                                    <ion-icon name="heart-outline" role="img" class="md hydrated"
-                                        aria-label="heart outline"></ion-icon>
-                                    Like (5)
-                                </a>
-                                <a href="javascript:;" class="comment-button">
-                                    <ion-icon name="chatbubble-outline" role="img" class="md hydrated"
-                                        aria-label="chatbubble outline"></ion-icon>
-                                    Reply
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- * item -->
-                </div>
-                <!-- * comment block -->
-
-            </div>
-
-
+        <div class="col-6" style="text-align: end;">
+          <!-- <div class="text-muted"><ion-icon name="chatbox-outline"></ion-icon> 532 </div> -->
         </div>
-        <!-- * App Capsule -->
+      </div>
+    </div>
+    <% }); %>
+  </div>
 
-        <%- include('common/script') -%>
+
+
+  <div class="wide-block pt-2 pb-2">
+
+    <!-- comment block -->
+    <div class="comment-block">
+      <% Object.keys(answere_ask_list).forEach(function(prop) { %>
+      <!--item -->
+      <div class="item">
+        <div class="avatar">
+          <img src="/views/assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w32 rounded">
+        </div>
+        <div class="in">
+          <div class="comment-header">
+            <a>
+              <h4 class="title"><%- answere_ask_list[prop]['name'] %><br><span class="time"><%- answere_ask_list[prop]['city'] %>, <%- answere_ask_list[prop]['state'] %></span></h4>
+            </a>
+            <span class="time"><%- answere_ask_list[prop]['date'] %></span>
+          </div>
+          <div class="text">
+            <%- answere_ask_list[prop]['answere'] %>
+          </div>
+          <div class="comment-footer">
+            <a href="javascript:;" class="comment-button">
+              <ion-icon name="heart-outline" role="img" class="md hydrated" aria-label="heart outline"></ion-icon>
+              Like (523)
+            </a>
+            <a href="javascript:;" class="comment-button">
+              <!-- <ion-icon name="chatbubble-outline" role="img" class="md hydrated" aria-label="chatbubble outline"></ion-icon>
+              Reply -->
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- * item -->
+      <% }) %>
+
+      <!--item -->
+      <!-- <div class="item">
+        <div class="avatar">
+          <img src="/views/assets/img/sample/avatar/avatar3.jpg" alt="avatar" class="imaged w32 rounded">
+        </div>
+        <div class="in">
+          <div class="comment-header">
+            <a>
+              <h4 class="title">Sumit Singh <br><span class="time">City here</span></h4>
+            </a>
+            <span class="time">05:50 PM</span>
+          </div>
+          <div class="text">
+            Sed laoreet leo eget maximus ultricies. Nunc vitae enim facilisis tortor aliquet
+            ullamcorper
+            nec at tortor.
+          </div>
+          <div class="comment-footer">
+            <a href="javascript:;" class="comment-button">
+              <ion-icon name="heart" class="text-danger md hydrated" role="img" aria-label="heart"></ion-icon>
+              Like (4)
+            </a>
+            <a href="javascript:;" class="comment-button">
+              <ion-icon name="chatbubble-outline" role="img" class="md hydrated" aria-label="chatbubble outline"></ion-icon>
+              Reply
+            </a>
+          </div>
+        </div>
+      </div> -->
+      <!-- * item -->
+
+
+      <div class="fab-button text bottom-right">
+        <a href="/type-answers/<%- id %>" class="fab" style="padding: 12px; font-size: 12px; margin-bottom: 10px;margin-top: 10px;">
+          <ion-icon name="add-outline" role="img" class="md hydrated" aria-label="add outline"></ion-icon>
+          Ask Your Answers
+        </a>
+      </div>
+    </div>
+    <!-- * comment block -->
+
+  </div>
+
+
+</div>
+<!-- * App Capsule -->
+
+<%- include('common/script') -%>
