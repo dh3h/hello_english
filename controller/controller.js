@@ -313,35 +313,42 @@ const homework = async (req, res) => {
 
 //   ------------------------------------------- holiday components ------------------------------- //
 const homeword_fill_in_the_blank = async (req, res) => {
-    res.render('./homeword-fill-in-the-blank.ejs', { title: 'Fill in the Blank' });
+    const fill_blank = await sql.select_assoc('repo_fill_blank', '*', { 'is_hw': 1, 'status': 1 });
+console.log(fill_blank);
+    res.render('./homework/homework-fill-in-the-blank.ejs', { title: 'Fill in the Blank', fill_blank });
 }
 const homework_Rearrangement = async (req, res) => {
-    res.render('./homework-Rearrangement.ejs', { title: 'Holiday' });
+    const rearrangements_list = await sql.select_assoc('repo_rearrangements', '*', { 'is_hw': 1, 'status': 1 });
+
+    res.render('./homework/homework-Rearrangement.ejs', { title: 'Holiday', rearrangements_list });
 }
 const homework_find_correct_sentence = async (req, res) => {
-    res.render('./homework-find-correct-sentence.ejs', { title: 'Holiday' });
+    const find_correct_sentence_list = await sql.select_assoc('repo_correct_sentence', '*', { 'is_hw': 1, 'status': 1 });
+console.log(find_correct_sentence_list);
+    res.render('./homework/homework-find-correct-sentence.ejs', { title: 'Holiday', find_correct_sentence_list });
 }
 const homework_listen_and_type = async (req, res) => {
-    res.render('./homework-listen-and-type.ejs', { title: 'Holiday' });
+    const listen_and_type_list = await sql.select_assoc('repo_fill_blank', '*', { 'is_hw': 1, 'status': 1 });
+    res.render('./homework/homework-listen-and-type.ejs', { title: 'Holiday', listen_and_type_list });
 }
 const homework_Conversation = async (req, res) => {
-    res.render('./homework-Conversation.ejs', { title: 'Holiday' });
+    res.render('./homework/homework-Conversation.ejs', { title: 'Holiday' });
 }
 
 const homework_story = async (req, res) => {
-    res.render('./homework-story.ejs', { title: 'Holiday' });
+    res.render('./homework/homework-story.ejs', { title: 'Holiday' });
 }
 const homework_answer_the_questions = async (req, res) => {
-    res.render('./homework-answer-the-questions.ejs', { title: 'Holiday' });
+    res.render('./homework/homework-answer-the-questions.ejs', { title: 'Holiday' });
 }
 const homework_finding_the_gems = async (req, res) => {
-    res.render('./homework-finding-the-gems.ejs', { title: 'Holiday' });
+    res.render('./homework/homework-finding-the-gems.ejs', { title: 'Holiday' });
 }
 const homework_listen_select_options = async (req, res) => {
-    res.render('./homework-listen-select-options.ejs', { title: 'Holiday' });
+    res.render('./homework/homework-listen-select-options.ejs', { title: 'Holiday' });
 }
 const homework_fill_code_videos = async (req, res) => {
-    res.render('./homework-fill-code-videos.ejs', { title: 'Holiday' });
+    res.render('./homework/homework-fill-code-videos.ejs', { title: 'Holiday' });
 }
 
 //   -------------------------------- End holiday components ------------------------------- //
@@ -361,7 +368,7 @@ const story = async (req, res) => {
 
     const { lesson_id } = req.params;
 
-    const story_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
+    const story_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id, status: 1 });
 
     res.render('./story.ejs', { title: '/Story', story_list });
 
@@ -369,14 +376,9 @@ const story = async (req, res) => {
 }
 
 const listen_and_type = async (req, res) => {
-
     const { lesson_id } = req.params;
-
-    const listen_and_type_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id });
-
+    const listen_and_type_list = await sql.select_assoc('repo_listen_type', 'word', { lesson_id, status: 1 });
     res.render('./listen-and-type.ejs', { title: '/listen & Type', listen_and_type_list });
-
-    // console.log(story);
 }
 
 const AuthLogin = async (req, res) => {
@@ -945,7 +947,6 @@ const adminListLessonAPI_Set = async (req, res) => {
 // ============================= find out the correct sentence =============================== //
 const AdminFindCorrectSentence = async (req, res) => {
     const correct_list_data = await sql.run("SELECT repo_correct_sentence.id, repo_correct_sentence.phase_id,repo_correct_sentence.lesson_id, repo_correct_sentence.question,repo_correct_sentence.config,repo_correct_sentence.date, repo_correct_sentence.type_list, repo_correct_sentence.status,repo_lesson.phase_id, repo_lesson.lesson_name FROM repo_correct_sentence INNER JOIN repo_lesson ON repo_correct_sentence.lesson_id = repo_lesson.id ORDER BY id DESC;");
-    console.log(correct_list_data);
     res.render('./admin/get-find-correct-sentence.ejs', { title: 'List find out the correct sentence', correct_list_data });
 }
 const AdminAddFindCorrectSentence = async (req, res) => {
@@ -963,7 +964,7 @@ const AdminAddFindCorrectSentence = async (req, res) => {
 }
 // ============================= Listen & Type (sentences / words) =============================== //
 const AdminListenTypeList = async (req, res) => {
-    const Listen_type_data = await sql.run("SELECT rapo_listen_type.id, rapo_listen_type.phase_id, rapo_listen_type.lesson_id, rapo_listen_type.word,rapo_listen_type.type_list, rapo_listen_type.date, rapo_listen_type.status, repo_lesson.phase_id,repo_lesson.lesson_name FROM rapo_listen_type INNER JOIN repo_lesson ON rapo_listen_type.lesson_id = repo_lesson.id ORDER BY id DESC;");
+    const Listen_type_data = await sql.run("SELECT repo_listen_type.id, repo_listen_type.phase_id, repo_listen_type.lesson_id, repo_listen_type.word,repo_listen_type.type_list, repo_listen_type.date, repo_listen_type.status, repo_lesson.phase_id,repo_lesson.lesson_name FROM repo_listen_type INNER JOIN repo_lesson ON repo_listen_type.lesson_id = repo_lesson.id ORDER BY id DESC;");
     // console.log(Listen_type_data);
     res.render('./admin/get-find-listen-type-list.ejs', { title: 'List Listen & Type (sentences / words)', Listen_type_data });
 }
@@ -1420,10 +1421,10 @@ const AdminEditListenTypeSET = async (req, res) => {
     if (response.status != 2) {
         try {
             if (typeof id != 'undefined') {
-                result = await sql.update('rapo_listen_type', 'id', id, columns);
+                result = await sql.update('repo_listen_type', 'id', id, columns);
                 response = { status: 1, res: " Updated Successfully !!" };
             } else {
-                result = await sql.insert('rapo_listen_type', columns);
+                result = await sql.insert('repo_listen_type', columns);
                 response = { status: 1, res: "Inserted Successfully !!" };
             }
         } catch (error) {

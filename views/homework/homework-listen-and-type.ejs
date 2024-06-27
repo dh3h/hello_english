@@ -1,5 +1,3 @@
-<!-- views/listen-and-type.ejs -->
-
 <%- include('common/head') -%>
   <%- include('common/header') -%>
     <%- include('common/sidebar') -%>
@@ -58,6 +56,7 @@
 
 
             <div class="card-body">
+              <h5 class="card-title" id="text-to-read">Learn</h5>
               <!-- <p id="text-to-read">Learn</p> -->
               <a href="#" class="btn btn-primary rounded mb-2" id="play-audio">Play Audio</a>
               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
@@ -77,18 +76,11 @@
 
       </div>
       <!-- * App Capsule -->
+      <!-- * App Capsule -->
       <%- include('common/script') -%>
         <script>
           $(document).ready(function () {
-            listen_text_array = <%- JSON.stringify(listen_and_type_list,) %>;
-            let current_index = 0;
-            let textToRead = '';listen_text_array[current_index]['word'];
-            function showNextQuestion(){
-              textToRead = listen_text_array[current_index]['word'];
-            }
-            showNextQuestion();
-            // console.log(listen_text_array);
-
+            const textToRead = $('#text-to-read').text();
 
             // Play the text as audio
             $('#play-audio').on('click', function () {
@@ -101,19 +93,6 @@
               const userInput = $('#user-input').val().trim();
               if (userInput.toLowerCase() === textToRead.toLowerCase()) {
                 $('#result').text('Correct!').css('color', 'green');
-                setTimeout(() => {
-                  current_index++;
-                  if(current_index >= listen_text_array.length){
-                    console.log('hii');
-                    $('.card-body').html(`<p class="text-center text-success">Successfully Completed!!</p><p class="text-center"><button class="btn btn-success" onclick="window.history.back();">Go Back</button></p>`);
-                  }else{
-                    $('#result').fadeOut(1000, () => {
-                      $('#result').text('');
-                      $('#user-input').val('');
-                    });
-                    showNextQuestion();
-                  }
-                }, 400)
               } else {
                 $('#result').text('Incorrect, please try again.').css('color', 'red');
               }

@@ -1,7 +1,5 @@
-<!-- views/fill-in-the-blank.ejs -->
-
-<%- include('../common/head') -%>
-<%- include('../common/sidebar') -%>
+<%- include('common/head') -%>
+<%- include('common/sidebar') -%>
 <style>
   /* importing google fonts */
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
@@ -387,7 +385,7 @@
       <ion-icon name="chevron-back-outline"></ion-icon>
     </a>
   </div>
-  <div class="pageTitle">Fill In the Blanks</div>
+  <div class="pageTitle">Finding The Gems</div>
   <div class="right">
   </div>
 </div>
@@ -462,7 +460,7 @@
   </div>
 </div>
 <!-- * App Capsule -->
-<%- include('../common/script') -%>
+<%- include('common/script') -%>
 <script>
   const convertToNewFormat = (obj) => {
     const config = JSON.parse(obj.config);
@@ -477,8 +475,8 @@
     };
   };
 
-  fill_blank = <%- JSON.stringify(fill_blank,) %>;
-  const questions = fill_blank.map(convertToNewFormat);
+  finding_the_gems_list = <%- JSON.stringify(finding_the_gems_list,) %>;
+  const questions = finding_the_gems_list.map(convertToNewFormat);
 
   //selecting all required elements
   const start_btn = document.querySelector(".start_btn button");
@@ -598,11 +596,10 @@
   function optionSelected(answer) {
     clearInterval(counter); //clear counter
     clearInterval(counterLine); //clear counterLine
-    let userAns = answer.textContent.toLowerCase(); //getting user selected option
+    let userAns = answer.textContent; //getting user selected option
     let correcAns = questions[que_count].answer; //getting correct answer from array
     const allOptions = option_list.children.length; //getting all option items
-    
-    console.log(userAns, correcAns, [userAns==correcAns]);
+
     if (userAns == correcAns) { //if user selected option is equal to array's correct answer
       userScore += 1; //upgrading score value with 1
       answer.classList.add("correct"); //adding green color to correct selected option
@@ -615,8 +612,7 @@
       console.log("Wrong Answer");
 
       for (i = 0; i < allOptions; i++) {
-        // console.log(option_list.children[i].textContent);
-        if (option_list.children[i].textContent.toLowerCase() == correcAns) { //if there is an option which is matched to an array answer 
+        if (option_list.children[i].textContent == correcAns) { //if there is an option which is matched to an array answer 
           option_list.children[i].setAttribute("class", "option correct"); //adding green color to matched option
           option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag); //adding tick icon to matched option
           console.log("Auto selected correct answer.");
