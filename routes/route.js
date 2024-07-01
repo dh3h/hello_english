@@ -44,7 +44,7 @@ const {
     verifyOTP, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, listen_select_options,
     artical, artical_details, game, Videos, ask_a_questions, videos_details, books, books_details, book_open, addUser, AdminLogin, AdminAnsToQuestion, fill_code_videos,
     my_friends, UsersList, GetQuestions, adminHome, peactice, type_questions, all_anwers, type_answers,type_answers_SET, refer_friends, page_about, helpline, finding_the_gems,
-    adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, answer_the_questions, contest,
+    adminLoginPage, getUserList, AdminEditSingleUser, fill_in_the_blank, find_correct_sentence, answer_the_questions, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game ,Ask_teacher_SET,
     AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea, ConversationPlay,news_details,page_start,page_login_app,
 
@@ -52,7 +52,7 @@ const {
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
     AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
-    Ask_teacher, word_of_the_word, tip_of_the_day, homework,Admin_tea_list,Admin_tea_add,Admin_tea_game_SET,
+    Ask_teacher, word_of_the_word, tip_of_the_day, homework,Admin_tea_list,Admin_tea_add,Admin_tea_game_SET,chat_community,chat_community_set,
     // ======================== homework ===========================
     homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
@@ -69,9 +69,6 @@ const {
 Router.route('/page-start').get(page_start);
 Router.route('/page-login').get(page_login_app);
 Router.route('/custom-login').get(customLogin);
-
-
-
 
 Router.route('/').get(isLoggedIn, home);
 Router.route('/my-profile').get(isLoggedIn, myProfile);
@@ -114,7 +111,7 @@ Router.route('/contest').get(isLoggedIn, contest);
 Router.route('/refer-friends').get(isLoggedIn, refer_friends);
 Router.route('/app-about').get(isLoggedIn, page_about);
 Router.route('/helpline').get(isLoggedIn, helpline);
-Router.route('/page-chat').get(isLoggedIn, page_chat);
+// Router.route('/page-chat').get(isLoggedIn, page_chat);
 Router.route('/find-correct-sentence/:pahse_id/:lesson_id').get(isLoggedIn, find_correct_sentence);
 Router.route('/answer-the-questions/:pahse_id/:lesson_id').get(isLoggedIn, answer_the_questions);
 Router.route('/finding-the-gems/:pahse_id/:lesson_id').get(isLoggedIn, finding_the_gems);
@@ -135,6 +132,10 @@ Router.route('/Ask-teacher_SET').post(isLoggedIn, Ask_teacher_SET);
 Router.route('/word-of-the-day').get(isLoggedIn, word_of_the_word);
 
 Router.route('/tip-of-the-day').get(isLoggedIn, tip_of_the_day);
+
+Router.route('/Chat-community').get(isLoggedIn, chat_community);
+Router.route('/Chat-community-SET').post(isLoggedIn, chat_community_set);
+
 
 //  ========================= homework =========================================== //
 Router.route('/HomeWork').get(isLoggedIn, homework);

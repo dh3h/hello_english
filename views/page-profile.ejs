@@ -206,14 +206,14 @@
             </a>
             <!-- sub menu -->
             <ul class="listview link-listview" style="display: none;">
-
+              <% Object.keys(all_users_answeres).forEach(function(prop) { %>
               <li>
                 <a href="#">
-                  All Answers here
+                  <%- all_users_answeres[prop]['answere'] %>
                   <span class="badge badge-primary">52 &nbsp;&nbsp;<ion-icon name="heart-outline"></ion-icon></span>
                 </a>
               </li>
-
+              <% }); %>
             </ul>
             <!-- * sub menu -->
           </li>
@@ -225,7 +225,7 @@
       <!-- * friends -->
       <div class="tab-pane fade" id="friends" role="tabpanel">
         <div class="m-1" style="background: antiquewhite;">
-          <div class="section-title">My Friends Rank</div>
+          <div class="section-title">My Friends Rank </div>
 
           <div class="profile-stats pl-2 pr-2">
             <a href="#" class="item">

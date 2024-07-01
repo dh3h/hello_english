@@ -93,7 +93,8 @@ const private_profile = async (req, res) => {
     const user = getCurrentUser(req);
     const user_uid = user['user_uid'];
     const all_users_questions = await sql.run(`SELECT * FROM repo_questions WHERE user_id = '${user_uid}';`);
-    const all_users_answeres = await sql.run(`SELECT * FROM repo_questions WHERE user_id = '${user_uid}';`);
+    const qui_id = all_users_questions['ques_id'];
+    const all_users_answeres = await sql.run(`SELECT * FROM repo_answers_students WHERE user_id = '${user_uid}';`);
 
     res.render('./page-profile.ejs', { title: 'My Profile',all_users_questions,all_users_answeres });
 }
@@ -103,6 +104,9 @@ const peactice = (req, res) => {
 }
 
 const editProfile = (req, res) => {
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+    
     res.render('./edit-profile.ejs', { title: 'Edit Profile' });
 }
 
@@ -267,8 +271,13 @@ const page_about = (req, res) => {
 const helpline = (req, res) => {
     res.render('./helpline.ejs', { title: '/Helpline' });
 }
-const page_chat = (req, res) => {
-    res.render('./page-chat.ejs', { title: '/page chat' });
+const chat_community = async (req, res) => {
+    const user = getCurrentUser(req);
+    const user_uid = user['user_uid'];
+
+    const chat_community_list = await sql.run("SELECT * FROM `repo_chat_community`");    
+
+    res.render('./common-chat.ejs', { title: '/chat Community',user_uid,chat_community_list });
 }
 
 const fill_in_the_blank = async (req, res) => {
@@ -2288,6 +2297,37 @@ const type_answers_SET = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const chat_community_set = async (req, res) => {
+    const {user_id, message } = req.body;
+    const where = {};
+    response = { status: 0, res: "Something went wrong !!" };
+    const date = new Date();
+    let str = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+
+    where.date = str;
+   
+    if (!user_id) {
+        response = { status: 2, res: "Something Wrong !!" };
+    } else {
+        where.user_id = user_id;
+    }
+    if (!message) {
+        response = { status: 2, res: "Enter Your message's" };
+    } else {
+        where.message = message;
+    }
+    if (response.status != 2) {
+        try {
+
+            result = await sql.insert('repo_chat_community', where);
+            response = { status: 1, res: " Inserted" };
+
+        } catch (error) {
+        }
+    }
+    res.send(JSON.stringify(response));
+}
+
 
 module.exports = {
     customLogin,
@@ -2298,9 +2338,9 @@ module.exports = {
     home, myProfile, basicCourse, Rearrangement, public_profile, editProfile, private_profile, challange, maintenance, apptips, news, Conversation, fill_code_videos,
     artical, addUser, artical_details, game, Videos, videos_details, type_questions, ask_a_questions, books, books_details, book_open, AdminLogin, AdminAnsToQuestion, my_friends,
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, type_answers_SET, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
-    adminLoginPage, getUserList, AdminEditSingleUser, page_chat, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
+    adminLoginPage, getUserList, AdminEditSingleUser, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea, Ask_teacher_SET,
-    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,chat_community,chat_community_set,
     Ask_teacher, word_of_the_word, tip_of_the_day, type_questions_set,
     //  =================================  homework ==========================================
     homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
