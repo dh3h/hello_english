@@ -51,10 +51,10 @@ const {
     // -------------------------------- Admin Functions ------------------------------//
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
-    AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,
+    AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list,story_view,
     Ask_teacher, word_of_the_word, tip_of_the_day, homework,Admin_tea_list,Admin_tea_add,Admin_tea_game_SET,chat_community,chat_community_set,
     // ======================== homework ===========================
-    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
+    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story,homework_story_view, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
 
     // ADMIN APIS
@@ -118,6 +118,7 @@ Router.route('/finding-the-gems/:pahse_id/:lesson_id').get(isLoggedIn, finding_t
 Router.route('/listen-select-options/:pahse_id/:lesson_id').get(isLoggedIn, listen_select_options);
 Router.route('/fill-code-videos/:pahse_id/:lesson_id').get(isLoggedIn, fill_code_videos);
 Router.route('/story/:pahse_id/:lesson_id').get(isLoggedIn, story);
+Router.route('/story-view/:id').get(isLoggedIn, story_view);
 Router.route('/listen-and-type/:pahse_id/:lesson_id').get(isLoggedIn, listen_and_type);
 Router.route('/fill-in-the-blank/:pahse_id/:lesson_id').get(isLoggedIn, fill_in_the_blank);
 Router.route('/videos-test/:id').get(isLoggedIn, video_test);
@@ -147,6 +148,7 @@ Router.route('/homework-find-correct-sentence').get(isLoggedIn, homework_find_co
 Router.route('/homework-listen-and-type').get(isLoggedIn, homework_listen_and_type);
 Router.route('/homework-conversation').get(isLoggedIn, homework_Conversation);
 Router.route('/homework-story').get(isLoggedIn, homework_story);
+Router.route('/homework-story-view').get(isLoggedIn, homework_story_view);
 Router.route('/homework-answer-the-questions').get(isLoggedIn, homework_answer_the_questions);
 Router.route('/homework-finding-the-gems').get(isLoggedIn, homework_finding_the_gems);
 Router.route('/homework-listen-select-options').get(isLoggedIn, homework_listen_select_options);

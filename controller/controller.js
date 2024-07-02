@@ -158,6 +158,12 @@ const artical = async (req, res) => {
     res.render('./artical.ejs', { title: 'artical', artical_list });
 }
 
+const story_view = async (req, res) => {
+    const { id } = req.params;
+    const story_list_view = await sql.run(`SELECT * FROM rapo_story WHERE id = '${id}' AND status = 1;`);
+    res.render('./story-view.ejs', { title: 'artical',story_list_view });
+}
+
 const artical_details = async (req, res) => {
     const { id } = req.params;
     const artical_detail_id = await sql.select_assoc('repo_articals', '*', { id, status: 1 });
@@ -357,7 +363,7 @@ const homework_Rearrangement = async (req, res) => {
 }
 const homework_find_correct_sentence = async (req, res) => {
     const find_correct_sentence_list = await sql.select_assoc('repo_correct_sentence', '*', { 'is_hw': 1, 'status': 1 });
-console.log(find_correct_sentence_list);
+// console.log(find_correct_sentence_list);
     res.render('./homework/homework-find-correct-sentence.ejs', { title: 'Holiday', find_correct_sentence_list });
 }
 const homework_listen_and_type = async (req, res) => {
@@ -369,7 +375,11 @@ const homework_Conversation = async (req, res) => {
 }
 
 const homework_story = async (req, res) => {
-    res.render('./homework/homework-story.ejs', { title: 'Holiday' });
+    const list_story = await sql.select_assoc('rapo_story', '*', { 'is_hw': 1, 'status': 1 });
+    res.render('./homework/homework-story.ejs', { title: 'Holiday', list_story});
+}
+const homework_story_view = async (req, res) => {
+    res.render('./homework/homework-story-view.ejs', { title: 'Holiday' });
 }
 const homework_answer_the_questions = async (req, res) => {
     res.render('./homework/homework-answer-the-questions.ejs', { title: 'Holiday' });
@@ -401,7 +411,7 @@ const story = async (req, res) => {
 
     const { lesson_id } = req.params;
 
-    const story_list = await sql.select_assoc('repo_fill_blank', '*', { lesson_id, status: 1 });
+    const story_list = await sql.select_assoc('rapo_story', '*', { lesson_id, status: 1 });
 
     res.render('./story.ejs', { title: '/Story', story_list });
 
@@ -1468,7 +1478,7 @@ const AdminEditListenTypeSET = async (req, res) => {
 }
 
 const AdminAddStorySET = async (req, res) => {
-    const { id, lesson_id, story_discription, type_list, status } = req.body;
+    const { id, lesson_id,title, story_discription, type_list, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1480,6 +1490,10 @@ const AdminAddStorySET = async (req, res) => {
         response = { status: 2, res: "Story is required" };
     } else {
         columns.story = story_discription;
+    } if (!title) {
+        response = { status: 2, res: "Story is required" };
+    } else {
+        columns.title = title;
     } if (!lesson_id) {
         response = { status: 2, res: "Lesson is required" };
     } else {
@@ -2343,7 +2357,7 @@ module.exports = {
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,chat_community,chat_community_set,
     Ask_teacher, word_of_the_word, tip_of_the_day, type_questions_set,
     //  =================================  homework ==========================================
-    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
+    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story,homework_story_view, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
 
 
@@ -2357,7 +2371,7 @@ module.exports = {
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
-    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,
+    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,story_view,
     // message 
     AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_SET, Admin_TOTB_add
 };
