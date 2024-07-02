@@ -321,6 +321,7 @@ Router.route("/admin/get-spellings-add/:id").get(Admin_spellings_add);
 Router.route("/admin/get-spellings-SET").post(Admin_spellings_SET);
 
 
+Router.route("/admin/hungman-game").post(Admin_spellings_SET);
 
 
 //  ------------------------- Contest ------------------------- //
