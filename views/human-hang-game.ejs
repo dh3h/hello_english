@@ -1,3 +1,4 @@
+<!-- views/human-hang-game.ejs -->
 <%- include('common/head') -%>
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
@@ -242,7 +243,7 @@
             <img src="#" alt="gif">
             <h4>Game Over!</h4>
             <p>The correct word was: <b>rainbow</b></p>
-            <button class="play-again">Play Again</button>
+            <button class="play-again">Next</button>
         </div>
     </div>
     <div class="container">
@@ -262,94 +263,8 @@
     <%- include('common/script') -%>
         </script>
         <script>
-            const wordList = [
-                {
-                    word: "Mango",
-                    hint: "आम"
-                },
-                {
-                    word: "oxygen",
-                    hint: "ऑक्सीजन"
-                },
-                {
-                    word: "mountain",
-                    hint: "पर्वत"
-                },
-                {
-                    word: "painting",
-                    hint: "चित्रकारी"
-                },
-
-
-                {
-                    word: "bicycle",
-                    hint: "साइकिल"
-                },
-                {
-                    word: "sunset",
-                    hint: "सूर्यास्त"
-                },
-
-                {
-                    word: "dance",
-                    hint: "नृत्य"
-                },
-
-                {
-                    word: "waterfall",
-                    hint: "झरना"
-                },
-                {
-                    word: "technology",
-                    hint: "तकनीकी"
-                },
-                {
-                    word: "rainbow",
-                    hint: "इंद्रधनुष"
-                },
-
-                {
-                    word: "rainforest",
-                    hint: "वर्षा वन"
-                },
-
-                {
-                    word: "language",
-                    hint: "भाषा"
-                },
-                {
-                    word: "desert",
-                    hint: "रेगिस्तान"
-                },
-                {
-                    word: "sunflower",
-                    hint: "सूरजमुखी"
-                },
-
-                {
-                    word: "photography",
-                    hint: "फोटोग्राफी"
-                },
-
-                {
-                    word: "shadow",
-                    hint: "छाया"
-                },
-                {
-                    word: "secret",
-                    hint: "गुप्त"
-                },
-                {
-                    word: "moonlight",
-                    hint: "चांदनी"
-                },
-
-                {
-                    word: "brilliant",
-                    hint: "Eशानदार"
-                },
-            ];
-
+            let hungMan = <%- JSON.stringify(humgMan,) %>;
+            const wordList = JSON.parse(hungMan[0].content);
             const wordDisplay = document.querySelector(".word-display");
             const guessesText = document.querySelector(".guesses-text b");
             const keyboardDiv = document.querySelector(".keyboard");
@@ -373,15 +288,13 @@
             }
 
             const getRandomWord = () => {
-                // Selecting a random word and hint from the wordList
-                const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
-                currentWord = word; // Making currentWord as random word
-                document.querySelector(".hint-text b").innerText = hint;
+                const { w, h } = wordList[Math.floor(Math.random() * wordList.length)];
+                currentWord = w;
+                document.querySelector(".hint-text b").innerText = h;
                 resetGame();
             }
 
             const gameOver = (isVictory) => {
-                // After game complete.. showing modal with relevant details
                 const modalText = isVictory ? `You found the word:` : 'The correct word was:';
                 gameModal.querySelector("img").src = `/views/assets/img/human-game-image/${isVictory?'victory' : 'lost'}.gif`;
                 gameModal.querySelector("h4").innerText = isVictory ? 'Congrats!' : 'Game Over!';
@@ -390,9 +303,7 @@
             }
 
             const initGame = (button, clickedLetter) => {
-                // Checking if clickedLetter is exist on the currentWord
                 if (currentWord.includes(clickedLetter)) {
-                    // Showing all correct letters on the word display
                     [...currentWord].forEach((letter, index) => {
                         if (letter === clickedLetter) {
                             correctLetters.push(letter);

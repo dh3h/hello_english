@@ -148,6 +148,7 @@ let functions = {
         sql = sql.slice(0, -2);
         sql += ` WHERE ${where} = "${data}"`;
 
+        // console.log(sql);
         try {
             const res = await new Promise((resolve, reject) => {
                 conn.query(sql, (err, result) => {

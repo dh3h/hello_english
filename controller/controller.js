@@ -253,8 +253,9 @@ const start_game_tea = (req, res) => {
     res.render('./start-tea-game.ejs', { title: 'Tea Game' });
 }
 
-const human_hang_game = (req, res) => {
-    res.render('./human-hang-game.ejs', { title: 'Human Hang Game' });
+const human_hang_game = async (req, res) => {
+    const humgMan = await sql.select_assoc('repo_hangman', '*', { status: 1 });
+    res.render('./human-hang-game.ejs', { title: 'Human Hang Game', humgMan });
 }
 //  ===================================== End game -==================================
 
@@ -1007,8 +1008,10 @@ const AdminAddFindCorrectSentence = async (req, res) => {
 }
 // ============================= Listen & Type (sentences / words) =============================== //
 const AdminListenTypeList = async (req, res) => {
-    const Listen_type_data = await sql.run("SELECT repo_listen_type.id, repo_listen_type.phase_id, repo_listen_type.lesson_id, repo_listen_type.word,repo_listen_type.type_list, repo_listen_type.date, repo_listen_type.status, repo_lesson.phase_id,repo_lesson.lesson_name FROM repo_listen_type INNER JOIN repo_lesson ON repo_listen_type.lesson_id = repo_lesson.id ORDER BY id DESC;");
-    // console.log(Listen_type_data);
+    let Listen_type_data = await sql.run("SELECT repo_listen_type.id, repo_listen_type.phase_id, repo_listen_type.lesson_id, repo_listen_type.word,repo_listen_type.type_list, repo_listen_type.date, repo_listen_type.status, repo_lesson.phase_id,repo_lesson.lesson_name FROM repo_listen_type INNER JOIN repo_lesson ON repo_listen_type.lesson_id = repo_lesson.id ORDER BY id DESC;");
+    if(!Listen_type_data){
+        Listen_type_data = [];
+    }
     res.render('./admin/get-find-listen-type-list.ejs', { title: 'List Listen & Type (sentences / words)', Listen_type_data });
 }
 const AdminEditListenType = async (req, res) => {
@@ -2342,6 +2345,11 @@ const chat_community_set = async (req, res) => {
     res.send(JSON.stringify(response));
 }
 
+const Admin_HungMan_Game_view = async (req, res) => {
+    res.render('./admin/hangman-list.ejs', { title: 'Spelling Gaming Add' });
+
+}
+
 
 module.exports = {
     customLogin,
@@ -2368,6 +2376,8 @@ module.exports = {
     // ADMIN API
     updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start, Admin_spellings_list, Admin_spellings_add, Admin_spellings_SET,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set, page_login_app,
+
+    Admin_HungMan_Game_view,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
     AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
