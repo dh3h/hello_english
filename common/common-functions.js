@@ -19,7 +19,7 @@ function dec2string(decimal, base, length = 6) {
     let string = '';
 
     const charSets = {
-        64: '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz()',
+        64: '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz',
         32: '0123456789abcdefghijklmnopqrstuvwxyz',
         get default() {
             return this['64'];
@@ -44,7 +44,8 @@ function dec2string(decimal, base, length = 6) {
 
 const generateUid = async (type) => {
     try {
-        const res = await sql.select_assoc('repo_guid', 'type', type);
+        const res = await sql.select_assoc('repo_guid', 'count', {type});
+        console.log(res);
         const count = (res[0]?.count || 0) + 1;
         await sql.update('repo_guid', 'type', type, { count });
         return dec2string(count, 64);
