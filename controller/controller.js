@@ -1008,10 +1008,11 @@ const AdminAddFindCorrectSentence = async (req, res) => {
 }
 // ============================= Listen & Type (sentences / words) =============================== //
 const AdminListenTypeList = async (req, res) => {
-    let Listen_type_data = await sql.run("SELECT repo_listen_type.id, repo_listen_type.phase_id, repo_listen_type.lesson_id, repo_listen_type.word,repo_listen_type.type_list, repo_listen_type.date, repo_listen_type.status, repo_lesson.phase_id,repo_lesson.lesson_name FROM repo_listen_type INNER JOIN repo_lesson ON repo_listen_type.lesson_id = repo_lesson.id ORDER BY id DESC;");
-    if(!Listen_type_data){
-        Listen_type_data = [];
-    }
+    let Listen_type_data = await sql.run("SELECT rapo_listen_type.id,rapo_listen_type.lesson_id, rapo_listen_type.word, rapo_listen_type.is_hw, rapo_listen_type.date,rapo_listen_type.status,repo_lesson.lesson_name FROM `rapo_listen_type` INNER JOIN repo_lesson ON rapo_listen_type.lesson_id = repo_lesson.id ORDER BY id DESC;");
+    // console.log(Listen_type_data);
+    // if(!Listen_type_data){
+    //     Listen_type_data = [];
+    // }
     res.render('./admin/get-find-listen-type-list.ejs', { title: 'List Listen & Type (sentences / words)', Listen_type_data });
 }
 const AdminEditListenType = async (req, res) => {
@@ -1450,7 +1451,7 @@ const AdminBlankSet = async (req, res) => {
 //  ----------------------------------------------- End fill In the Blank --------------------------- // 
 
 const AdminEditListenTypeSET = async (req, res) => {
-    const { id, lesson_id, listen_words, type_list, status } = req.body;
+    const { id, lesson_id, listen_words, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1463,11 +1464,6 @@ const AdminEditListenTypeSET = async (req, res) => {
     } else {
         columns.word = listen_words;
     }
-    if (!type_list) {
-        response = { status: 2, res: "Select Type is required" };
-    } else {
-        columns.type_list = type_list;
-    }
     if (!lesson_id) {
         response = { status: 2, res: "Lesson is required" };
     } else {
@@ -1478,10 +1474,10 @@ const AdminEditListenTypeSET = async (req, res) => {
     if (response.status != 2) {
         try {
             if (typeof id != 'undefined') {
-                result = await sql.update('repo_listen_type', 'id', id, columns);
+                result = await sql.update('rapo_listen_type', 'id', id, columns);
                 response = { status: 1, res: " Updated Successfully !!" };
             } else {
-                result = await sql.insert('repo_listen_type', columns);
+                result = await sql.insert('rapo_listen_type', columns);
                 response = { status: 1, res: "Inserted Successfully !!" };
             }
         } catch (error) {

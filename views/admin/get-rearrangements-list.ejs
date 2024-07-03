@@ -2,203 +2,187 @@
     views/admin/get-rearrangements-list.ejs
  -->
 <%- include('common/head') -%>
-    <%- include('common/header'); %>
-        <%- include('common/sidebar'); %>
+<%- include('common/header'); %>
+<%- include('common/sidebar'); %>
 
-            <div class="content-body">
-                <!-- row -->
-                <div class="container-fluid">
-                    <div class="row">
-                        <!-- <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="content-body">
+  <!-- row -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- <div class="d-flex justify-content-between align-items-center mb-4">
                             <div class="row"> -->
 
-                        <div class="col-xl-12 col-lg-8">
-                            <div class="card profile-card card-bx m-b30">
+      <div class="col-xl-12 col-lg-8">
+        <div class="card profile-card card-bx m-b30">
 
-                                <form id="rearrangements_form" class="profile-form">
-                                    <div class="card-body">
-                                        <div class="row">
-                                           
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Select Lesson</label>
-                                                <select name="lesson_id" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Lessons </option>
-                                                    <% Object.keys(lesson_id).forEach(function(prop) { %>
-                                                        <option value="<%- lesson_id[prop]['id'] %>"><%-
+          <form id="rearrangements_form" class="profile-form">
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-sm-6 m-b30">
+                  <label class="form-label">Select Lesson</label>
+                  <select name="lesson_id" class="form-control" id="">
+                    <option value="" selected disabled> Select Lessons </option>
+                    <% Object.keys(lesson_id).forEach(function(prop) { %>
+                    <option value="<%- lesson_id[prop]['id'] %>"><%-
                                                                 lesson_id[prop]['lesson_name'] %></option>
-                                                        <% }); %>
-                                                        
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Select Type</label>
-                                                <select name="type_list" class="form-control" id="">
-                                                    <option value="" selected disabled>Select Type</option>
-                                                    <option value="Basic Cource">Basic Cource</option>
-                                                    <option value="Homework">Homework</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-6 m-b30">
-                                                <label class="form-label">Questions</label>
-                                                <input type="text" name="question" class="form-control"
-                                                    placeholder="Enter Questions">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="mt-4">
-                                                    <button class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </div>
+                    <% }); %>
 
-                                        </div>
-                                    </div>
+                  </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label class="form-label">Select Type</label>
+                  <select name="type_list" class="form-control" id="">
+                    <option value="" selected disabled>Select Type</option>
+                    <option value="Basic Cource">Basic Cource</option>
+                    <option value="Homework">Homework</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 m-b30">
+                  <label class="form-label">Questions</label>
+                  <input type="text" name="question" class="form-control" placeholder="Enter Questions">
+                </div>
+                <div class="col-sm-6">
+                  <div class="mt-4">
+                    <button class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
 
-                                </form>
-                            </div>
-                            <!-- </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <!-- </div>
                             </div> -->
 
 
+      </div>
+      <div class="col-xl-12 active-p">
+        <div class="tab-content" id="pills-tabContent">
+
+          <div class="card">
+            <div class="card-body px-0">
+              <div class="table-responsive active-projects user-tbl  dt-filter">
+                <table id="user-tbl" class="table shorting">
+                  <thead>
+                    <tr>
+                      <th>
+                        <div class="form-check custom-checkbox ms-0">
+                          <input type="checkbox" class="form-check-input" id="checkAll" required="">
+                          <label class="form-check-label" for="checkAll"></label>
                         </div>
-                        <div class="col-xl-12 active-p">
-                            <div class="tab-content" id="pills-tabContent">
+                      </th>
+                      <!-- <th>Phases</th> -->
+                      <th>Lesson</th>
+                      <th>Questions</th>
+                      <th>Date</th>
 
-                                <div class="card">
-                                    <div class="card-body px-0">
-                                        <div class="table-responsive active-projects user-tbl  dt-filter">
-                                            <table id="user-tbl" class="table shorting">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <div class="form-check custom-checkbox ms-0">
-                                                                <input type="checkbox" class="form-check-input"
-                                                                    id="checkAll" required="">
-                                                                <label class="form-check-label" for="checkAll"></label>
-                                                            </div>
-                                                        </th>
-                                                        <!-- <th>Phases</th> -->
-                                                        <th>Lesson</th>
-                                                        <th>Questions</th>
-                                                        <th>Date</th>
-                                                        <th>Type</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
+                      <th>Status</th>
+                      <th>H/W</th>
+                      <th>Action</th>
 
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% Object.keys(rearrangements_list).forEach(function(prop) { %>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-check custom-checkbox">
-                                                                    <input type="checkbox" class="form-check-input"
-                                                                        id="customCheckBox5" required="">
-                                                                    <label class="form-check-label"
-                                                                        for="customCheckBox5"></label>
-                                                                </div>
-                                                            </td>
-                                                            
-                                                            <td><%- rearrangements_list[prop]['lesson_name'] %></td>
-                                                            <td><%- rearrangements_list[prop]['question'] %></td>
-                                                            <td><%- new Date(rearrangements_list[prop]['date_and_time']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
-                                                            <td>
-                                                                <span class="badge badge-primary light border-0 me-1"><%- rearrangements_list[prop]['type_list'] %></span>
-                                                              </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        id="flexSwitchCheckChecked" checked>
-
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <div class="btn-link" data-bs-toggle="dropdown">
-                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                            fill="none"
-                                                                            xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                                                                stroke="#737B8B" stroke-width="2"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round">
-                                                                            </path>
-                                                                            <path
-                                                                                d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z"
-                                                                                stroke="#737B8B" stroke-width="2"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round">
-                                                                            </path>
-                                                                            <path
-                                                                                d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z"
-                                                                                stroke="#737B8B" stroke-width="2"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round">
-                                                                            </path>
-                                                                        </svg>
-                                                                    </div>
-                                                                    <div class="dropdown-menu dropdown-menu-right"
-                                                                        style="">
-                                                                        <a class="dropdown-item"
-                                                                            href="javascript:void(0);">Edit</a>
-                                                                        <a class="dropdown-item"
-                                                                            href="javascript:void(0);">Delete</a>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <% }); %>
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% Object.keys(rearrangements_list).forEach(function(prop) { %>
+                    <tr class="delete_rearrangments_parent">
+                      <td>
+                        <div class="form-check custom-checkbox">
+                          <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
+                          <label class="form-check-label" for="customCheckBox5"></label>
                         </div>
-                    </div>
-                </div>
+                      </td>
+
+                      <td><%- rearrangements_list[prop]['lesson_name'] %></td>
+                      <td><%- rearrangements_list[prop]['question'] %></td>
+                      <td><%- new Date(rearrangements_list[prop]['date_and_time']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
+                     
+                      <td>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input rearrangements_list_status" data-id="id" data-col="<%- rearrangements_list[prop]['id'] %>" <% if(rearrangements_list[prop]['status']==1){
+                                                                    %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
+
+                        </div>
+                      </td>
+                      <td>
+                        <input type="checkbox" class="form-check-input" id="customCheckBox1" required="">
+                      </td>
+                      
+                      <td>
+                        <div class="dropdown">
+                          <div class="btn-link" data-bs-toggle="dropdown">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z" stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              </path>
+                              <path d="M18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11C18.4477 11 18 11.4477 18 12Z" stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              </path>
+                              <path d="M4 12C4 12.5523 4.44772 13 5 13C5.55228 13 6 12.5523 6 12C6 11.4477 5.55228 11 5 11C4.44772 11 4 11.4477 4 12Z" stroke="#737B8B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              </path>
+                            </svg>
+                          </div>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                            <a class="dropdown-item delete_rearrangements" data-id="<%- rearrangements_list[prop]['id'] %>" href="javascript:void(0);">Delete</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <% }); %>
+                  </tbody>
+
+                </table>
+              </div>
             </div>
+          </div>
 
-            <%- include('common/footer') -%>
-                <%- include('common/script'); %>
 
-                    <script>
-                        $(document).ready(function () {
-                            var table = $('#userListTable').DataTable({
-                                responsive: true,
-                                language: {
-                                    paginate: {
-                                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
-                                        previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
-                                    }
-                                }
-                            });
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                            $(document).on('submit', '#rearrangements_form', function (e) {
-                                e.preventDefault();
-                                const form_data = new FormData(this);
+<%- include('common/footer') -%>
+<%- include('common/script'); %>
 
-                                $.ajax({
-                                    url: "/admin/set-rearrangements-list",
-                                    type: "POST",
-                                    data: form_data,
-                                    contentType: false,
-                                    processData: false,
-                                    success: (response) => {
-                                        const json = JSON.parse(response);
-                                        if (json.status != 2) {
-                                            msg('success', json.res);
-                                            setTimeout(() => {
-                                                location.reload();
-                                            }, 1200);
-                                        } else {
-                                            msg('error', json.res);
-                                        }
-                                    }
-                                });
+<script>
+  status_update('.rearrangements_list_status', 'rearrangements');
+  delete_entity('.delete_rearrangements', 'rearrangements', '.delete_rearrangments_parent');
+  $(document).ready(function() {
+    var table = $('#userListTable').DataTable({
+      responsive: true,
+      language: {
+        paginate: {
+          next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+          previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+        }
+      }
+    });
 
-                            });
-                        })
-                    </script>
+    $(document).on('submit', '#rearrangements_form', function(e) {
+      e.preventDefault();
+      const form_data = new FormData(this);
+
+      $.ajax({
+        url: "/admin/set-rearrangements-list",
+        type: "POST",
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: (response) => {
+          const json = JSON.parse(response);
+          if (json.status != 2) {
+            msg('success', json.res);
+            setTimeout(() => {
+              location.reload();
+            }, 1200);
+          } else {
+            msg('error', json.res);
+          }
+        }
+      });
+
+    });
+  })
+</script>
