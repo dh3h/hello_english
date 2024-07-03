@@ -49,8 +49,8 @@
                               </td>
 
                               <td><%- conversation_list_ld[prop]['lesson_name'] %></td>
-                              <td><%- conversation_list_ld[prop]['conversation'] %></td>
-                              <td><%- conversation_list_ld[prop]['date'] %></td>
+                              <td><%- JSON.parse(conversation_list_ld[prop]['conversation'])[0][Object.keys(JSON.parse(conversation_list_ld[prop]['conversation'])[0])[0]] %></td>
+                              <td><%- new Date(conversation_list_ld[prop]['date']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
                               <td>
                                 <div class="form-check form-switch">
                                   <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>

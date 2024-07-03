@@ -1,0 +1,143 @@
+<%- include('common/head') -%>
+<%- include('common/header'); %>
+<%- include('common/sidebar'); %>
+
+<div class="content-body">
+  <!-- row -->
+  <div class="container-fluid">
+    <!-- row -->
+    <div class="row">
+
+      <div class="col-xl-12 col-lg-8">
+        <div class="card profile-card card-bx m-b30">
+          <div class="card-header">
+            <h6 class="title">Add Hangman</h6>
+          </div>
+          <form class="profile-form" id="hangman_form">
+            <div class="card-body">
+              <div class="row">
+
+                <div class="col-sm-12 m-b30">
+                  <label class="form-label"> Add Words Game Hangman</label>
+                  <div class="row">
+                    <div class="col-12 delete_hangman_parent" >
+                      <div class="row" id="add_more_hangman">
+                        <% Object.keys(list_hangman).forEach(function(prop) { %>
+
+                        <div class="col-6 mt-3 delete_this">
+                          <div class="row">
+                            <div class="col-5 pe-0">
+                              <input type="text" class="hindi_words form-control" placeholder="Enter Hindi Words" value="<%- list_hangman[prop]['h'] %>" disabled>
+                            </div>
+                            <div class="col-5 ps-0">
+                              <input type="text" class="english_words form-control" placeholder="Enter English Words" value="<%- list_hangman[prop]['w'] %>" disabled>
+                            </div>
+                            <div class="col-2 mt-2 ps-0">
+                              <a class="btn btn-danger shadow btn-xs sharp delete_hangman" ><i class="fa fa-trash"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                        <% }); %>
+
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <button type="button" id="add_more_hang_btn" class="btn-block btn btn-outline-primary">+ Add
+                        More</button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('common/footer') -%>
+<%- include('common/script'); %>
+
+<script>
+  $(document).ready(function() {
+    var table = $('#userListTable').DataTable({
+      responsive: true,
+      language: {
+        paginate: {
+          next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+          previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+        }
+      }
+    });
+
+    $(document).on('click', '.delete_hangman', function(){
+        $(this).parentsUntil('.delete_this').parent().hide(400, function () {
+            $(this).remove();
+        })
+    })
+
+    $(document).on('submit', '#hangman_form', function(e) {
+      e.preventDefault();
+      const form_data = new FormData(this);
+
+      let convo = [];
+
+      $('.english_words').each(function() {
+        if ($(this).val()) {
+          convo.push({
+            [$(this).closest('.col-10.ps-0').prev().find('.hindi_words').val()]: $(this).val()
+          })
+        }
+      });
+
+      form_data.append('hangman', JSON.stringify(convo));
+
+      $.ajax({
+        url: "/admin/hungman-game-data",
+        type: "POST",
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: (response) => {
+          const json = JSON.parse(response);
+          if (json.status == 1) {
+            msg('success', json.res);
+            setTimeout(() => {
+              location.reload();
+            }, 1200);
+          } else {
+            msg('error', json.res);
+          }
+        }
+      });
+
+    });
+
+
+    $(document).on('click', '#add_more_hang_btn', function() {
+
+      $('#add_more_hangman').append(
+        `<div class="col-6 mt-3">
+                                        <div class="row">
+                                            <div class="col-5 pe-0">
+                                                <input type="text" class="hindi_words form-control" placeholder="Enter Hindi Words">
+                                            </div>
+                                            <div class="col-5 ps-0">
+                                                <input type="text" class="english_words form-control"
+                                            placeholder="Enter English Words">
+                                            </div>
+                                            <div class="col-2 mt-2 ps-0">
+                                                <a class="btn btn-danger shadow btn-xs sharp delete_phase" data-id="12"><i class="fa fa-trash"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>`
+      );
+    })
+  })
+</script>

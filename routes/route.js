@@ -58,13 +58,13 @@ const {
 
 
     // ADMIN APIS
-    updateStatus, deleteEntity, AdminEditAudio_SET,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,type_questions_set,
+    updateStatus, deleteEntity, AdminEditAudio_SET,Admin_spellings_list,Admin_spellings_add,Admin_spellings_SET,Admin_hungman,Admin_hungman_add,type_questions_set,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminEditVideos_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET
     , AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddFindCorrectSentenceSET
     // message 
-    , AdminAQBS_chat, AdminAQBS_read,AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat,Admin_TOTB_SET, Admin_TOTB_add
+    , AdminAQBS_chat, AdminAQBS_read,AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat,Admin_WOTD_SET, Admin_TOTD_chat,Admin_TOTB_SET, Admin_TOTB_add,AdminAddhangmanSET
 } = require("../controller/controller");
 Router.route('/page-start').get(page_start);
 Router.route('/page-login').get(page_login_app);
@@ -321,7 +321,9 @@ Router.route("/admin/get-spellings-add/:id").get(Admin_spellings_add);
 Router.route("/admin/get-spellings-SET").post(Admin_spellings_SET);
 
 
-Router.route("/admin/hungman-game").post(Admin_spellings_SET);
+// Router.route("/admin/hungman-game").get(Admin_hungman);
+Router.route("/admin/hungman-game-add").get(Admin_hungman_add);
+Router.route("/admin/hungman-game-data").post(AdminAddhangmanSET);
 
 
 //  ------------------------- Contest ------------------------- //

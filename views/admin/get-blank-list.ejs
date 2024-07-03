@@ -24,16 +24,17 @@
                           <tr>
                             <th>
                               <div class="form-check custom-checkbox ms-0">
-                                <input type="checkbox" class="form-check-input" id="checkAll" required="">
-                                <label class="form-check-label" for="checkAll"></label>
+                                <input type="checkbox" class="form-check-input" id="checkAll" checked required="">
+                                <label class="form-check-label" for="checkAll" checked></label>
                               </div>
                             </th>
                             <!-- <th>Phases</th> -->
                             <th>Lesson</th>
                             <th>Questions</th>
-                            <th>Type's</th>
+                            
                             <th>Date</th>
                             <th>Status</th>
+                            <th class="text-center">M.H.W</th>
                             <th>Action</th>
 
                           </tr>
@@ -51,11 +52,9 @@
                               <td><%- f_i_b_list[prop]['lesson_name'] %></td>
                               <td><%- f_i_b_list[prop]['question'] %></td>
 
-                              <td>
-                                <span class="badge badge-primary light border-0 me-1"><%- f_i_b_list[prop]['type_list']
-                                    %></span>
-                              </td>
-                              <td><span class="convert_date"><%- f_i_b_list[prop]['date'] %></span></td>
+                              
+                              <td><span class="convert_date"><%- new Date(f_i_b_list[prop]['date']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></span></td>
+                             
                               <td>
                                 <div class="form-check form-switch">
                                   <input class="form-check-input blank_list_status" data-id="id"
@@ -63,6 +62,9 @@
                                     %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
 
                                 </div>
+                              </td>
+                              <td class="text-center">
+                                <input type="checkbox" class="form-check-input" id="customCheckBox1" required>
                               </td>
                               <td>
                                 <div class="dropdown">
@@ -114,8 +116,8 @@
         <%- include('common/script'); %>
 
           <script>
-            status_update('.blank_list_status', 'repo_fill_blank');
-            delete_entity('.delete_blank', 'repo_fill_blank', '.delete_blank_parent');
+            status_update('.blank_list_status', 'fill_blank');
+            delete_entity('.delete_blank', 'fill_blank', '.delete_blank_parent');
 
             $(document).ready(function () {
               var table = $('#userListTable').DataTable({

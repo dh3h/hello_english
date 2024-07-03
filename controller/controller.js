@@ -96,7 +96,7 @@ const private_profile = async (req, res) => {
     const qui_id = all_users_questions['ques_id'];
     const all_users_answeres = await sql.run(`SELECT * FROM repo_answers_students WHERE user_id = '${user_uid}';`);
 
-    res.render('./page-profile.ejs', { title: 'My Profile',all_users_questions,all_users_answeres });
+    res.render('./page-profile.ejs', { title: 'My Profile', all_users_questions, all_users_answeres });
 }
 
 const peactice = (req, res) => {
@@ -106,7 +106,7 @@ const peactice = (req, res) => {
 const editProfile = (req, res) => {
     const user = getCurrentUser(req);
     const user_uid = user['user_uid'];
-    
+
     res.render('./edit-profile.ejs', { title: 'Edit Profile' });
 }
 
@@ -161,7 +161,7 @@ const artical = async (req, res) => {
 const story_view = async (req, res) => {
     const { id } = req.params;
     const story_list_view = await sql.run(`SELECT * FROM rapo_story WHERE id = '${id}' AND status = 1;`);
-    res.render('./story-view.ejs', { title: 'artical',story_list_view });
+    res.render('./story-view.ejs', { title: 'artical', story_list_view });
 }
 
 const artical_details = async (req, res) => {
@@ -225,9 +225,9 @@ const ask_a_questions = async (req, res) => {
     const user_uid = user['user_uid'];
     const ask_questions_list = await sql.run("SELECT * FROM `repo_questions` ORDER BY id DESC;");
     const my_post_ask_questions = await sql.run(`SELECT * FROM repo_questions WHERE user_id = '${user_uid}';`);
-    const answere_user_list = await sql.run(`SELECT repo_answers_students.id,repo_answers_students.user_id,repo_answers_students.answere,repo_answers_students.date,repo_answers_students.ques_id, repo_user.user_uid,repo_user.name,repo_user.city,repo_user.state FROM repo_answers_students INNER JOIN repo_user ON repo_answers_students.user_id = repo_user.user_uid WHERE user_id = '${user_uid}';`);    
+    const answere_user_list = await sql.run(`SELECT repo_answers_students.id,repo_answers_students.user_id,repo_answers_students.answere,repo_answers_students.date,repo_answers_students.ques_id, repo_user.user_uid,repo_user.name,repo_user.city,repo_user.state FROM repo_answers_students INNER JOIN repo_user ON repo_answers_students.user_id = repo_user.user_uid WHERE user_id = '${user_uid}';`);
 
-    res.render('./ask-a-questions.ejs', { title: 'Ask a Questions', ask_questions_list, my_post_ask_questions,answere_user_list });
+    res.render('./ask-a-questions.ejs', { title: 'Ask a Questions', ask_questions_list, my_post_ask_questions, answere_user_list });
 }
 
 const type_answers = async (req, res) => {
@@ -236,7 +236,7 @@ const type_answers = async (req, res) => {
     const user_uid = user['user_uid'];
 
     // console.log(answere_ask_list);
-    res.render('./type-answers.ejs', { title: 'Type Answers',id,user_uid });
+    res.render('./type-answers.ejs', { title: 'Type Answers', id, user_uid });
 }
 
 const type_questions = (req, res) => {
@@ -263,9 +263,9 @@ const all_anwers = async (req, res) => {
     const ask_questions_saprated = await sql.select_assoc('repo_questions', '*', { id });
 
     // const ask_answere_list = await sql.run("SELECT * FROM `repo_questions` WHERE id = 5;");
-    const answere_ask_list = await sql.run(`SELECT repo_answers_students.id,repo_answers_students.user_id,repo_answers_students.answere,repo_answers_students.date,repo_answers_students.ques_id, repo_user.user_uid,repo_user.name,repo_user.city,repo_user.state FROM repo_answers_students INNER JOIN repo_user ON repo_answers_students.user_id = repo_user.user_uid WHERE ques_id = '${id}';`);    
+    const answere_ask_list = await sql.run(`SELECT repo_answers_students.id,repo_answers_students.user_id,repo_answers_students.answere,repo_answers_students.date,repo_answers_students.ques_id, repo_user.user_uid,repo_user.name,repo_user.city,repo_user.state FROM repo_answers_students INNER JOIN repo_user ON repo_answers_students.user_id = repo_user.user_uid WHERE ques_id = '${id}';`);
 
-    res.render('./all-anwers.ejs', { title: 'All Answers',id, ask_questions_saprated,answere_ask_list });
+    res.render('./all-anwers.ejs', { title: 'All Answers', id, ask_questions_saprated, answere_ask_list });
 }
 
 const refer_friends = (req, res) => {
@@ -281,9 +281,9 @@ const chat_community = async (req, res) => {
     const user = getCurrentUser(req);
     const user_uid = user['user_uid'];
 
-    const chat_community_list = await sql.run("SELECT * FROM `repo_chat_community`");    
+    const chat_community_list = await sql.run("SELECT * FROM `repo_chat_community`");
 
-    res.render('./common-chat.ejs', { title: '/chat Community',user_uid,chat_community_list });
+    res.render('./common-chat.ejs', { title: '/chat Community', user_uid, chat_community_list });
 }
 
 const fill_in_the_blank = async (req, res) => {
@@ -353,7 +353,7 @@ const homework = async (req, res) => {
 //   ------------------------------------------- holiday components ------------------------------- //
 const homeword_fill_in_the_blank = async (req, res) => {
     const fill_blank = await sql.select_assoc('repo_fill_blank', '*', { 'is_hw': 1, 'status': 1 });
-console.log(fill_blank);
+    console.log(fill_blank);
     res.render('./homework/homework-fill-in-the-blank.ejs', { title: 'Fill in the Blank', fill_blank });
 }
 const homework_Rearrangement = async (req, res) => {
@@ -363,7 +363,7 @@ const homework_Rearrangement = async (req, res) => {
 }
 const homework_find_correct_sentence = async (req, res) => {
     const find_correct_sentence_list = await sql.select_assoc('repo_correct_sentence', '*', { 'is_hw': 1, 'status': 1 });
-// console.log(find_correct_sentence_list);
+    // console.log(find_correct_sentence_list);
     res.render('./homework/homework-find-correct-sentence.ejs', { title: 'Holiday', find_correct_sentence_list });
 }
 const homework_listen_and_type = async (req, res) => {
@@ -376,7 +376,7 @@ const homework_Conversation = async (req, res) => {
 
 const homework_story = async (req, res) => {
     const list_story = await sql.select_assoc('rapo_story', '*', { 'is_hw': 1, 'status': 1 });
-    res.render('./homework/homework-story.ejs', { title: 'Holiday', list_story});
+    res.render('./homework/homework-story.ejs', { title: 'Holiday', list_story });
 }
 const homework_story_view = async (req, res) => {
     res.render('./homework/homework-story-view.ejs', { title: 'Holiday' });
@@ -1028,6 +1028,7 @@ const AdminEditListenType = async (req, res) => {
 // ============================= conversation =============================== //
 const AdminConversationList = async (req, res) => {
     const conversation_list_ld = await sql.run("SELECT repo_conversation.id, repo_conversation.phase_id, repo_conversation.lesson_id, repo_conversation.conversation,repo_conversation.date ,repo_conversation.parent_id, repo_conversation.status,repo_lesson.phase_id, repo_lesson.lesson_name FROM `repo_conversation` INNER JOIN repo_lesson ON repo_conversation.lesson_id = repo_lesson.id;");
+    // list_conve = JSON.parse(conversation_list_ld['conversation']) ;
     res.render('./admin/get-conversation-list.ejs', { title: 'List Conversation', conversation_list_ld });
 }
 const AdminAddconversation = async (req, res) => {
@@ -1373,6 +1374,16 @@ const Admin_tea_add = async (req, res) => {
 const Admin_spellings_list = async (req, res) => {
     res.render('./admin/get-spelling-list.ejs', { title: 'Spelling Gaming List' });
 }
+// ------------------ hungman Gaming -------------------- //
+const Admin_hungman = async (req, res) => {
+    res.render('./admin/get-hungman-list.ejs', { title: 'hungman Gaming List' });
+}
+
+const Admin_hungman_add = async (req, res) => {
+    let list_hangman = await sql.run("SELECT * FROM `repo_hangman` ORDER BY id DESC;");
+    list_hangman = JSON.parse(list_hangman[0]['content']) ;
+    res.render('./admin/get-hungman-add.ejs', { title: 'hungman Gaming List',list_hangman });
+}
 
 const Admin_spellings_add = async (req, res) => {
     res.render('./admin/get-spelling-add.ejs', { title: 'Spelling Gaming Add' });
@@ -1478,7 +1489,7 @@ const AdminEditListenTypeSET = async (req, res) => {
 }
 
 const AdminAddStorySET = async (req, res) => {
-    const { id, lesson_id,title, story_discription, type_list, status } = req.body;
+    const { id, lesson_id, title, story_discription, type_list, status } = req.body;
     response = { status: 0, res: "Something went wrong !!" };
 
     let columns = {};
@@ -1718,6 +1729,37 @@ const AdminAddconversationSET = async (req, res) => {
     }
     columns.parent_id = 3;
 
+
+    if (response.status != 2) {
+        try {
+            if (typeof id != 'undefined') {
+                result = await sql.update('repo_conversation', 'id', id, columns);
+                response = { status: 1, res: "Updated Successfully" };
+            } else {
+                result = await sql.insert('repo_conversation', columns);
+                response = { status: 1, res: "Inserted Successfully" };
+            }
+        } catch (error) {
+        }
+    }
+
+    res.send(JSON.stringify(response));
+}
+
+const AdminAddhangmanSET = async (req, res) => {
+    const { id, hangman, status } = req.body;
+    response = { status: 0, res: "Something went wrong !!" };
+
+    let columns = {};
+    if (status) {
+        columns.status = status;
+    }
+
+    if (!hangman) {
+        response = { status: 2, res: "hangman is required" };
+    } else {
+        columns.hangman = hangman;
+    }
 
     if (response.status != 2) {
         try {
@@ -2277,7 +2319,7 @@ const type_questions_set = async (req, res) => {
 }
 
 const type_answers_SET = async (req, res) => {
-    const {ques_id,user_id, answere } = req.body;
+    const { ques_id, user_id, answere } = req.body;
     const where = {};
     response = { status: 0, res: "Something went wrong !!" };
     const date = new Date();
@@ -2312,14 +2354,14 @@ const type_answers_SET = async (req, res) => {
 }
 
 const chat_community_set = async (req, res) => {
-    const {user_id, message } = req.body;
+    const { user_id, message } = req.body;
     const where = {};
     response = { status: 0, res: "Something went wrong !!" };
     const date = new Date();
     let str = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     where.date = str;
-   
+
     if (!user_id) {
         response = { status: 2, res: "Something Wrong !!" };
     } else {
@@ -2354,10 +2396,10 @@ module.exports = {
     UsersList, GetQuestions, adminHome, peactice, all_anwers, type_answers, type_answers_SET, refer_friends, page_about, helpline, answer_the_questions, finding_the_gems,
     adminLoginPage, getUserList, AdminEditSingleUser, fill_in_the_blank, find_correct_sentence, listen_select_options, contest,
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea, Ask_teacher_SET,
-    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game,chat_community,chat_community_set,
+    AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game, chat_community, chat_community_set,
     Ask_teacher, word_of_the_word, tip_of_the_day, type_questions_set,
     //  =================================  homework ==========================================
-    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story,homework_story_view, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
+    homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_story_view, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
 
 
@@ -2366,12 +2408,12 @@ module.exports = {
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add,
     Adminlisten_select_list, Adminlisten_select_add, AdminVideo_code_list, AdminVideo_code_add, AdminNews_list, AdminNews_add, Admin_Contest_list, news_details,
     // ADMIN API
-    updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start, Admin_spellings_list, Admin_spellings_add, Admin_spellings_SET,
+    updateStatus, deleteEntity, AdminEditAudio_SET, homework, page_start, Admin_spellings_list, Admin_spellings_add, Admin_spellings_SET, Admin_hungman, Admin_hungman_add,
     AdminBlankSet, GeteditTipsSET, AdminNews_SET, adminGetArtical_SET, AdminGetBook_set, AdminGetchapter, AdminGetaddchapter, AdminGetaddchapter_set, page_login_app,
 
     adminListPhaseAPI, adminListPhaseAPI_Set, adminListLessonsAPI, adminListLessonAPI_Set, AdminGetrearrangementsAPI, AdminEditrearrangementsAPI_SET, AdminEditListenTypeSET,
-    AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET
-    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET,story_view,
+    AdminAddStorySET, Adminfinding_the_gems_addSET, Adminlisten_select_addSET, AdminVideo_code_addSET, AdminAnswer_the_questions_addSET, AdminAddconversationSET, AdminAddhangmanSET
+    , AdminAddFindCorrectSentenceSET, AdminEditVideos_SET, Admin_tea_list, Admin_tea_add, Admin_tea_game_SET, story_view,
     // message 
     AdminAQBS_chat, AdminAQBS_read, AdminAQBS_SET, AdminAQBS_add, Admin_WOTD_chat, Admin_WOTD_SET, Admin_TOTD_chat, Admin_TOTB_SET, Admin_TOTB_add
 };

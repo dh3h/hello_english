@@ -50,7 +50,7 @@
 
                               <td><%- correct_list_data[prop]['lesson_name'] %></td>
                               <td><%- correct_list_data[prop]['question'] %></td>
-                              <td><%- correct_list_data[prop]['date'] %></td>
+                              <td><%- new Date(correct_list_data[prop]['date'] ).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
                               <td>
                                 <div class="form-check form-switch">
                                   <input class="form-check-input correct_sentence_list_status" data-id="id"

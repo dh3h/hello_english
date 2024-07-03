@@ -99,7 +99,7 @@
                                                             
                                                             <td><%- rearrangements_list[prop]['lesson_name'] %></td>
                                                             <td><%- rearrangements_list[prop]['question'] %></td>
-                                                            <td><%- rearrangements_list[prop]['date_and_time'] %></td>
+                                                            <td><%- new Date(rearrangements_list[prop]['date_and_time']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
                                                             <td>
                                                                 <span class="badge badge-primary light border-0 me-1"><%- rearrangements_list[prop]['type_list'] %></span>
                                                               </td>

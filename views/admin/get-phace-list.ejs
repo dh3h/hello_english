@@ -61,7 +61,7 @@
                                 <p class="mb-0 ms-2"><%- phase_list[prop]['phase_name'] %></p>
                               </div>
                             </td>
-                            <td><%- phase_list[prop]['date_and_time'] %></td>
+                            <td><%- new Date(phase_list[prop]['date_and_time']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
                             <td>
                               <div class="form-check form-switch">
                                 <input class="form-check-input phase_list_status" data-id="id"
