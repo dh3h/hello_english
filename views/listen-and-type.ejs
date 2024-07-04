@@ -99,10 +99,12 @@
             // Check the user's input
             $('#check-answer').on('click', function () {
               const userInput = $('#user-input').val().trim();
+              console.log(userInput);
               if (userInput.toLowerCase() === textToRead.toLowerCase()) {
                 $('#result').text('Correct!').css('color', 'green');
                 setTimeout(() => {
                   current_index++;
+                  console.log([current_index, listen_text_array.length]);
                   if(current_index >= listen_text_array.length){
                     console.log('hii');
                     $('.card-body').html(`<p class="text-center text-success">Successfully Completed!!</p><p class="text-center"><button class="btn btn-success" onclick="window.history.back();">Go Back</button></p>`);
@@ -110,11 +112,13 @@
                     $('#result').fadeOut(1000, () => {
                       $('#result').text('');
                       $('#user-input').val('');
+                      $('#result').fadeIn();
                     });
                     showNextQuestion();
                   }
                 }, 400)
               } else {
+                console.log('incorrect');
                 $('#result').text('Incorrect, please try again.').css('color', 'red');
               }
             });

@@ -30,7 +30,7 @@
                       </th>
                       <!-- <th>Phases</th> -->
                       <th>Lesson</th>
-                      <th>Questions</th>
+                      <th>Conversation</th>
                       <th>Date</th>
                       <th>Status</th>
                       <th>H/W</th>
@@ -50,7 +50,7 @@
                       </td>
 
                       <td><%- conversation_list_ld[prop]['lesson_name'] %></td>
-                      <td><%- JSON.parse(conversation_list_ld[prop]['conversation'])[0][Object.keys(JSON.parse(conversation_list_ld[prop]['conversation'])[0])[0]] %></td>
+                      <td><%- conversation_list_ld[prop]['title'] %></td>
                       <td><%- new Date(conversation_list_ld[prop]['date']).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
                       <td>
                         <div class="form-check form-switch">
@@ -75,7 +75,7 @@
                             </svg>
                           </div>
                           <div class="dropdown-menu dropdown-menu-right" style="">
-                            <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                            <a class="dropdown-item" href="/admin/get-conversation-add/<%- conversation_list_ld[prop]['id'] %>">Edit</a>
                             <a class="dropdown-item conversation_list_delete" data-id="<%- conversation_list_ld[prop]['id'] %>" href="javascript:void(0);">Delete</a>
                           </div>
                         </div>

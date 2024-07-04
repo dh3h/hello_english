@@ -48,6 +48,8 @@ const {
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, AdminGetAudio, listen_and_type, human_hang_game ,Ask_teacher_SET,
     AdminEditAudio, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, story, AdminGetBook, video_test, game_tea, start_game_tea, ConversationPlay,news_details,page_start,page_login_app,
 
+    practiceAudio,
+
     // -------------------------------- Admin Functions ------------------------------//
     adminListPhase, adminListLessons, AdminFindCorrectSentence, AdminAddFindCorrectSentence, AdminListenTypeList, AdminEditListenType, AdminConversationList, AdminAddconversation,
     AdminStoryList, AdminAddStory, AdminAnswer_the_questions_list, AdminAnswer_the_questions_add, Adminfinding_the_gems_list, Adminfinding_the_gems_add, Adminlisten_select_list, Adminlisten_select_add,
@@ -78,6 +80,7 @@ Router.route('/re-arrangement/:pahse_id/:lesson_id').get(isLoggedIn, Rearrangeme
 Router.route('/edit-profile').get(isLoggedIn, editProfile);
 Router.route('/public-profile').get(isLoggedIn, public_profile);
 Router.route('/practice').get(isLoggedIn, peactice);
+Router.route('/practice/audio').get(isLoggedIn, practiceAudio);
 Router.route('/private-profile').get(isLoggedIn, private_profile);
 Router.route('/challange').get(isLoggedIn, challange);
 Router.route('/maintenance').get(isLoggedIn, maintenance);
