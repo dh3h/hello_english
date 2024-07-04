@@ -1,143 +1,174 @@
 <%- include('common/head') -%>
-    <%- include('common/header'); %>
-        <%- include('common/sidebar'); %>
+<%- include('common/header'); %>
+<%- include('common/sidebar'); %>
 
-            <div class="content-body">
-                <!-- row -->
-                <div class="container-fluid">
-                    <!-- row -->
-                    <div class="row">
+<div class="content-body">
+  <!-- row -->
+  <div class="container-fluid">
+    <!-- row -->
+    <div class="row">
 
-                        <div class="col-xl-12 col-lg-8">
-                            <div class="card profile-card card-bx m-b30">
-                                <div class="card-header">
-                                    <h6 class="title">Add Conversation</h6>
-                                </div>
-                                <form class="profile-form" id="conversation_form">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-12 m-b30">
-                                                <label class="form-label">Select Lesson</label>
-                                                <select name="lesson_id" class="form-control" id="">
-                                                    <option value="" selected disabled> Select Lesson</option>
-                                                    <% Object.keys(lesson).forEach(function(prop) { %>
-                                                        <option value="<%- lesson[prop]['id'] %>"><%-
-                                                                lesson[prop]['lesson_name'] %></option>
-                                                        <% }); %>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-12 m-b30">
-                                                <label class="form-label">Conversation</label>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="row" id="add_more_convo">
-                                                            <div class="col-6 mt-2">
-                                                                <div class="row">
-                                                                    <div class="col-2 pe-0">
-                                                                        <select class="convos_type form-control">
-                                                                            <option value="u">User</option>
-                                                                            <option value="b">Bot</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-10 ps-0">
-                                                                        <input type="text"
-                                                                            class="convos_text form-control"
-                                                                            placeholder="Enter Conversation">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 mt-3">
-                                                        <button type="button" id="add_more_convo_btn"
-                                                            class="btn-block btn btn-outline-primary">+ Add
-                                                            More</button>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+      <div class="col-xl-12 col-lg-8">
+        <div class="card profile-card card-bx m-b30">
+          <div class="card-header">
+            <h6 class="title">Add Conversation</h6>
+          </div>
+          <form class="profile-form" id="conversation_form">
+            <input type="hidden" name="convo_id" value="<% if(conversation_list[0]) { %><%- conversation_list[0]['id'] %><% } %>" />
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-12 m-b30">
+                  <label class="form-label">Select Lesson</label>
+                  <select name="lesson_id" class="form-control" id="">
+                    <option value="" selected disabled> Select Lesson</option>
+                    <% Object.keys(lesson).forEach(function(prop) { %>
+                    <option value="<%- lesson[prop]['id'] %>">
+                      <%- lesson[prop]['lesson_name'] %>
+                    </option>
+                    <% }); %>
+                  </select>
                 </div>
+                <div class="col-sm-12 m-b30">
+                  <label class="form-label">Conversation</label>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row" id="add_more_convo">
+                        <% if(conversation_list[0]) { %>
+                        <% 
+                            var conversation = JSON.parse(conversation_list[0]['conversation']);
+                            Object.keys(conversation).forEach(function(prop) { %>
+                        <div class="col-6 mt-3">
+                          <div class="row">
+                            <div class="col-2 pe-0">
+                              <select class="convos_type rounded-left form-control" >
+                                <option value="u" <% if(conversation[prop]['u']) { %> selected <% } %> >User</option>
+                                <option value="b" <% if(conversation[prop]['b']) { %> selected <% } %>>Bot</option>
+                              </select>
+                            </div>
+                            <div class="col-9 px-0">
+                              <input type="text" class="rounded-0 convos_text form-control" placeholder="Enter Conversation" value="<%- conversation[prop]['b'] || conversation[prop]['u'] %>" />
+                            </div>
+                            <div class="col-1 ps-0">
+                                <button class="delete_convo_btn btn rounded-right btn-outline-danger w-100 h-100 btn-sm" type="button">-</button>
+                            </div>
+                          </div>
+                        </div>
+                        <% }); %>
+                        <% } else { %>
+                        <div class="col-6 mt-3">
+                          <div class="row">
+                            <div class="col-2 pe-0">
+                              <select class="convos_type form-control">
+                                <option value="u">User</option>
+                                <option value="b">Bot</option>
+                              </select>
+                            </div>
+                            <div class="col-10 ps-0">
+                              <input type="text" class="convos_text form-control" placeholder="Enter Conversation">
+                            </div>
+                            
+                          </div>
+                        </div>
+                        <% } %>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-3">
+                      <button type="button" id="add_more_convo_btn" class="btn-block btn btn-outline-primary">+ Add
+                        More</button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
             </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <%- include('common/footer') -%>
-                <%- include('common/script'); %>
+<%- include('common/footer') -%>
+<%- include('common/script'); %>
 
-                    <script>
-                        $(document).ready(function () {
-                            var table = $('#userListTable').DataTable({
-                                responsive: true,
-                                language: {
-                                    paginate: {
-                                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
-                                        previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
-                                    }
-                                }
-                            });
-                            $(document).on('submit', '#conversation_form', function (e) {
-                                e.preventDefault();
-                                const form_data = new FormData(this);
+<script>
+  $(document).ready(function() {
+    var table = $('#userListTable').DataTable({
+      responsive: true,
+      language: {
+        paginate: {
+          next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+          previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>'
+        }
+      }
+    });
+    $(document).on('submit', '#conversation_form', function(e) {
+      e.preventDefault();
+      const form_data = new FormData(this);
 
-                                let convo = [];
+      let convo = [];
 
-                                $('.convos_text').each(function () {
-                                    if ($(this).val()) {
-                                        convo.push({ [$(this).closest('.col-10.ps-0').prev().find('.convos_type').val()]: $(this).val() })
-                                    }
-                                });
+      $('.convos_text').each(function() {
+        if ($(this).val()) {
+          convo.push({
+            [$(this).closest('.col-10.ps-0').prev().find('.convos_type').val()]: $(this).val()
+          })
+        }
+      });
 
-                                form_data.append('conversation', JSON.stringify(convo));
+      form_data.append('conversation', JSON.stringify(convo));
 
-                                $.ajax({
-                                    url: "/admin/set-conversation-data",
-                                    type: "POST",
-                                    data: form_data,
-                                    contentType: false,
-                                    processData: false,
-                                    success: (response) => {
-                                        const json = JSON.parse(response);
-                                        if (json.status == 1) {
-                                            msg('success', json.res);
-                                            setTimeout(() => {
-                                                location.reload();
-                                            }, 1200);
-                                        } else {
-                                            msg('error', json.res);
-                                        }
-                                    }
-                                });
+      $.ajax({
+        url: "/admin/set-conversation-data",
+        type: "POST",
+        data: form_data,
+        contentType: false,
+        processData: false,
+        success: (response) => {
+          const json = JSON.parse(response);
+          if (json.status == 1) {
+            msg('success', json.res);
+            setTimeout(() => {
+              location.reload();
+            }, 1200);
+          } else {
+            msg('error', json.res);
+          }
+        }
+      });
 
-                            });
+    });
+
+    $(document).on('click', '.delete_convo_btn', function (){
+        
+    });
 
 
-                            $(document).on('click', '#add_more_convo_btn', function () {
+    $(document).on('click', '#add_more_convo_btn', function() {
 
-                                $('#add_more_convo').append(
-                                    `<div class="col-6 mt-2">
-                                        <div class="row">
-                                            <div class="col-2 pe-0">
-                                                <select class="convos_type form-control" >
-                                                    <option value="u">User</option>
-                                                    <option value="b">Bot</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-10 ps-0">
-                                                <input type="text" class="convos_text form-control"
-                                            placeholder="Enter Conversation">
-                                            </div>
-                                        </div>
-                                    </div>`
-                                );
-                            })
-                        })
-                    </script>
+      $('#add_more_convo').append(
+        `<div class="col-6 mt-3">
+            <div class="row">
+                <div class="col-2 pe-0">
+                    <select class="convos_type form-control" >
+                        <option value="u">User</option>
+                        <option value="b">Bot</option>
+                    </select>
+                </div>
+                <div class="col-9 px-0">
+                    <input type="text" class="rounded-0 convos_text form-control"
+                placeholder="Enter Conversation">
+                </div>
+                 <div class="col-1 ps-0">
+                                <button class="delete_convo_btn btn rounded-right btn-outline-danger w-100 h-100 btn-sm" type="button">-</button>
+                            </div>
+            </div>
+        </div>`
+      );
+    })
+  })
+</script>

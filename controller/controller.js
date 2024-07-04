@@ -1031,7 +1031,7 @@ const AdminEditListenType = async (req, res) => {
 
 // ============================= conversation =============================== //
 const AdminConversationList = async (req, res) => {
-    const conversation_list_ld = await sql.run("SELECT repo_conversation.id, repo_conversation.phase_id, repo_conversation.lesson_id, repo_conversation.conversation,repo_conversation.date ,repo_conversation.parent_id, repo_conversation.status,repo_lesson.phase_id, repo_lesson.lesson_name FROM `repo_conversation` INNER JOIN repo_lesson ON repo_conversation.lesson_id = repo_lesson.id;");
+    const conversation_list_ld = await sql.run("SELECT repo_conversation.id, repo_conversation.title, repo_conversation.lesson_id, repo_conversation.conversation,repo_conversation.date, repo_conversation.status, repo_lesson.lesson_name FROM `repo_conversation` INNER JOIN repo_lesson ON repo_conversation.lesson_id = repo_lesson.id;");
     // list_conve = JSON.parse(conversation_list_ld['conversation']) ;
     res.render('./admin/get-conversation-list.ejs', { title: 'List Conversation', conversation_list_ld });
 }
@@ -1040,8 +1040,10 @@ const AdminAddconversation = async (req, res) => {
     const id = req.params.id;
     let conversation_list = [];
     if (id) {
-        conversation_list = await sql.run(`SELECT * FROM repo_fill_blank WHERE id = '${id}'`);
+        conversation_list = await sql.run(`SELECT * FROM repo_conversation WHERE id = '${id}'`);
     }
+
+    console.log(conversation_list);
 
     res.render('./admin/get-add-conversation.ejs', { title: 'ADD Conversation', lesson, conversation_list });
 }
@@ -2388,6 +2390,10 @@ const Admin_HungMan_Game_view = async (req, res) => {
 
 }
 
+const practiceAudio = async (req, res) => {
+    res.render('./practice-audio.ejs', { title: 'Practice Audio' });
+}
+
 
 module.exports = {
     customLogin,
@@ -2402,6 +2408,10 @@ module.exports = {
     GetTips, GeteditTips, adminGetArtical, adminGetArticaledit, adminGetVideos, AdminEditVideos, story, listen_and_type, video_test, game_tea, Ask_teacher_SET,
     AdminGetAudio, AdminEditAudio, AdminGetBook, AdminGetBlank, AdminEditBlank, AdminGetrearrangements, start_game_tea, human_hang_game, chat_community, chat_community_set,
     Ask_teacher, word_of_the_word, tip_of_the_day, type_questions_set,
+
+    practiceAudio,
+
+
     //  =================================  homework ==========================================
     homeword_fill_in_the_blank, homework_Rearrangement, homework_find_correct_sentence, homework_listen_and_type, homework_Conversation, homework_story, homework_story_view, homework_answer_the_questions, homework_finding_the_gems, homework_listen_select_options, homework_fill_code_videos,
 
