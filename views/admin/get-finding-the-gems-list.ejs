@@ -33,13 +33,14 @@
                             <th>Questions</th>
                             <th>Date</th>
                             <th>Status</th>
+                            <th>H/W</th>
                             <th>Action</th>
 
                           </tr>
                         </thead>
                         <tbody>
                           <% Object.keys(Adminfinding_the_gems_list).forEach(function(prop) { %>
-                          <tr>
+                          <tr class="delete_find_gems_parent">
                             <td>
                               <div class="form-check custom-checkbox">
                                 <input type="checkbox" class="form-check-input" id="customCheckBox5" required="">
@@ -49,11 +50,15 @@
                            
                             <td><%- Adminfinding_the_gems_list[prop]['lesson_name'] %></td>
                             <td><%- Adminfinding_the_gems_list[prop]['question'] %></td>
-                            <td><%- Adminfinding_the_gems_list[prop]['date'] %></td>
+                            <td><%- new Date(Adminfinding_the_gems_list[prop]['date'] ).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }) %></td>
                             <td> <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                              
+                              <input class="form-check-input find_gem_list_status" data-id="id"
+                                  data-col="<%- Adminfinding_the_gems_list[prop]['id'] %>" <% if(Adminfinding_the_gems_list[prop]['status']==1){
+                                  %>checked<% } %> type="checkbox" id="flexSwitchCheckChecked">
                             </div>
+                           </td>
+                           <td>
+                            <input type="checkbox" class="form-check-input" id="customCheckBox1" required="">
                            </td>
                             <td>
                               <div class="dropdown">
@@ -76,7 +81,7 @@
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right" style="">
                                   <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                  <a class="dropdown-item find_gem_list_delete" data-id="<%- Adminfinding_the_gems_list[prop]['id'] %>" href="javascript:void(0);">Delete</a>
                                 </div>
                               </div>
                             </td>
@@ -111,4 +116,7 @@
                 }
               });
             })
+
+            status_update('.find_gem_list_status', 'finding_the_gem');
+            delete_entity('.find_gem_list_delete', 'finding_the_gem', '.delete_find_gems_parent');
           </script>
